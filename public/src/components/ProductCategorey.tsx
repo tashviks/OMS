@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         gap : 20,
-        padding : 5
+        padding : 5,
+        zIndex : 3,
         
     },
     iconImage : {   

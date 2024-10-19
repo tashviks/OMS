@@ -1,13 +1,21 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 
+interface Grade {
+  grade: string;
+}
+interface BagSize {
+  size: number;
+}
 interface ProductCardProps {
-    title: string;
-    amount: number;
-    image: string;
+  title: string;
+  amount: number;
+  image: any;
+  sku: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({title , amount , image}) => {
+
+const ProductCard: React.FC<ProductCardProps> = ({title , amount , image , sku}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgFrame}>

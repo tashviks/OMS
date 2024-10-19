@@ -7,9 +7,9 @@ const ProductInfoImageGallery = () => {
   const images = [
         { id: 1, src: require('../../assets/cement.jpeg') },
         { id: 2, src: require('../../assets/image.png') },
+        { id: 3, src: require('../../assets/free-images.jpg') },
     ];
   const [selectedImage, setSelectedImage] = useState(images[0].src);
-
   const ChangeImageLeft = () => {
     const currentIndex = images.findIndex((image) => image.src === selectedImage);
     const nextIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
@@ -20,7 +20,6 @@ const ProductInfoImageGallery = () => {
     const nextIndex = currentIndex === images.length -1 ? 0 : currentIndex + 1;
     setSelectedImage(images[nextIndex].src);
   }
-
   return (
     <View style={styles.container}>
     <View style = {styles.imgContainer}>
@@ -32,6 +31,7 @@ const ProductInfoImageGallery = () => {
                 <TouchableOpacity style={styles.leftArrow} onPress={ChangeImageLeft}>
                 <LeftArrow />
                 </TouchableOpacity>
+
                 <ScrollView horizontal showsHorizontalScrollIndicator={true} contentContainerStyle = {styles.scrollView} >
                 {images.map((image) => (
                 <TouchableOpacity key={image.id} onPress={() => setSelectedImage(image.src)}>
@@ -50,7 +50,6 @@ const ProductInfoImageGallery = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -70,12 +69,10 @@ const styles = StyleSheet.create({
     height : 360,
   },
   scrollContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop : 140,
-    gap : 50
+    gap : 50,
+    flexDirection: 'row',
+    width : 350,
   },
   scrollView :{
     gap : 25

@@ -1,18 +1,69 @@
-import React from 'react'
-import { View , StyleSheet , Image , TextInput} from 'react-native'
+import React, { useEffect } from 'react'
+import { useState } from 'react';
+import { View , StyleSheet , Image , TextInput , Text, Touchable} from 'react-native'
 import InfraMarket from '../assets/infraMarket'
-
+import CartIcon from '../assets/cartIcon';
+import CartScreen from '../screens/CartScreen/CartScreen';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import searchData from './searchData';
+import { useSelector } from 'react-redux';
+import store from '../redux/store';
 function defaultHeader() {
     const [searchQuery, setSearchQuery] = React.useState('');
-    const handleSearch = (query: string) => setSearchQuery(query);
+    const [filterData , setFilterData] = React.useState(['']);
+    const cartData = useSelector((state: any) => state.reducer);
+    const [cartItems , setCartItems] = useState(0);
+    console.log(cartData);
+    useEffect(()=>{
+        if(cartData === undefined){
+            return;
+        }
+        setCartItems(cartData.length);
+    },[cartData])
 
+    const displayList = ()=>{
+        if(filterData.length > 0){
+            return filterData.map((item, index)=>{
+                return (  
+                <Text key={index}>{item}</Text>
+                )
+            })
+        }
+        return null;
+    }
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        // console.log(searchQuery);
+        if(query.length > 0){
+            console.log(query.length);
+            const filteredData = searchData.filter((item)=>{
+                var itemLower = item.toLowerCase();
+                var queryLower = query.toLowerCase();
+                return itemLower.includes(queryLower);
+            });
+            setFilterData(filteredData);
+            console.log(filterData);
+        }
+        else {
+            setFilterData([]);
+        }
+    }
+    const navigation = useNavigation();
+    const goToCart = ()=>{
+        navigation.navigate('CartScreen' as never);
+    }
   return (
     <View style={styles.container}>
         <View style={styles.imgFrame}>
-                {/* <Image style={styles.logo} source={require('../assets/image.png')} /> */}
                 <InfraMarket/>
+                <TouchableOpacity onPress={goToCart} >
                 <View style={styles.cart}>
-                 </View>
+                    <CartIcon/>
+                    <Text style = {styles.cartText}>{cartItems}</Text>
+                </View>
+                </TouchableOpacity>
         </View>
         <View style={styles.searchContainer}>
             <TextInput
@@ -20,8 +71,11 @@ function defaultHeader() {
             placeholder="Search"
             value={searchQuery}
             onChangeText={handleSearch}/>
-        </View>
 
+            <View style={{zIndex : 3 , backgroundColor: searchQuery.length === 0 ? 'transparent' : 'pink', width: 360, marginLeft: -12, maxHeight : 'auto'}}> 
+               {displayList()}
+            </View>
+        </View>
     </View>
   )
 }
@@ -37,6 +91,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 0,
         elevation: 0,
+        zIndex: 3,
     },
     imgFrame:{
         width: 328,
@@ -69,10 +124,17 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#E3E3E3',
-        marginLeft : -12
+        marginLeft : -12,
+        zIndex : 4, 
     },
     cart: {
-        
+        marginLeft : 160,
+        display : 'flex',
+        flexDirection : 'row',
     },
+    cartText : {
+        marginTop : 2
+    }
+
     });
 export default defaultHeader

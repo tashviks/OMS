@@ -1,0 +1,66 @@
+import { StyleSheet } from "react-native";
+export const CheckoutHeaderStyles = StyleSheet.create({
+    container:{
+        width: 'auto',
+        height: 50,
+        paddingVertical: 0,
+        paddingHorizontal: 16,
+        display : 'flex',
+        flexDirection : 'row',
+        marginTop : 10,
+        borderBottomColor : 'black',
+        borderBottomWidth : 0.2
+    },
+   backButtonCon:{
+        width: 100,
+        height: 100,
+        marginLeft: -10,
+   },
+   cartTextContainer:{
+    marginLeft : -120
+   },
+    cartText:{
+        fontSize: 20,
+        marginTop :5,
+        marginLeft : 60,
+        color : 'black'
+    }
+});
+
+export const TotalItemsStyles = StyleSheet.create({
+    itemContainer: {
+      marginTop : 20,
+      borderWidth: 1,
+      borderColor: '#ddd',
+      paddingBottom: 10,
+      marginBottom: 10,
+      paddingLeft : 20,
+      paddingVertical : 5,
+      maxWidth : 300,
+      marginLeft : 50,
+      borderRadius : 5
+    },
+    containerCard : {
+      flexDirection : 'row',
+      alignItems : 'center',
+      gap : 10
+    },
+    itemTotal:{
+      marginLeft : 90,
+      fontSize : 20,
+      color : 'black',
+    },
+    itemPrice: {
+      fontSize: 14,
+      color: '#666',
+    },
+    img : {
+      width : 50,
+      height : 50,
+      borderRadius : 10,
+    },
+    imgContainer:{
+      
+    }
+      
+  });
