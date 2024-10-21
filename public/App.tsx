@@ -13,6 +13,8 @@ import DefaultHeader from './src/components/defaultHeader';
 import ProductInfo from './src/screens/ProductInfo/ProductInfo';
 import CartScreen from './src/screens/CartScreen/CartScreen';
 import Checkout from './src/screens/Checkout/Checkout';
+import SearchScreen from './src/screens/SearchScreen/SearchScreen';
+import CategoryWiseProduct from './src/screens/CategoreyWiseProducts/CategoreyWiseProduct';
 import { DefaultTransition } from 'react-navigation-stack/lib/typescript/src/vendor/TransitionConfigs/TransitionPresets';
 const Stack = createStackNavigator();
 function App(): React.JSX.Element {
@@ -20,10 +22,12 @@ function App(): React.JSX.Element {
   <NavigationContainer>
       <Stack.Navigator initialRouteName="ProductScreen">
           <Stack.Screen name="ProductScreen" component={ProductScreen} options={{headerShown: false}} />
+         <Stack.Screen name="CategoryWiseProduct" component={CategoryWiseProduct} options={{headerShown: false}} />
           <Stack.Screen name="ProductInfo" component={ProductInfo} options={{headerShown: false}} />
           <Stack.Screen name = "CartScreen" component = {CartScreen} options={{headerShown: false}}/>
           <Stack.Screen name = "FilterScreen" component = {FilterScreen} options={{headerShown: false}}/>
           <Stack.Screen name="Checkout" component = {Checkout} options={{headerShown : false}}/>
+          <Stack.Screen name="SearchScreen" component = {SearchScreen} options={{headerShown : false}}/>
       </Stack.Navigator>
   </NavigationContainer>
   );

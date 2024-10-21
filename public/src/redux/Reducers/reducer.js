@@ -17,11 +17,10 @@ const reducer = (state = initialState, action) => {
       } else {
         return [...state, action.payload];
       }
-
-
+      
     case DECREASE_QUANTITY :
       const decItemIndex = state.findIndex(item => item.id === action.payload.id);
-      // on clicking the minus button , if qty less than 1 , remove from cart else decrease the qty
+
       if(state[decItemIndex].quantity <= 1){
         return state.filter((item) => item.id !== action.payload.id);
       }

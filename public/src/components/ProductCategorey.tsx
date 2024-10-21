@@ -1,21 +1,66 @@
 import { icon } from '@fortawesome/fontawesome-svg-core';
-import React from 'react'
-import {View , StyleSheet , Image , Text} from 'react-native'
+import React, { useState } from 'react'
+import {View , StyleSheet , Image , Text, TouchableOpacity} from 'react-native'
 import { Svg , Rect , Path} from 'react-native-svg';
-
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Cement from '../assets/cement';
 import Wailing from '../assets/wailing';
 import Construction from '../assets/construction';
 import Steel from '../assets/steel';
-
-
-function ProductCategorey() {
+import { products } from '../assets/productsMock';
+type RootStackParamList = {
+  CategoryWiseProduct: { prod: any };
+};
+const ProductCategorey = () => {
+const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [selectedCategory, setSelectedCategory] = useState('' as string);
+  const FilterCement = () => {
+    const prod = products.filter(product => product.category === 'Cement');
+    navigation.navigate('CategoryWiseProduct', { prod });
+  }
+  const FilterWalling = () => {
+    const prod = products.filter(product => product.category === 'Walling');
+    navigation.navigate('CategoryWiseProduct', { prod });
+  }
+  const FilterConstruction = () => {
+    const prod = products.filter(product => product.category === 'Construction');
+    if(prod === undefined){
+      console.warn('No products found');
+    }
+    navigation.navigate('CategoryWiseProduct', { prod });
+  }
+  const FilterSteel = () => {
+    const prod = products.filter(product => product.category === 'Steel');
+    navigation.navigate('CategoryWiseProduct', { prod });
+  }
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => {
+        setSelectedCategory('Cement');
+        FilterCement()}}>
       <Cement/>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => {
+        setSelectedCategory('Walling')
+        FilterWalling()
+      }}>
       <Wailing/>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() =>{ 
+        setSelectedCategory('Construction')
+        FilterConstruction()
+        }}>
       <Construction/>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => {
+        setSelectedCategory('Steel')
+        FilterSteel()
+        }}>
       <Steel/>
+      </TouchableOpacity>
     </View>
   )
 }

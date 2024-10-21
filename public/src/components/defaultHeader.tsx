@@ -8,7 +8,8 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import searchData from './searchData';
 import { useSelector } from 'react-redux';
-import store from '../redux/store';
+import { useDispatch } from 'react-redux';
+import { filterProducts } from '../redux/action';
 function defaultHeader() {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData , setFilterData] = React.useState(['']);
@@ -22,22 +23,30 @@ function defaultHeader() {
         setCartItems(cartData.length);
     },[cartData])
 
+    const goToSeacrh = () =>{
+        navigation.navigate('SearchScreen', {search : searchQuery});
+    }
+
     const displayList = ()=>{
         if(filterData.length > 0){
             return filterData.map((item, index)=>{
-                return (  
+                return (
+                <TouchableOpacity key={index} onPress={()=>{
+                    setSearchQuery(item)
+                    goToSeacrh();
+                    }}>      
                 <Text key={index}>{item}</Text>
+                </TouchableOpacity>
                 )
             })
         }
         return null;
     }
-
+    const dispatch = useDispatch();
     const handleSearch = (query: string) => {
         setSearchQuery(query);
-        // console.log(searchQuery);
+        // dispatch(filterProducts(query));
         if(query.length > 0){
-            console.log(query.length);
             const filteredData = searchData.filter((item)=>{
                 var itemLower = item.toLowerCase();
                 var queryLower = query.toLowerCase();
@@ -48,7 +57,7 @@ function defaultHeader() {
         }
         else {
             setFilterData([]);
-        }
+        }    
     }
     const navigation = useNavigation();
     const goToCart = ()=>{
@@ -68,7 +77,7 @@ function defaultHeader() {
         <View style={styles.searchContainer}>
             <TextInput
             style={styles.searchBar}
-            placeholder="Search"
+            placeholder="🔍  Search"
             value={searchQuery}
             onChangeText={handleSearch}/>
 

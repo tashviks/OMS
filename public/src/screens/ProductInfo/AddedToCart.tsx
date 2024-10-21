@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
+import { AddedToCartStyles as styles } from './styles';
 interface Product {
     name: string;
     price: number;
@@ -53,79 +53,6 @@ function AddedToCart({ products, onClose, onViewCart, onCheckout }: AddedToCartP
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        shadowOffset: { width: 0, height: 2 },
-        margin: 10,
-    },
-    closeIcon: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
-    },
-    headerText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginVertical: 10,
-    },
-    productRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 15,
-    },
-    productImage: {
-        width: 60,
-        height: 60,
-        resizeMode: 'contain',
-    },
-    productDetails: {
-        flex: 1,
-        marginLeft: 10,
-    },
-    productName: {
-        fontSize: 16,
-        fontWeight: '500',
-    },
-    productPrice: {
-        fontSize: 14,
-        color: '#888',
-        marginTop: 5,
-    },
-    totalPrice: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    buttonRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 20,
-    },
-    viewCartButton: {
-        backgroundColor: 'transparent',
-        borderColor: '#FF7F50',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-    },
-    checkoutButton: {
-        backgroundColor: '#FF7F50',
-        borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-    },
-    buttonText: {
-        color: '#FF7F50',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});
+
 
 export default AddedToCart;

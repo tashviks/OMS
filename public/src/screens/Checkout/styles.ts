@@ -64,3 +64,29 @@ export const TotalItemsStyles = StyleSheet.create({
     }
       
   });
+
+export const CheckOutStyles = StyleSheet.create({
+  addressHeadingContainer: {
+    flexDirection: 'row',
+    gap : 5
+  },
+  addressTypeBlob: {
+    width: 25,
+    height: 25,
+    backgroundColor : "#f15927",
+    color : 'white',
+    borderRadius : 50,
+    textAlign : 'center',
+    paddingBottom : 3,
+    marginTop : 5,
+    padding : 2 ,
+  },
+  addressType: {
+    fontSize: 20,
+    marginLeft : 10,
+    marginTop : 5,
+    color : 'black',
+    fontWeight : '600',
+  },
+
+});

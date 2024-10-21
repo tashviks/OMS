@@ -1,14 +1,28 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"fmt"
+	"time"
 )
 
-func main(){
-	db.Connect()
 
-	router := routes.SetupRouter()
-	log.Println("Server started on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+func main() {
+	InitDB()
+	fmt.Println("Connected to database")
+	user := User{
+		id : 1,
+		firstName : "Tashvik",
+		lastName: "Srivastava",
+		email: "tashvik@gmail.com",
+		password : "123456",
+		addressId : 1,
+		createdBy : time.Now(),
+		modifiedBy : time.Now(),
+	}
+	err := AddUser(user)
+	if err != nil {
+		fmt.Println("Failed to add user:", err)
+	}else{
+	fmt.Println("User added successfully")
+	}
 }

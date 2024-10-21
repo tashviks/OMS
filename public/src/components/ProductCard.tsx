@@ -1,29 +1,31 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
+import SaleTag from '../assets/saleTag';
 
-interface Grade {
-  grade: string;
-}
-interface BagSize {
-  size: number;
-}
 interface ProductCardProps {
   title: string;
   amount: number;
-  image: any;
-  sku: string;
+  image: string;
+  mrp : number
+
 }
 
-
-const ProductCard: React.FC<ProductCardProps> = ({title , amount , image , sku}) => {
+const ProductCard: React.FC<ProductCardProps> = ({title , amount , image , mrp}) => {
+  // console.warn(image;
   return (
     <View style={styles.container}>
       <View style={styles.imgFrame}>
-        <Image style={styles.logo} source={require('../assets/free-images.jpg')} />
+        <Image style={styles.logo} source={{ uri: image }} />
       </View>
       <View style={styles.txtFrame}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.amtContainer}>{`₹ ${amount}`}</Text>
+        <View style={styles.priceContainer}>
+        <Text style={styles.amtContainer}>{`₹ ${amount} `}</Text>
+        <Text style={styles.mrp}>{`₹${mrp}`}</Text>
+        <View style={styles.saleTag}>
+          <SaleTag/>
+        </View>
+        </View>
       </View>
     </View>
   );
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 10,
-    elevation: 3,
+    elevation: 1,
   },
   logo: {
     height: 168,
@@ -58,7 +60,18 @@ const styles = StyleSheet.create({
     color: 'green',
     marginTop: 5,
   },
-
+  priceContainer:{
+    flexDirection : 'row',
+    gap : 2
+  },
+  mrp:{
+    marginTop : 7,
+    textDecorationLine: 'line-through',
+  },
+  saleTag : {
+    marginTop : 7,
+    marginLeft: 5
+  }
 
   
 });

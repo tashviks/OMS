@@ -8,12 +8,13 @@ import CartScreen from '../CartScreen/CartScreen'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux'
 import store from '../../redux/store'
+import { ProductInfoHeaderStyles as styles } from './styles'
 
 function ProductInfoHeader() {
   const navigation = useNavigation();
   const CartData = ((state : any)=> state.reducer);
+  console.log(CartData);
   const [cartItems , setCartItems] = React.useState(0);
-  
   const data = store.getState();
   const goBack = ()=>{
     navigation.goBack();
@@ -37,26 +38,5 @@ function ProductInfoHeader() {
     </View>
   )
 }
-const styles = StyleSheet.create({
-    container:{
-        width: 'auto',
-        height: 50,
-        paddingVertical: 0,
-        paddingHorizontal: 16,
-        display : 'flex',
-        flexDirection : 'row',
-        marginTop : 10,
-    },
-   backButtonCon:{
-        width: 100,
-        height: 100,
-        marginLeft: -10,
-   },
-   cartIconCon:{
-    marginTop : 10,
-    marginLeft : 220,
-    display : 'flex',
-    flexDirection : 'row',
-   }
-    });
+
 export default ProductInfoHeader

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
 import LeftArrow from '../../assets/leftArrow';
+import { ProductInfoImageGalleryStyles as styles } from './styles';
 
-
-const ProductInfoImageGallery = () => {
+const ProductInfoImageGallery = (product : any) => {
+  // Fetch the images from database SELECT IMAGES FROM DB WHERE PRODUCT_ID = product.id
   const images = [
-        { id: 1, src: require('../../assets/cement.jpeg') },
-        { id: 2, src: require('../../assets/image.png') },
-        { id: 3, src: require('../../assets/free-images.jpg') },
+        { id: 1, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
+        { id: 2, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
+        { id: 3, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s'},
     ];
   const [selectedImage, setSelectedImage] = useState(images[0].src);
   const ChangeImageLeft = () => {
@@ -23,7 +24,7 @@ const ProductInfoImageGallery = () => {
   return (
     <View style={styles.container}>
     <View style = {styles.imgContainer}>
-      <Image source={selectedImage} style={styles.centralImage} />
+      <Image source={{ uri: selectedImage }} style={styles.centralImage} />
     </View>
 
         <View>
@@ -31,15 +32,13 @@ const ProductInfoImageGallery = () => {
                 <TouchableOpacity style={styles.leftArrow} onPress={ChangeImageLeft}>
                 <LeftArrow />
                 </TouchableOpacity>
-
                 <ScrollView horizontal showsHorizontalScrollIndicator={true} contentContainerStyle = {styles.scrollView} >
                 {images.map((image) => (
                 <TouchableOpacity key={image.id} onPress={() => setSelectedImage(image.src)}>
-                    <Image source={image.src} style={styles.thumbnail} />
+                    <Image source={{uri : image.src}} style={styles.thumbnail} />
                 </TouchableOpacity>
                 ))}
                 </ScrollView>
-
                 <TouchableOpacity onPress={ChangeImageRight}>
                 <View style={styles.rightArrow}>
                 <LeftArrow />
@@ -50,44 +49,5 @@ const ProductInfoImageGallery = () => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-  imgContainer: {
-    paddingTop: 50,
-    width : 360,
-    height : 410,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centralImage: {
-    width : 360,
-    height : 360,
-  },
-  scrollContainer: {
-    marginTop : 140,
-    gap : 50,
-    flexDirection: 'row',
-    width : 350,
-  },
-  scrollView :{
-    gap : 25
-  },
-  thumbnail: {
-    width: 80,
-    height: 80,
-    marginHorizontal: 5,
-    borderRadius: 10,
-  },
-  rightArrow: {
-    transform: [{ rotate: '180deg' }],
-  },
-  leftArrow:{
-  }
-});
 
 export default ProductInfoImageGallery;

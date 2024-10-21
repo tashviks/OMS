@@ -2,21 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { UseDispatch } from 'react-redux';
 import { TotalItemsStyles as styles } from './styles';
+import { useSelector } from 'react-redux';
 
 const TotalItems = ()=>{
-  const dummyItem = {
-    id: 1,
-    name: 'UltraTech Cement',
-    price: 300,
-    quantity: 14,
-  };
-  const [item, setItem] = useState(dummyItem);
-  const updateQuantity = (id: number, newQuantity: number) => {
-    setItem((prevItem) => ({
-      ...prevItem,
-      quantity: newQuantity,
-    }));
-  };
+  const dummyItem = useSelector((state: any) => state.reducer);
+  // console.log(dummyItem);  
+  var price = 0;
+  var qty = 0;
+  for(let i = 0 ; i < dummyItem.length ; i++){
+    qty += dummyItem[i].quantity;
+    price += dummyItem[i].price * dummyItem[i].quantity;
+  }
   return (
     <View style={styles.itemContainer}>
       <View style={styles.containerCard}>
@@ -29,10 +25,10 @@ const TotalItems = ()=>{
           />
         </View>
         <View >
-          <Text style={{color : 'black'}}>{item.quantity} Items</Text>
+          <Text style={{color : 'black'}}>{qty} Items</Text>
           <Text style={{fontSize : 10}}>Show details</Text>
         </View>
-        <Text style={styles.itemTotal}>₹{item.price * item.quantity}</Text>
+        <Text style={styles.itemTotal}>₹{price}</Text>
       </View>
     </View>
   );

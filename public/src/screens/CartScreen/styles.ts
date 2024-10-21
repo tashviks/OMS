@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { LayoutAnimation, StyleSheet } from "react-native";
 
 export const CartItemStyles = StyleSheet.create({
     itemContainer: {
@@ -134,10 +134,11 @@ export const CartBodyStyles = StyleSheet.create({
   couponContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 0,
   },
   summary: {
     marginTop: 20,
+    gap : 5
   },
   total: {
     fontSize: 18,
@@ -153,9 +154,11 @@ export const CartBodyStyles = StyleSheet.create({
     couponAndremove: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems : 'center',
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 5,
+        marginTop : 20,
     },
     subTotal : {
         display : 'flex',
@@ -173,6 +176,35 @@ export const CartBodyStyles = StyleSheet.create({
       justifyContent : 'space-between',
     },
     checkOut : {
-    }
+      padding : 10,
+      backgroundColor : '#f15927',
+      alignItems : 'center',
+      width : 113,
+      height : 40,
+      marginRight : 10
+    },
+    checkOutText : {
+      color : 'white',
+      fontFamily : 'inter',
+      fontWeight : '600',
+
+    },
+    checkOutContainer : {
+      display : 'flex',
+      flexDirection : 'row',
+      justifyContent : 'space-between',
+      marginTop : 110,
+      backgroundColor : 'white',
+      width : 420,
+      height : 100,
+      padding : 10,
+      marginLeft : -20,
+    },
+    checkOutTextBottom : {
+      fontSize : 20,
+      fontWeight : 'bold',
+      color : 'black',
+      marginTop : 5,
+    },
 });
   

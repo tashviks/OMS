@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
 import CheckoutHeader from './CheckoutHeader';
 import TotalItems from './TotalItems';
+import { useSelector } from 'react-redux';
+import { CheckOutStyles as styles } from './styles';
 
 function Checkout() {
+
+  // get the cartData from redux store
+ 
   const [step, setStep] = useState('ShippingAddress'); 
   type Address = { id: number; address: string };
   type Payment = { id: number; method: string };
@@ -12,8 +17,11 @@ function Checkout() {
   const [PaymentMethod, setPaymentMethod] = useState<Payment | null>(null);
 
   const addresses = [
-    { id: 1, address: 'Aditya VR Colive Kormangala' , addressHeading : 'Home' },
-    { id: 2, address: '177A Bleecker Street' , addressHeading : 'Office' },  
+    { id: 1, address: 'Sy. No. 95/1, Choudadenahalli, village, Dommasandra Post, sarjapura holi, Anekal Taluk, Bengaluru, Karnataka 562125' , addressHeading : 'Home' },
+    { id: 2, address: '177A Bleecker Street' , addressHeading : 'Office' },
+    { id: 3, address: '221B Baker Street' , addressHeading : 'Other' },
+    { id: 4, address: '221B Baker Street' , addressHeading : 'Other' },
+    { id: 5, address: '221B Baker Street' , addressHeading : 'Other' }, 
   ];
 
   const paymentMethods = [
@@ -25,8 +33,11 @@ function Checkout() {
   const renderStep = () => {
     if(step === 'ShippingAddress'){
         return (
-          <View>
-            <Text>Select Shipping Address:</Text>
+          <View style={{gap : 10}}>
+            <View style={styles.addressHeadingContainer}> 
+              <Text style = {styles.addressTypeBlob}>1</Text>
+              <Text style = {styles.addressType}>Select Shipping Address:</Text>
+            </View>
             {addresses.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -37,8 +48,8 @@ function Checkout() {
                 style={{
                   padding: 10,
                   borderWidth: 1,
-                  borderColor: ShippingAddress?.id === item.id ? 'lightgreen' : 'white',
-                  marginVertical: 5,
+                  borderColor: ShippingAddress?.id === item.id ? '#f15927' : 'white',
+                  marginVertical: 2,
                 }}>
                 <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
                 <Text></Text> 
@@ -51,8 +62,11 @@ function Checkout() {
 
       else if(step === 'BillingAddress'){
         return (
-          <View>
-            <Text>Select Billing Address:</Text>
+          <View style={{gap : 10}}>
+            <View style={styles.addressHeadingContainer}>
+              <Text style = {styles.addressTypeBlob}>2</Text>
+              <Text style = {styles.addressType}>Select Billing Address:</Text>
+            </View>
             {addresses.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -60,8 +74,8 @@ function Checkout() {
                 style={{
                   padding: 10,
                   borderWidth: 1,
-                  borderColor: BillingAddress?.id === item.id ? 'lightgreen' : 'white',
-                  marginVertical: 5,
+                  borderColor: BillingAddress?.id === item.id ? '#f15927' : 'white',
+                  marginVertical: 2,
                 }}>
                 <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
                 <Text></Text>
@@ -74,8 +88,11 @@ function Checkout() {
 
       else if(step === 'PaymentMethod'){
         return (
-          <View>
-            <Text>Select Payment Method:</Text>
+          <View style={{gap : 10}}>
+             <View style={styles.addressHeadingContainer}>
+              <Text style = {styles.addressTypeBlob}>3</Text>
+              <Text style = {styles.addressType}>Select Payment Method:</Text>
+            </View>
             {paymentMethods.map((method) => (
               <TouchableOpacity
                 key={method.id}
@@ -86,7 +103,7 @@ function Checkout() {
                 style={{
                   padding: 10,
                   borderWidth: 1,
-                  borderColor: PaymentMethod?.id === method.id ? 'lightgreen' : 'white',
+                  borderColor: PaymentMethod?.id === method.id ? '#f15927' : 'white',
                   marginVertical: 5,
                 }}>
                 <Text>{method.method}</Text>

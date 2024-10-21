@@ -40,6 +40,10 @@ const FilterScreen = () => {
     });
   }
 
+  const ApplyFilter = ()=>{
+    console.log("Filter Applied");
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.filterHeader}>
@@ -93,7 +97,7 @@ const FilterScreen = () => {
         <TouchableOpacity style={styles.closeButton} onPress={goBack}>
           <Text style={styles.closeButtonText}>CLOSE</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.applyButton}>
+        <TouchableOpacity style={styles.applyButton} >
           <Text style={styles.applyButtonText}>APPLY</Text>
         </TouchableOpacity>
       </View>

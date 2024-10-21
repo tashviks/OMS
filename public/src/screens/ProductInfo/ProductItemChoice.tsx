@@ -4,6 +4,7 @@ import AddedToCart from './AddedToCart';
 import { addToCart } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import Review from '../../assets/review';
+import { ProductItemChoiceStyles as styles } from './styles';
 
 interface Grade {
   grade: string;
@@ -39,17 +40,21 @@ const ProductItemChoice: React.FC<ProductProps> = ({
   maxOrderQty,
   inStock,
 }) => {
+
   const [selectedGrade, setSelectedGrade] = React.useState('' as string);
-  const[selectBagSize , setSelectBagSize] = React.useState('' as string)
+  const[selectBagSize , setSelectBagSize] = React.useState('' as string);
   const [quantity, setQuantity] = React.useState(minOrderQty);
+
   const dispatch = useDispatch();
+
   const CartItem = {
-    id: 1,
-    name: 'Sample Product',
-    brand: 'Sample Brand',
-    price: 100,
-    quantity: 1,
+    id: id,
+    name: name,
+    brand: brand,
+    price: price,
+    quantity: quantity,
   };
+  
   const AddToCart = (CartItem : any) => {
     console.warn(CartItem);
     dispatch(addToCart(CartItem));
@@ -81,21 +86,21 @@ return (
 
             <View style = {styles.gradeOptionsContainer}>
 
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 1' ? { backgroundColor: '#d3d3d3' } : {},]}
+              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 1' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
                 onPress={() => setSelectedGrade('GO 1')}>
                 <View style={styles.gradeOptions}>
                   <Text>GO 1</Text>
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 2' ? { backgroundColor: '#d3d3d3' } : {},]}
+              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 2' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
                 onPress={() => setSelectedGrade('GO 2')}>
                 <View style={styles.gradeOptions}>
                   <Text>GO 2</Text>
                 </View>
               </TouchableOpacity>
 
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 3' ? { backgroundColor: '#d3d3d3' } : {},]}
+              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 3' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
                 onPress={() => setSelectedGrade('GO 3')}>
                 <View style={styles.gradeOptions}>
                   <Text>GO 3</Text>
@@ -132,196 +137,50 @@ return (
         </View>
 
         <View style={styles.additionalInfo}>
-          <View style={styles.minOQ} >
-             <Text>Min Order Qty</Text>
+          <View >
+             <Text style={styles.minOQ}>Min Order Qty</Text>
              <Text>{minOrderQty}</Text>
           </View>
 
-          <View style={styles.maxOQ} >
-             <Text>Max Order Qty</Text>
+          <View>
+             <Text style={styles.maxOQ}>Max Order Qty</Text>
              <Text>{maxOrderQty}</Text>
           </View>
 
-          <View style={styles.inStock} >
-            <Text>In Stock</Text>
+          <View>
+            <Text style={styles.inStock}>In Stock</Text>
             <Text>{inStock}</Text>
           </View>
         </View>
 
         <View style={styles.qtySelector}>
-          <Text>Quantity Selector</Text>
+          <Text style={styles.qtyText}>Quantity Selector</Text>
+
           <View style={styles.qtyContainer}>
+
             <TouchableOpacity onPress={() => setQuantity(quantity > minOrderQty ? quantity - 1 : quantity)}>
-             <View style={styles.minusButton}>
+             <View style={styles.qtyChangeButton}>
                <Text style={styles.qtyButton}>-</Text>
               </View>
             </TouchableOpacity>
+
             <Text style={styles.qtyValue}>{quantity}</Text>
-            <TouchableOpacity onPress={() => setQuantity(quantity < maxOrderQty ? quantity + 1 : quantity)}>
-              <Text style={styles.qtyButton}>+</Text>
+            <TouchableOpacity onPress={() => setQuantity((quantity < maxOrderQty && quantity < inStock) ? quantity + 1 : quantity)}>
+            <View style={styles.qtyChangeButton}>
+               <Text style={styles.qtyButton}>+</Text>
+              </View>
             </TouchableOpacity>
+
           </View>
+
         </View>
         <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
             <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
+
       </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    height : '103%'
-  },
-  skuAndBrandContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 50,
-  },
-  nameContainer: {
-    marginTop: 20,
-    marginLeft : 10,
-  },
-  name : {
-    fontFamily: 'Inter',
-    fontSize: 20,
-    fontWeight: '500',
-    lineHeight: 26,
-    letterSpacing: -0.1,
-    textAlign: 'left',
-    color: '#000000',
-  },
-  reviewContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-    marginTop : 8,
-    marginLeft : 10,
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    gap : 5,
-    marginBottom: 20,
-    marginLeft : 10,
-  },
-  salePrice : {
-    fontFamily: 'Inter',
-    fontSize: 26,
-    fontWeight: '100',
-    lineHeight: 29,
-    letterSpacing: -0.1,
-    textAlign: 'left',
-    color: '#000000',
-  },
-  mrp : {
-    fontFamily: 'Inter',
-    fontSize: 19,
-    fontWeight: '100',
-    lineHeight: 26,
-    letterSpacing: -0.1,
-    textAlign: 'left',
-    color: "#8D8D8D",
-    textDecorationLine: 'line-through',
-  },
-  gradeAndBagSizeSelector: {
-    flexDirection: 'column',
-    gap : 20 ,
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    display : 'flex',
-    borderBottomWidth : 0.5,
-    paddingBottom : 20,
-  },
-  gradeHeading: {
-    fontFamily: 'Inter',
-    fontSize: 17,
-    fontWeight: '400',
-    lineHeight: 20,
-    textAlign: 'left',
-    color: '#000000',
-  },
-  gradeContainer: {
-   flexDirection: 'row',
-   gap : 10,
-  },
-  gradeOptionsContainer : {
-    flexDirection: 'row',
-    gap : 10,
-    marginLeft : 100,
-  },
-  gradeOptions :{
-    backgroundColor : '#f6f6f6',
-    padding : 10,
-  },
-  bagSizeContainer :{
-    flexDirection: 'row',
-    gap : 10,
-  },
-  additionalInfo: {
-    marginBottom: 20,
-    display : 'flex',
-    flexDirection : 'row',
-    gap : 50,
-    alignItems : 'center',
-    justifyContent : 'center',
-  },
-  qtySelector: {
-    marginBottom: 20,
-  },
-  addToCart: {
-    marginBottom: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 150,
-    marginLeft: 70,
-    backgroundColor : 'transparent',
-    borderWidth : 0.8,
-    borderColor : 'black',
-  },
-  addToCartText: {
-    fontFamily: 'Inter',
-    fontSize: 20,
-    fontWeight: '500',
-    lineHeight: 26,
-    textAlign: 'center',
-    color: '#000000',
-  },
-  sku : {
-    fontFamily: 'Inter',
-    fontSize: 17,
-    fontWeight: '400',
-    lineHeight: 15.6,
-    textAlign: 'left',
-    paddingTop: 15,
-    marginLeft: 10,
-  },
-  brand:{
-    fontFamily: 'Inter',
-    fontSize: 17,
-    fontWeight: '400',
-    lineHeight: 15.6,
-    textAlign: 'left',
-    paddingTop: 15,
-    marginRight : 20,
-  },
-  qtyContainer: {
-    flexDirection: 'row',
-    gap : 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  qtyButton: {
-    borderRadius: 5,
-    borderColor : 'black',
-  },
-  minusButton: {
-    borderColor : 'black',
-  },
-  
-
-});
-
 export default ProductItemChoice;
 
 
