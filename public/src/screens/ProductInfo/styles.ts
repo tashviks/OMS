@@ -79,7 +79,6 @@ export const ProductInfoStyles = StyleSheet.create({
         backgroundColor: 'white',
     },
     scrollContainer: {
-        // Add any styles you need here
     }
 });
 
@@ -265,10 +264,12 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       width: 150,
-      marginLeft: 70,
-      backgroundColor : 'transparent',
-      borderWidth : 0.8,
-      borderColor : 'black',
+      marginLeft: 30,
+      backgroundColor : '#f15927',
+      width : 274,
+      height : 42,
+      
+
     },
     addToCartText: {
       fontFamily: 'Inter',
@@ -276,7 +277,9 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       fontWeight: '500',
       lineHeight: 26,
       textAlign: 'center',
-      color: '#000000',
+      color: '#fff',
+      
+
     },
     sku : {
       fontFamily: 'Inter',
@@ -298,21 +301,33 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     },
     qtyContainer: {
       flexDirection: 'row',
-      gap : 30,
+      gap : 10,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop : 10,
+      marginLeft :70
     },
     qtyButton: {
       borderRadius: 5,
       borderColor : 'black',
+      marginTop : 5,
+      fontWeight : 'bold',
+      color : '#f15927'
     },
     qtyChangeButton: {
-      borderColor : 'orange',
+      borderColor : '#f15927',
       borderWidth : 1,
-      width : 40,
-      height : 25,
+      width : 44,
+      height : 36,
       alignItems: 'center',
+    },
+    qtyValue:{
+      borderColor : "#f15927",
+      borderWidth : 1,
+      borderRadius : 10,
+      width :58,
+      height : 36,
+      textAlign : 'center',
     },
     minOQ: {
       fontFamily : 'Inter',
@@ -335,3 +350,7 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     }
   
   });  
+
+export const ProductDescStyles = StyleSheet.create({
+  
+});

@@ -101,3 +101,46 @@ export const FilterScreenStyles = StyleSheet.create({
     },
     
   });
+
+  export const CartHeaderStyles = StyleSheet.create({
+    container:{
+        width: 'auto',
+        height: 50,
+        paddingVertical: 0,
+        paddingHorizontal: 16,
+        display : 'flex',
+        flexDirection : 'row',
+        marginTop : 10,
+    },
+   backButtonCon:{
+        width: 100,
+        height: 100,
+        marginLeft: -10,
+   },
+   cartTextContainer:{
+    marginLeft : -120
+   },
+    cartText:{
+        fontSize: 20,
+        marginTop :5,
+        marginLeft : 60,
+        color : 'black'
+    }
+  });
+
+  export const FilterProductStyles = StyleSheet.create({
+    scrollContainer: {
+      justifyContent: 'center',
+      padding: 10,
+      zIndex: 2,
+    },
+    row: {
+      flexDirection: 'row',
+      justifyContent: 'space-between', 
+      marginBottom: 20, 
+    },
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+  },
+  });

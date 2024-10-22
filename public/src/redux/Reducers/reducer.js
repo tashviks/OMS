@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
         const updatedState = state.map((item, index) =>
           index === itemIndex ? { ...item, quantity: item.quantity + action.payload.quantity } : item
         );
-        console.log(action.payload.quantity);
+        // console.log(action.payload.quantity);
         return updatedState;
       } else {
         return [...state, action.payload];

@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import clearAll from '../../assets/clearAll';
 import { FilterScreenStyles as styles } from './styles';
+import { products } from '../../assets/productsMock';
+import FilteredProducts from './FilteredProducts';
 
 const FilterScreen = () => {
+  const categories = ['brand', 'grade', 'bagSize', 'price', 'review'];
+  const options = {
+    brand: ['Infra Market', 'UltraTech', 'Bharathi', 'ACC', 'Dalmia', 'JSW'],
+    grade: ['Grade A', 'Grade B', 'Grade C', 'Grade D'],
+    bagSize: ['10kg', '25kg', '50kg', '100kg'],
+    price: ['Cheap', 'Cheaper', 'Cheapest', 'Cheap Pro Max'],
+    review: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
+  };
+  
   const [selectedCategory, setSelectedCategory] = useState<keyof typeof options | ''>('');
   const [selectedOptions, setSelectedOptions] = useState<{ [key in keyof typeof options]?: string }>({});
 
-  const categories = ['Brand', 'Grade', 'Weight', 'Price', 'Rating'];
-
-  const options = {
-    Brand: ['Infra Market', 'UltraTech', 'Bharathi', 'ACC', 'Dalmia', 'JSW'],
-    Grade: ['Grade A', 'Grade B', 'Grade C', 'Grade D'],
-    Weight: ['10kg', '25kg', '50kg', '100kg'],
-    Price: ['Cheap', 'Cheaper', 'Cheapest', 'Cheap Pro Max'],
-    Rating: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
-  };
-  
   const handleOptionSelect = (category: keyof typeof options, option: string) => {
     setSelectedOptions(prevState => {
       const newOptions = { ...prevState, [category]: option };
@@ -32,17 +32,24 @@ const FilterScreen = () => {
 
   const clearAll = () =>{
     setSelectedOptions({
-      Brand: '',
-      Grade: '',
-      Weight: '',
-      Price: '',
-      Rating: '',
+      brand: '',
+      grade: '',
+      bagSize: '',
+      price: '',
+      review: '',
     });
   }
 
-  const ApplyFilter = ()=>{
-    console.log("Filter Applied");
+  const ApplyFilter = () => {
+      const prod = products.filter(product => 
+       (selectedOptions.brand === undefined || (product.brand.toLowerCase() === selectedOptions.brand?.toLowerCase()))
+     &&(selectedOptions.grade === undefined || (product.grade.toLowerCase() === selectedOptions.grade?.toLowerCase())) 
+     &&(selectedOptions.bagSize === undefined || (product.bagSize.toLowerCase() === selectedOptions.bagSize?.toLowerCase())) 
+     &&(selectedOptions.price === undefined || (product.brand.toLowerCase() === selectedOptions.brand?.toLowerCase()))
+    );
+      navigation.navigate('FilteredProducts', { prod });
   }
+    
 
   return (
     <View style={styles.container}>
@@ -97,7 +104,7 @@ const FilterScreen = () => {
         <TouchableOpacity style={styles.closeButton} onPress={goBack}>
           <Text style={styles.closeButtonText}>CLOSE</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.applyButton} >
+        <TouchableOpacity style={styles.applyButton} onPress={ApplyFilter} >
           <Text style={styles.applyButtonText}>APPLY</Text>
         </TouchableOpacity>
       </View>

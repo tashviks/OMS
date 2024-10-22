@@ -12,8 +12,9 @@ const SearchScreen = ({ route }: any)=> {
     console.warn(route.params)
     const srch = route.params.search;
     const navigation = useNavigation();
-    const filteredProducts = products.filter(product => product.name.includes(srch));
-
+    const filteredProducts = products.filter(product => product.name.includes(srch) ||
+                                                        product.brand.includes(srch) ||
+                                                        product.category.includes(srch));
     return (
         <View>
             <SearchHeader />

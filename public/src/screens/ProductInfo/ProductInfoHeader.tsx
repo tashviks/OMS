@@ -16,11 +16,20 @@ function ProductInfoHeader() {
   console.log(CartData);
   const [cartItems , setCartItems] = React.useState(0);
   const data = store.getState();
+  
   const goBack = ()=>{
     navigation.goBack();
   }
   const goToCart = ()=>{
     navigation.navigate('CartScreen' as never);
+  }
+  const cd = data.reducer;
+  const getLen = ()=>{
+    var qty = 0;
+    for(var i = 0;i<cd.length;i++){
+      qty+=cd[i].quantity;
+    }
+    return qty;
   }
   return (
     <View style={styles.container}>
@@ -32,7 +41,7 @@ function ProductInfoHeader() {
       <TouchableOpacity onPress={goToCart}>
       <View style = {styles.cartIconCon}>
         <CartIcon/>
-        <Text>{data.reducer === undefined ? 0 : data.reducer.length}</Text>
+        <Text>{getLen()}</Text>
       </View>
       </TouchableOpacity>
     </View>

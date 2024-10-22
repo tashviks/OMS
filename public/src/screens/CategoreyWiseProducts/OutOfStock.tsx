@@ -14,7 +14,7 @@ const navigation = useNavigation();
      <Image source = {require('../../assets/sold-out.png')} style = {styles.soldOutImage}/>
     </View>
     <View style={{width : 200 , alignItems : 'center' , marginLeft : 100}}>
-    <Button title="Go to Home" onPress={() => navigation.navigate('ProductScreen' as nev)}/>
+    <Button title="Go to Home" onPress={() => navigation.navigate('ProductScreen' as never)}/>
     </View>
     </View>
   )

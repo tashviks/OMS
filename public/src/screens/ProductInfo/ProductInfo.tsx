@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet , ScrollView } from 'react-native'
+import { View, Text, StyleSheet , ScrollView, Button } from 'react-native'
 import ProductInfoHeader from './ProductInfoHeader'
 import ProductInfoImageGallery from './ProductInfoImageGallery'
 import ProductItemChoice from './ProductItemChoice'
 import { ProductInfoStyles as styles } from './styles'
 import { RouteProp } from '@react-navigation/native'
+import ProductDescription from './ProductDescription'
 interface Grade {
     grade: string;
 }
@@ -52,6 +53,8 @@ const ProductInfo = ({ route }: { route: RouteParams }) => {
             minOrderQty={product.minOrderQty}
             maxOrderQty={product.maxOrderQty} 
             inStock={product.inStock} />
+            <Text style={styles.description}>Description</Text>
+            <ProductDescription/>
         </ScrollView>
     </View>
   )

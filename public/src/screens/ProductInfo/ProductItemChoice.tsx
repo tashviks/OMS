@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput } from 'react-native';
 import AddedToCart from './AddedToCart';
 import { addToCart } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import Review from '../../assets/review';
 import { ProductItemChoiceStyles as styles } from './styles';
+import ProductDescription from './ProductDescription';
 
 interface Grade {
   grade: string;
@@ -56,7 +57,7 @@ const ProductItemChoice: React.FC<ProductProps> = ({
   };
   
   const AddToCart = (CartItem : any) => {
-    console.warn(CartItem);
+    // console.warn(CartItem);
     dispatch(addToCart(CartItem));
   }
 
@@ -152,32 +153,32 @@ return (
             <Text>{inStock}</Text>
           </View>
         </View>
-
         <View style={styles.qtySelector}>
           <Text style={styles.qtyText}>Quantity Selector</Text>
-
           <View style={styles.qtyContainer}>
-
             <TouchableOpacity onPress={() => setQuantity(quantity > minOrderQty ? quantity - 1 : quantity)}>
              <View style={styles.qtyChangeButton}>
                <Text style={styles.qtyButton}>-</Text>
               </View>
             </TouchableOpacity>
+            <TextInput
+              style={styles.qtyValue}
+              value={quantity.toString()}
+              onChangeText={(text) => {
+              const newQuantity = parseInt(text, 10);
+              if (!isNaN(newQuantity) && newQuantity >= minOrderQty && newQuantity <= maxOrderQty && newQuantity <= inStock) {
+                setQuantity(newQuantity);}}}/>
 
-            <Text style={styles.qtyValue}>{quantity}</Text>
             <TouchableOpacity onPress={() => setQuantity((quantity < maxOrderQty && quantity < inStock) ? quantity + 1 : quantity)}>
             <View style={styles.qtyChangeButton}>
                <Text style={styles.qtyButton}>+</Text>
               </View>
             </TouchableOpacity>
-
           </View>
-
         </View>
         <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
             <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
-
       </View>
   );
 };

@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { View , StyleSheet , Image , TextInput , Text, Touchable} from 'react-native'
-import InfraMarket from '../assets/infraMarket'
-import CartIcon from '../assets/cartIcon';
-import CartScreen from '../screens/CartScreen/CartScreen';
+import { View , StyleSheet, TextInput , Text} from 'react-native'
+import InfraMarket from '../../assets/infraMarket'
+import CartIcon from '../../assets/cartIcon';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import searchData from './searchData';
+import searchData from '../searchData';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { filterProducts } from '../redux/action';
 function defaultHeader() {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData , setFilterData] = React.useState(['']);
@@ -20,7 +18,11 @@ function defaultHeader() {
         if(cartData === undefined){
             return;
         }
-        setCartItems(cartData.length);
+        var qty = 0;
+        for(var i = 0;i<cartData.length;i++) qty+=cartData[i].quantity;
+        console.log(cartData);
+        console.log(qty)
+        setCartItems(qty);
     },[cartData])
 
     const goToSeacrh = () =>{

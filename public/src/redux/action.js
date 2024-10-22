@@ -2,18 +2,9 @@ import {ADD_TO_CART} from './constants';
 import { UPDATE_QUANTITY } from './constants';
 import { DECREASE_QUANTITY } from './constants';
 import { INCREASE_QUANTITY } from './constants';
-import { FILTER_CEMENT } from './constants';
-import { SET_PRODUCTS } from './constants';
-import { FILTER_PRODUCTS } from './constants';
 export function addToCart(item){
     return {
         type : ADD_TO_CART,
-        payload : item
-    }
-}
-export function updateQuantity(item){
-    return {
-        type : UPDATE_QUANTITY,
         payload : item
     }
 }
