@@ -7,7 +7,7 @@ import Cement from '../assets/cement';
 import Wailing from '../assets/wailing';
 import Construction from '../assets/construction';
 import Steel from '../assets/steel';
-import { products } from '../assets/productsMock';
+import  products  from '../assets/productsMock';
 type RootStackParamList = {
   CategoryWiseProduct: { prod: any };
 };
@@ -15,22 +15,22 @@ const ProductCategorey = () => {
 const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState('' as string);
   const FilterCement = () => {
-    const prod = products.filter(product => product.category === 'Cement');
+    const prod = products._j.filter(product => product.Category === 'Cement');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   const FilterWalling = () => {
-    const prod = products.filter(product => product.category === 'Walling');
+    const prod = products._j.filter(product => product.Category === 'Walling');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   const FilterConstruction = () => {
-    const prod = products.filter(product => product.category === 'Construction');
+    const prod = products._j.filter(product => product.Category === 'Construction');
     if(prod === undefined){
       console.warn('No products found');
     }
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   const FilterSteel = () => {
-    const prod = products.filter(product => product.category === 'Steel');
+    const prod = products._j.filter(product => product.Category === 'Steel');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   return (

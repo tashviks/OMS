@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Button } from 'react-native';
 import CartItem from './CartItem';
 import Checkout from '../Checkout/Checkout';
 import { useNavigation } from '@react-navigation/native';
 import store from '../../redux/store';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from 'react-native-snackbar';
+import { setAddress } from '../../redux/action';
 
 import { CartBodyStyles as styles } from './styles';
 
 const CartBody = () => {
+  const dispatch = useDispatch();
   const items = useSelector((state: any) => state.reducer === undefined ? null : state.reducer);
   // console.warn(items);
   const [coupon, setCoupon] = useState('WELCOME20');
@@ -20,17 +23,38 @@ const CartBody = () => {
   const subTotal = items ? items.reduce((total : any, item : any) => total + item.price * item.quantity, 0) : null;
   const totalAmount = subTotal + shipping - discount;
   const navigation = useNavigation();
-  const goToCheckout = () => {
-    if(subTotal > 0)
-    navigation.navigate('Checkout' as never);
-    
-    else {
-      Snackbar.show({
-        text: 'Bhai, kya kar rha hai yaar tu !!',
-        duration: Snackbar.LENGTH_SHORT,
-      });
-    }
+  const goToCheckout = async () => {
+        if(subTotal > 0){
+          const getAddress = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/GetAddress?user_id=1');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching address:', error);
+                throw error;
+            }
+          }
+          const fetchAddress = async () => {
+            const address = await getAddress();
+            dispatch(setAddress(address));
+          }
+            await fetchAddress();
+            // console.log(address)
+            navigation.navigate('Checkout' as never);
+      }
+        else {
+          Snackbar.show({
+            text: 'Bhai, kya kar rha hai yaar tu !!',
+            duration: Snackbar.LENGTH_SHORT,});
+        }
   }
+
+
   return (
     <View style={styles.container}>
       <FlatList

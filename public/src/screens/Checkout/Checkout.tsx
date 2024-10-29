@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
 import CheckoutHeader from './CheckoutHeader';
 import TotalItems from './TotalItems';
-import { useSelector } from 'react-redux';
+import store from '../../redux/store';
 import { CheckOutStyles as styles } from './styles';
 
 function Checkout() {
-
-  // get the cartData from redux store
- 
+  // get address for GetAdress API
   const [step, setStep] = useState('ShippingAddress'); 
   type Address = { id: number; address: string };
   type Payment = { id: number; method: string };
   const [ShippingAddress, setShippingAddress] = useState<Address | null>(null);
   const [BillingAddress, setBillingAddress] = useState<Address | null>(null);
   const [PaymentMethod, setPaymentMethod] = useState<Payment | null>(null);
-
-  const addresses = [
-    { id: 1, address: 'Sy. No. 95/1, Choudadenahalli, village, Dommasandra Post, sarjapura holi, Anekal Taluk, Bengaluru, Karnataka 562125' , addressHeading : 'Home' },
-    { id: 2, address: '177A Bleecker Street' , addressHeading : 'Office' },
-    { id: 3, address: '221B Baker Street' , addressHeading : 'Other' },
-    { id: 4, address: '221B Baker Street' , addressHeading : 'Other' },
-    { id: 5, address: '221B Baker Street' , addressHeading : 'Other' }, 
-  ];
-
+  const addresses: { id: number; address: any; addressHeading: any; }[] = [];
   const paymentMethods = [
     { id: 1, method: 'Cash' },
     { id: 2, method: 'Credit' },
-    { id: 3, method: 'Request' },
+    { id: 3, method: 'Pehchaan' },
   ];
-
+  const add = store.getState().setAddressReducer;
+  for (let i = 0; i < add.length; i++) {
+    const tmp = add[i].first_line + ',\n' + add[i].second_line + ', ' + add[i].city + ', ' + add[i].state + ', ' +add[i].country + ' - '+ add[i].pincode;
+    addresses.push({id : i, address : tmp, addressHeading : add[i].heading});
+  }
+  console.log(addresses);
+  const completePayment = () => {
+    const product_ids = store.getState().reducer.map((item: any) => item.id);
+  
+  }
   const renderStep = () => {
     if(step === 'ShippingAddress'){
         return (
@@ -99,6 +98,7 @@ function Checkout() {
                 onPress={() => {
                   // console.log(method);
                   setPaymentMethod(method)
+                  completePayment();
                 }}
                 style={{
                   padding: 10,

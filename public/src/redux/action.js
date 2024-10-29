@@ -1,7 +1,9 @@
 import {ADD_TO_CART} from './constants';
-import { UPDATE_QUANTITY } from './constants';
 import { DECREASE_QUANTITY } from './constants';
 import { INCREASE_QUANTITY } from './constants';
+import {SET_PRODUCTS }from './constants';
+import { SET_ADDRESS } from './constants';
+
 export function addToCart(item){
     return {
         type : ADD_TO_CART,
@@ -20,23 +22,16 @@ export function increaseQuantity(item){
         payload : item
     }
 }
-export function getNetDetails(){
+export function setProducts(item){
     return {
-        type : GET_NET_DETAILS,
-    }
-}
-export function filterCement(item){
-    return {
-        type : FILTER_CEMENT,
-        payload : item
-    }
-}
-export const setProducts = (item) => ({
     type: SET_PRODUCTS,
-    payload: item,
-  });
+    payload: item
+    }
+}
+export function setAddress(item){
+    return {
+        type: SET_ADDRESS,
+        payload: item
+    }
+}
 
-  export const filterProducts = (item) => ({
-    type: FILTER_PRODUCTS,
-    payload: item,
-  });

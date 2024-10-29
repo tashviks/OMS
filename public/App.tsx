@@ -10,12 +10,10 @@ import Checkout from './src/screens/Checkout/Checkout';
 import SearchScreen from './src/screens/SearchScreen/SearchScreen';
 import CategoryWiseProduct from './src/screens/CategoreyWiseProducts/CategoreyWiseProduct';
 import FilteredProducts from './src/screens/FilterScreen/FilteredProducts';
-
-import { getProducts } from './src/services/getProducts';
+import products from './src/assets/productsMock';
 const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
-  getProducts();
   return (  
   <NavigationContainer>
       <Stack.Navigator initialRouteName="ProductScreen" screenOptions={{headerShown : false}}>

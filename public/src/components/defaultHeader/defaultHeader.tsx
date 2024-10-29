@@ -20,11 +20,10 @@ function defaultHeader() {
         }
         var qty = 0;
         for(var i = 0;i<cartData.length;i++) qty+=cartData[i].quantity;
-        console.log(cartData);
-        console.log(qty)
+        // console.log(cartData);
+        // console.log(qty)
         setCartItems(qty);
     },[cartData])
-
     const goToSeacrh = () =>{
         navigation.navigate('SearchScreen', {search : searchQuery});
     }

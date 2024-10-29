@@ -3,30 +3,30 @@ import React from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { TouchableHighlight } from 'react-native'
 import ProductCard  from '../../components/ProductCard'
-import { products} from '../../assets/productsMock'
 import SearchHeader from './SearchHeader'
 import { SearchScreenStyles as styles } from './styles'
 import { useNavigation } from '@react-navigation/native'
+import store from '../../redux/store'
 
 const SearchScreen = ({ route }: any)=> {
-    console.warn(route.params)
+    // console.warn(route.params)
     const srch = route.params.search;
     const navigation = useNavigation();
-    const filteredProducts = products.filter(product => product.name.includes(srch) ||
-                                                        product.brand.includes(srch) ||
-                                                        product.category.includes(srch));
+    const data = store.getState();
+    const product = data.setProductsReducer;
+    const filteredProducts = product.filter(item => item.Name.includes(srch) || item.Brand.includes(srch) || item.Category.includes(srch));
     return (
         <View>
             <SearchHeader />
             <FlatList
                 key = {'_'} // read about this 
                 data={filteredProducts}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.ID.toString()}
                 renderItem={({ item }) => (
                     <TouchableHighlight onPress={() => {
                         navigation.navigate('ProductInfo' , {product : item} as never)
                         }} underlayColor="white">
-                        <ProductCard title={item.name} amount={item.price} image={item.image} mrp={item.mrp} />
+                        <ProductCard title={item.Name} amount={item.Price} image={item.Image} mrp={item.Mrp} />
                     </TouchableHighlight>
                 )}
                 numColumns={2}

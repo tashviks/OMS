@@ -6,7 +6,6 @@ import CartIcon from '../../assets/cartIcon'
 import cartIcon from '../../assets/cartIcon'
 import CartScreen from '../CartScreen/CartScreen'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux'
 import store from '../../redux/store'
 import { ProductInfoHeaderStyles as styles } from './styles'
 

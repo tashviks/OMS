@@ -11,7 +11,7 @@ const FilteredProducts = ({ route }: any) => {
     if(product === undefined || product.length === 0){
         return (
             <View>
-            <Text>No products found</Text>
+                <Text>No products found</Text>
             </View>
         )
     }
@@ -19,12 +19,12 @@ const FilteredProducts = ({ route }: any) => {
     return(
         <View>
         <FilterHeader />
-        <FlatList data={product} keyExtractor={(item) => item.id.toString()} 
+        <FlatList data={product} keyExtractor={(item) => item.ID.toString()} 
         renderItem={({ item }) => (
-            <TouchableHighlight key={item.id} onPress={() => {
+            <TouchableHighlight key={item.ID} onPress={() => {
               navigation.navigate('ProductInfo' , {product : item} )
               }} underlayColor="white">
-              <ProductCard title={item.name} amount={item.price} image={item.image} mrp={item.mrp} />
+              <ProductCard title={item.Name} amount={item.Price} image={item.Image} mrp={item.MRP} />
             </TouchableHighlight>
           )}
           numColumns={2}

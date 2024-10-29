@@ -7,12 +7,6 @@ import Review from '../../assets/review';
 import { ProductItemChoiceStyles as styles } from './styles';
 import ProductDescription from './ProductDescription';
 
-interface Grade {
-  grade: string;
-}
-interface BagSize {
-  size: number;
-}
 interface ProductProps {
   id : number;
   title: string;
@@ -22,8 +16,8 @@ interface ProductProps {
   name: string;
   brand: string;
   review: number;
-  grade: Grade;
-  bagSize: BagSize;
+  grade: string[];
+  bagSize: string[];
   minOrderQty: number;
   maxOrderQty: number;
   inStock: number;
@@ -41,10 +35,9 @@ const ProductItemChoice: React.FC<ProductProps> = ({
   maxOrderQty,
   inStock,
 }) => {
-
   const [selectedGrade, setSelectedGrade] = React.useState('' as string);
   const[selectBagSize , setSelectBagSize] = React.useState('' as string);
-  const [quantity, setQuantity] = React.useState(minOrderQty);
+  const [quantity, setQuantity] = React.useState(1);
 
   const dispatch = useDispatch();
 
@@ -87,26 +80,17 @@ return (
 
             <View style = {styles.gradeOptionsContainer}>
 
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 1' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
-                onPress={() => setSelectedGrade('GO 1')}>
-                <View style={styles.gradeOptions}>
-                  <Text>GO 1</Text>
-                </View>
-              </TouchableOpacity>
+                {grade.map((g : string, index : number) => (
 
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 2' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
-                onPress={() => setSelectedGrade('GO 2')}>
-                <View style={styles.gradeOptions}>
-                  <Text>GO 2</Text>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[styles.gradeOptions,selectedGrade === 'GO 3' ? { borderColor : 'red' , borderWidth : 2 } : {},]}
-                onPress={() => setSelectedGrade('GO 3')}>
-                <View style={styles.gradeOptions}>
-                  <Text>GO 3</Text>
-                </View>
-              </TouchableOpacity>
+                <TouchableOpacity key={index} style={[ styles.gradeOptions, selectedGrade === g ? { borderColor: 'red', borderWidth: 2 } : {}, ]}
+                  onPress={() => { setSelectedGrade(g);
+                  console.log(selectedGrade);
+                  }}>
+                  <View style={styles.gradeOptions}>
+                  <Text>{g}</Text>
+                  </View>
+                </TouchableOpacity>
+                ))}
 
             </View>
           
@@ -114,26 +98,16 @@ return (
 
           <View style = {styles.bagSizeContainer}>
             <Text style = {styles.gradeHeading}>Bag Size: </Text>
-            <TouchableOpacity style={[styles.gradeOptions,selectBagSize === 'BAG 1' ? { backgroundColor: '#d3d3d3' } : {},]}
-                  onPress={() => setSelectBagSize('BAG 1')}>
-                  <View style={styles.gradeOptions}>
-                    <Text>BAG 1</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={[styles.gradeOptions,selectBagSize === 'BAG 2' ? { backgroundColor: '#d3d3d3' } : {},]}
-                  onPress={() => setSelectBagSize('BAG 2')}>
-                  <View style={styles.gradeOptions}>
-                    <Text>BAG 2</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={[styles.gradeOptions,selectBagSize === 'BAG 3' ? { backgroundColor: '#d3d3d3' } : {},]}
-                  onPress={() => setSelectBagSize('BAG 3')}>
-                  <View style={styles.gradeOptions}>
-                    <Text>BAG 3</Text>
-                  </View>
-                </TouchableOpacity>
+              {bagSize.map((g : string, index : number) => (
+                  <TouchableOpacity key={index} style={[styles.gradeOptions,selectBagSize === g ? { borderColor: 'red', borderWidth: 2 } : {},]}
+                    onPress={() => {setSelectBagSize(g)
+                    console.log(selectBagSize);
+                    }}>
+                    <View style={styles.gradeOptions}>
+                    <Text>{g}</Text>
+                    </View>
+                  </TouchableOpacity>
+              ))}
           </View>
         </View>
 
