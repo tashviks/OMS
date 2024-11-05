@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity, FlatList, StyleSheet, Button } from 'reac
 import CartItem from './CartItem';
 import Checkout from '../Checkout/Checkout';
 import { useNavigation } from '@react-navigation/native';
-import store from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from 'react-native-snackbar';
 import { setAddress } from '../../redux/action';
+import store from '../../redux/store';
 
 import { CartBodyStyles as styles } from './styles';
 
@@ -18,7 +18,7 @@ const CartBody = () => {
   const [coupon, setCoupon] = useState('WELCOME20');
   const [shipping, setShipping] = useState(500);
   const [discount, setDiscount] = useState(500);
-  const cartData = useSelector((state : any)=> state.reducer);
+  const cartData = store.getState().reducer;
   // console.log(cartData);
   const subTotal = items ? items.reduce((total : any, item : any) => total + item.price * item.quantity, 0) : null;
   const totalAmount = subTotal + shipping - discount;
@@ -31,7 +31,6 @@ const CartBody = () => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
                 const data = await response.json();
                 return data;
             } catch (error) {
@@ -44,7 +43,6 @@ const CartBody = () => {
             dispatch(setAddress(address));
           }
             await fetchAddress();
-            // console.log(address)
             navigation.navigate('Checkout' as never);
       }
         else {
@@ -53,8 +51,6 @@ const CartBody = () => {
             duration: Snackbar.LENGTH_SHORT,});
         }
   }
-
-
   return (
     <View style={styles.container}>
       <FlatList

@@ -1,7 +1,5 @@
-import { icon } from '@fortawesome/fontawesome-svg-core';
 import React, { useState } from 'react'
 import {View , StyleSheet , Image , Text, TouchableOpacity} from 'react-native'
-import { Svg , Rect , Path} from 'react-native-svg';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Cement from '../assets/cement';
 import Wailing from '../assets/wailing';
@@ -14,23 +12,23 @@ type RootStackParamList = {
 const ProductCategorey = () => {
 const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState('' as string);
-  const FilterCement = () => {
-    const prod = products._j.filter(product => product.Category === 'Cement');
+  const FilterCement = async () => {
+    const prod = (await products).filter((product: { Category: string; }) => product.Category === 'Cement');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
-  const FilterWalling = () => {
-    const prod = products._j.filter(product => product.Category === 'Walling');
+  const FilterWalling = async () => {
+    const prod = (await products).filter((product: { Category: string; }) => product.Category === 'Walling');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
-  const FilterConstruction = () => {
-    const prod = products._j.filter(product => product.Category === 'Construction');
-    if(prod === undefined){
+  const FilterConstruction = async () => {
+    const prod = (await products).filter((product: { Category: string; }) => product.Category === 'Construction');
+    if(prod.length === 0){
       console.warn('No products found');
     }
     navigation.navigate('CategoryWiseProduct', { prod });
   }
-  const FilterSteel = () => {
-    const prod = products._j.filter(product => product.Category === 'Steel');
+  const FilterSteel = async () => {
+    const prod = (await products).filter((product: { Category: string; }) => product.Category === 'Steel');
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   return (

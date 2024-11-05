@@ -124,7 +124,7 @@ export const ProductInfoImageGalleryStyles = StyleSheet.create({
       height : 360,
     },
     scrollContainer: {
-      marginTop : 140,
+      marginTop : 20,
       gap : 50,
       flexDirection: 'row',
       width : 350,
@@ -148,7 +148,7 @@ export const ProductInfoImageGalleryStyles = StyleSheet.create({
 export const ProductItemChoiceStyles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
-      height : '103%'
+      height : '104%'
     },
     skuAndBrandContainer: {
       flexDirection: 'row',
@@ -224,14 +224,16 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     gradeOptionsContainer : {
       flexDirection: 'row',
       gap : 10,
-      marginLeft : 100,
-      width : 63,
+      marginLeft : 50,
+      width : 100,
+      maxWidth : 100,
+      
       height : 38
     },
     gradeOptions :{
       backgroundColor : '#f6f6f6',
       padding : 10,
-      width : 63,
+      width : 80,
       height : 38,
       justifyContent : 'center',
       alignItems : 'center'
@@ -260,6 +262,7 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       flexDirection : 'row'
     },
     addToCart: {
+      marginTop : 10,
       marginBottom: 100,
       justifyContent: 'center',
       alignItems: 'center',
@@ -347,10 +350,24 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     qtyText:{
       marginTop : 10,
       paddingTop : 2
+    },
+    DescText : {
+      fontSize : 20,
+      fontWeight : 'bold',
+      color : 'black',
+      padding : 10,
+      borderBottomColor : 'black',
+      borderBottomWidth : 0.5,
+      marginTop: 20,
+      marginBottom : "auto",
+    },
+    DesContainer : {
+      display : 'flex',
+      flexDirection : 'row',
+      gap : 40,
     }
-  
   });  
 
 export const ProductDescStyles = StyleSheet.create({
-  
+ 
 });

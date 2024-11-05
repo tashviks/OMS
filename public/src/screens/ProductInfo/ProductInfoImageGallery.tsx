@@ -4,12 +4,13 @@ import LeftArrow from '../../assets/leftArrow';
 import { ProductInfoImageGalleryStyles as styles } from './styles';
 
 const ProductInfoImageGallery = (product : any) => {
-  // Fetch the images from database SELECT IMAGES FROM DB WHERE PRODUCT_ID = product.id
+  // Fetch the images from database SELECT IMAGES FROM 'IMAGE TABLLE' WHERE PRODUCT_ID = product.id
   const images = [
         { id: 1, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
         { id: 2, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
         { id: 3, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s'},
     ];
+
   const [selectedImage, setSelectedImage] = useState(images[0].src);
   const ChangeImageLeft = () => {
     const currentIndex = images.findIndex((image) => image.src === selectedImage);

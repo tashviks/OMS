@@ -20,10 +20,7 @@ func PostOrders(w http.ResponseWriter , r *http.Request){
 			http.Error(w, "Failed to create order", http.StatusInternalServerError)
 			return
 		}
-
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(order)
-	
 }
-

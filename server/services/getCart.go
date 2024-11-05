@@ -9,7 +9,12 @@ import (
 
 func GetCart(res http.ResponseWriter , request *http.Request){
 	var cart models.Cart;
-	result := database.DB.Find(&cart);
+	userID := request.URL.Query().Get("id")
+	if userID == "" {
+		http.Error(res, "Missing user ID", http.StatusBadRequest)
+		return
+	}
+	result := database.DB.Where("user_id = ? AND status = ?", userID, 1).Find(&cart)
 	if result.Error != nil {
 		http.Error(res, "Error fetching cart", http.StatusInternalServerError)
 		return

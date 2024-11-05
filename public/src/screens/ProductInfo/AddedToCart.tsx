@@ -40,7 +40,6 @@ function AddedToCart({ products, onClose, onViewCart, onCheckout }: AddedToCartP
                     <Text style={styles.totalPrice}>₹ {product.price * product.quantity}</Text>
                 </View>
             ))}
-
             <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.viewCartButton} onPress={onViewCart}>
                     <Text style={styles.buttonText}>VIEW CART</Text>

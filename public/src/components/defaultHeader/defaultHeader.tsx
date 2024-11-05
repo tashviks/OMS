@@ -6,28 +6,24 @@ import CartIcon from '../../assets/cartIcon';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import searchData from '../searchData';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import store from '../../redux/store';
 function defaultHeader() {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData , setFilterData] = React.useState(['']);
-    const cartData = useSelector((state: any) => state.reducer);
     const [cartItems , setCartItems] = useState(0);
-    console.log(cartData);
-    useEffect(()=>{
-        if(cartData === undefined){
-            return;
-        }
-        var qty = 0;
-        for(var i = 0;i<cartData.length;i++) qty+=cartData[i].quantity;
-        // console.log(cartData);
-        // console.log(qty)
-        setCartItems(qty);
-    },[cartData])
     const goToSeacrh = () =>{
         navigation.navigate('SearchScreen', {search : searchQuery});
     }
-
+    const [len, setLen] = useState(store.getState().qtyReducer);
+    useEffect(() => {
+      const unsubscribe = store.subscribe(() => {
+        setLen(store.getState().qtyReducer);
+      });
+      return () => {
+        unsubscribe();
+      };
+    }, []);
     const displayList = ()=>{
         if(filterData.length > 0){
             return filterData.map((item, index)=>{
@@ -71,7 +67,7 @@ function defaultHeader() {
                 <TouchableOpacity onPress={goToCart} >
                 <View style={styles.cart}>
                     <CartIcon/>
-                    <Text style = {styles.cartText}>{cartItems}</Text>
+                    <Text style = {styles.cartText}>{len}</Text>
                 </View>
                 </TouchableOpacity>
         </View>

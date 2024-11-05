@@ -27,10 +27,7 @@ params: { product: ProductProps; };
 }
 
 const ProductInfo = ({ route }: { route: RouteParams }) => { 
-    const {product} = route.params;
-    // console.log("Printing")
-    // console.log(product);
-    // console.warn(product.name);
+  const {product} = route.params;
   return (
     <View style={styles.container}>
         <ProductInfoHeader />
@@ -51,8 +48,7 @@ const ProductInfo = ({ route }: { route: RouteParams }) => {
             maxOrderQty={product.MaxOrderQty} 
             inStock={product.InStock} 
             />
-            <Text style={styles.description}>Description</Text>
-            <ProductDescription/>
+            <ProductDescription />
         </ScrollView>
     </View>
   )

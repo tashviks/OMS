@@ -13,7 +13,7 @@ const SearchScreen = ({ route }: any)=> {
     const srch = route.params.search;
     const navigation = useNavigation();
     const data = store.getState();
-    const product = data.setProductsReducer;
+    const product = data.fetchProductReducer.products;
     const filteredProducts = product.filter(item => item.Name.includes(srch) || item.Brand.includes(srch) || item.Category.includes(srch));
     return (
         <View>

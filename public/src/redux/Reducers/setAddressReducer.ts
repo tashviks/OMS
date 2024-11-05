@@ -1,6 +1,6 @@
 import { SET_ADDRESS } from "../constants";
 const initialState = [{}];
-const setAddressReducer = (state = initialState, action) => {
+const setAddressReducer = (state = initialState, action : any) => {
     if (state === undefined) {
         return state;
     }

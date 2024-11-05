@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState } from 'react'
 import { View , StyleSheet , Image , TextInput, Touchable , Text} from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import BackButton from '../../assets/backButton'
@@ -11,11 +11,9 @@ import { ProductInfoHeaderStyles as styles } from './styles'
 
 function ProductInfoHeader() {
   const navigation = useNavigation();
-  const CartData = ((state : any)=> state.reducer);
+  const CartData = store.getState().reducer;
   console.log(CartData);
-  const [cartItems , setCartItems] = React.useState(0);
   const data = store.getState();
-  
   const goBack = ()=>{
     navigation.goBack();
   }
@@ -23,13 +21,16 @@ function ProductInfoHeader() {
     navigation.navigate('CartScreen' as never);
   }
   const cd = data.reducer;
-  const getLen = ()=>{
-    var qty = 0;
-    for(var i = 0;i<cd.length;i++){
-      qty+=cd[i].quantity;
-    }
-    return qty;
-  }
+  const [len, setLen] = useState(store.getState().qtyReducer);
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setLen(store.getState().qtyReducer);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={goBack}>
@@ -40,7 +41,7 @@ function ProductInfoHeader() {
       <TouchableOpacity onPress={goToCart}>
       <View style = {styles.cartIconCon}>
         <CartIcon/>
-        <Text>{getLen()}</Text>
+        <Text>{len}</Text>
       </View>
       </TouchableOpacity>
     </View>

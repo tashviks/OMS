@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput, Alert } from 'react-native';
 import AddedToCart from './AddedToCart';
 import { addToCart } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import Review from '../../assets/review';
 import { ProductItemChoiceStyles as styles } from './styles';
 import ProductDescription from './ProductDescription';
-
+import { updateQuantity } from '../../redux/action';
 interface ProductProps {
   id : number;
   title: string;
@@ -35,23 +35,52 @@ const ProductItemChoice: React.FC<ProductProps> = ({
   maxOrderQty,
   inStock,
 }) => {
-  const [selectedGrade, setSelectedGrade] = React.useState('' as string);
-  const[selectBagSize , setSelectBagSize] = React.useState('' as string);
-  const [quantity, setQuantity] = React.useState(1);
+  const [selectedGrade, setSelectedGrade] = useState('' as string);
+  const[selectBagSize , setSelectBagSize] = useState('' as string);
+  const [quantity, setQuantity] = useState(1);
+  const [infoState , setInfostate] = useState('Description');
+  const [desc , setDesc] = useState('This is description');
 
+  const setDes = () => {
+    if(infoState === 'Description'){
+      setDesc('This is a description');
+    }
+    else if(infoState === 'Know More'){
+      setDesc('This is to know more');
+    }
+    else if(infoState === 'Hello'){
+      setDesc('Hello');
+    }
+  }
   const dispatch = useDispatch();
-
   const CartItem = {
     id: id,
     name: name,
     brand: brand,
     price: price,
     quantity: quantity,
+    grade: selectedGrade,
+    bag_size: selectBagSize,
   };
   
   const AddToCart = (CartItem : any) => {
     // console.warn(CartItem);
+   
+    if(CartItem.grade === '' && CartItem.bag_size === ''){
+      alert("Please select grade and bag size");
+      return;
+    }
+    else if(CartItem.grade == ''){
+      alert("Please select grade");
+      return;
+    }
+    else if(CartItem.bag_size == ''){
+      alert("Please select bag size");
+      return;
+    }
+    Alert.alert('Added to Cart', 'Item added to cart successfully');
     dispatch(addToCart(CartItem));
+    dispatch(updateQuantity(quantity));
   }
 
 return (
@@ -153,6 +182,45 @@ return (
         <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
             <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
+
+        <View style = {styles.DesContainer} >
+
+            <View >
+              <TouchableOpacity onPress={() => {
+                setInfostate('Description')
+                setDes();
+                }}>
+                  <Text style={styles.DescText}>Description</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View>
+              <TouchableOpacity onPress={() => {
+                setInfostate('Know More')
+              setDes();
+              }}>
+                  <Text style={styles.DescText} >Know More</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View>
+              <TouchableOpacity onPress={() => {
+                setInfostate('Hello')
+                setDes();
+                }}>
+                  <Text style={styles.DescText} >Hello</Text>
+              </TouchableOpacity>
+            </View>
+
+       </View>
+
+        <View>
+          <Text>
+            {desc}
+          </Text>
+        </View>
+
+
       </View>
   );
 };

@@ -132,7 +132,7 @@ import { setProducts } from "../redux/action";
 import { useDispatch } from "react-redux";
 const getProducts = async () => {
     try {
-        const response = await fetch('http://localhost:8080/products');
+        const response = await fetch('http://localhost:8080/GetProducts');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

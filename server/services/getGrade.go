@@ -2,11 +2,11 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"tashvik-oms/server/database"
 	"tashvik-oms/server/models"
 )
-
 func GetGrade(res http.ResponseWriter , request *http.Request){
 	var grades []models.ProductGrade
 	productID := request.URL.Query().Get("id")
@@ -19,12 +19,11 @@ func GetGrade(res http.ResponseWriter , request *http.Request){
 	}
 
 	result := database.DB.Where("product_id = ? AND grade = ? AND bag_size = ?", productID, grade, bagSize).Find(&grades)
-
+	fmt.Println(result)
 	if result.Error != nil {
 		http.Error(res, "Error fetching grades", http.StatusInternalServerError)
 		return
 	}
-
 	res.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(res).Encode(grades)
 }

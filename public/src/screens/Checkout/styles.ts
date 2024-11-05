@@ -88,5 +88,27 @@ export const CheckOutStyles = StyleSheet.create({
     color : 'black',
     fontWeight : '600',
   },
+  addressContainer: {
+    gap : 10,
+    marginLeft : 10,
+    marginTop : 10,
+  },
+  thankYouContainer: {
+    gap : 10,
+    marginLeft : 10,
+    marginTop : 10,
+    justifyContent : 'center',
+    alignItems : 'center',
+  },
+  thankYouTxt: {
+    fontSize : 20,
+    color : 'black',
+    fontWeight : '600',
+  },
+  orderIDTxt: {
+    fontSize : 14,
+    color : 'black',
+    fontWeight : '500',
+  },
 
 });

@@ -13,6 +13,7 @@ function Checkout() {
   const [ShippingAddress, setShippingAddress] = useState<Address | null>(null);
   const [BillingAddress, setBillingAddress] = useState<Address | null>(null);
   const [PaymentMethod, setPaymentMethod] = useState<Payment | null>(null);
+  const [order_id , setOrderID] = useState<number>(0);
   const addresses: { id: number; address: any; addressHeading: any; }[] = [];
   const paymentMethods = [
     { id: 1, method: 'Cash' },
@@ -20,15 +21,114 @@ function Checkout() {
     { id: 3, method: 'Pehchaan' },
   ];
   const add = store.getState().setAddressReducer;
+  const cart = store.getState().reducer;
+
+  // console.log(cart);
   for (let i = 0; i < add.length; i++) {
     const tmp = add[i].first_line + ',\n' + add[i].second_line + ', ' + add[i].city + ', ' + add[i].state + ', ' +add[i].country + ' - '+ add[i].pincode;
     addresses.push({id : i, address : tmp, addressHeading : add[i].heading});
   }
-  console.log(addresses);
-  const completePayment = () => {
-    const product_ids = store.getState().reducer.map((item: any) => item.id);
-  
-  }
+
+  const completePayment = async () => {
+    setStep('ThankYou');
+    // console.log("Payment Completed");
+    const order_payload = {
+        "userid" : 1,
+        "paymentMode":PaymentMethod?.method,
+        "created_at" : new Date(),
+      };
+     const fetchProductGrades = async () => {
+        try {
+          const gradeDetails = await Promise.all(
+            cart.map( async (item: any) => {
+              console.log(" ");
+              console.log("ITEM : ");
+              console.log(item);
+              const response = await fetch(`http://localhost:8080/GetGrade?id=${item.id}&grade=${item.grade}&bag_size=${item.bag_size}`);
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+          );
+          return gradeDetails;
+        } catch (error) {
+          console.error('Error fetching product grades:', error);
+          throw error;
+        }
+      };
+      const gradeDetails = await fetchProductGrades();
+      // console.log("gradeDetails");
+      // console.log(gradeDetails);
+      const postOrder = async () => {
+        try {
+          const response = await fetch('http://localhost:8080/PostOrders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order_payload),
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          // console.log("Order Placed Successfully")
+          // console.log(response)
+          return response.json();
+        } catch (error) {
+          console.error('Error Placing Order:', error);
+          throw error;
+        }
+      }
+      const order_response = await postOrder();
+      // console.log("Order Response");
+      // console.log(order_response);
+
+      // console.log("---------------------------------------------")
+      
+      // console.log("GRade Details");
+      // console.log(gradeDetails);
+
+      const order_line_payload : any = [];
+
+      for(let i = 0; i < cart.length; i++){
+        setOrderID(order_response.ID);
+        order_line_payload.push({
+          "OrderID" : order_response.ID,
+          "ProductGradeID" : gradeDetails[i][0].ID,
+          "Qty" : cart[i].quantity,
+          "Price" : cart[i].price,  
+        });
+      }
+      console.log("Order Line Payload");
+      console.log(order_line_payload);
+
+      const postOrderLine = async () => {
+        try {
+          const response = await fetch('http://localhost:8080/PostOrderLine', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+        },
+          body: JSON.stringify(order_line_payload),
+          });
+          if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        } catch (error) {
+          console.error('Error Posting Order Line :', error);
+          throw error;
+        }
+      }
+
+      const response = await postOrderLine();
+      console.log("Order Line Response");
+      console.log(response);
+  };
+
+
+
   const renderStep = () => {
     if(step === 'ShippingAddress'){
         return (
@@ -98,7 +198,6 @@ function Checkout() {
                 onPress={() => {
                   // console.log(method);
                   setPaymentMethod(method)
-                  completePayment();
                 }}
                 style={{
                   padding: 10,
@@ -115,9 +214,9 @@ function Checkout() {
 
       else if(step === 'ThankYou'){
         return (
-          <View>
-            <Text>Thank you Tashvik!</Text>
-            <Text>Your order has been placed successfully with order id which is to be fetched from db and is to be updated as well.</Text>
+          <View style = {styles.thankYouContainer}>
+            <Text style={styles.thankYouTxt}>Thank you Tashvik!</Text>
+            <Text style = {styles.orderIDTxt}>Your order has been placed successfully with order id {order_id}</Text>
           </View>
         );
       }
@@ -138,9 +237,7 @@ function Checkout() {
       setStep('BillingAddress');
     } else if (step === 'BillingAddress') {
       setStep('PaymentMethod');
-    } else if (step === 'PaymentMethod') {
-      setStep('ThankYou');
-    }
+    } 
   };
 
   return (
@@ -154,7 +251,7 @@ function Checkout() {
         <View style={{ marginBottom: 20 }}>
           <Button
             title="Next"
-            onPress={handleNext}
+            onPress={() => step === "PaymentMethod" ? completePayment() : handleNext()}
             disabled={
               (step === 'ShippingAddress' && !ShippingAddress) ||
               (step === 'BillingAddress' && !BillingAddress) ||

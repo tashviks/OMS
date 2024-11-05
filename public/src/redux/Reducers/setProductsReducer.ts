@@ -1,6 +1,6 @@
 import {SET_PRODUCTS} from '../constants';
-const initialState = [];
-const setProductsReducer = (state = initialState, action) => {
+const initialState : any = [];
+const setProductsReducer = (state = initialState, action : any) => {
     if (state === undefined) {
         return state;
     }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet, Button , Image} from 'react-native';
-import { decreaseQuantity , increaseQuantity } from '../../redux/action';
+import { decreaseQuantity , increaseQuantity , updateQuantity } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CartItemStyles } from './styles';
+import store from '../../redux/store';
 
 const styles = CartItemStyles;
 
@@ -17,14 +18,16 @@ interface CartItemProps {
 }
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
+
+
   const DecreaseQuantity = (item : any) => {
-    // console.log(item);
     dispatch(decreaseQuantity(item));
+    dispatch(updateQuantity(-1));
   }
   const IncreaseQuantity = (item : any) =>{
     dispatch(increaseQuantity(item));
+    dispatch(updateQuantity(1));
   }
-
   return (
     <View style={styles.itemContainer}>
         <View style = {styles.containerCard}>
@@ -36,18 +39,14 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 <Text style={styles.itemPrice}>₹{item.price}</Text>
             </View>
         </View>
-
-    <View style={styles.quantityContainer}>
+        <View style={styles.quantityContainer}>
           <TouchableOpacity onPress={() => DecreaseQuantity(item)}>
             <Text style={styles.button}>-</Text>
           </TouchableOpacity>
-
           <Text style={styles.quantity}>{item.quantity}</Text>
-
           <TouchableOpacity onPress={()=> IncreaseQuantity(item)}>
             <Text style={styles.button}>+</Text>
           </TouchableOpacity>
-
         </View>
         <Text style={styles.itemTotal}>Total ₹{item.price * item.quantity}</Text>
     </View>

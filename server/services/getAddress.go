@@ -1,12 +1,10 @@
 package services 
-
 import (
 	"encoding/json"
 	"net/http"
 	"tashvik-oms/server/database"
 	"tashvik-oms/server/models"
 )
-
 func GetAddress(w http.ResponseWriter , r *http.Request){
 	var addresses []models.Address
 	userID := r.URL.Query().Get("user_id")
@@ -21,5 +19,4 @@ func GetAddress(w http.ResponseWriter , r *http.Request){
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(addresses)
-	
 }
