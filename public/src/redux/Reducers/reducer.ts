@@ -1,4 +1,5 @@
 import { ADD_TO_CART , DECREASE_QUANTITY, INCREASE_QUANTITY } from "../constants";
+import store from "../store";
 const initialState : any = [];
 
 const reducer = (state = initialState, action : any) => {

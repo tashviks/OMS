@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from 'react-native-snackbar';
 import { setAddress } from '../../redux/action';
-import store from '../../redux/store';
-
+import { saveCartToStorage } from '../../apis/cache/cacheCart';
 import { CartBodyStyles as styles } from './styles';
 
 const CartBody = () => {
@@ -18,11 +17,15 @@ const CartBody = () => {
   const [coupon, setCoupon] = useState('WELCOME20');
   const [shipping, setShipping] = useState(500);
   const [discount, setDiscount] = useState(500);
-  const cartData = store.getState().reducer;
   // console.log(cartData);
   const subTotal = items ? items.reduce((total : any, item : any) => total + item.price * item.quantity, 0) : null;
   const totalAmount = subTotal + shipping - discount;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    saveCartToStorage(items);
+  }, [items]);
+
   const goToCheckout = async () => {
         if(subTotal > 0){
           const getAddress = async () => {
@@ -31,6 +34,7 @@ const CartBody = () => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 const data = await response.json();
                 return data;
             } catch (error) {

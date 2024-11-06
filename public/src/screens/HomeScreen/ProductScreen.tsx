@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableHighlight, ActivityIndicator } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 import DefaultHeader from '../../components/defaultHeader/defaultHeader';
 import ProductCategorey from '../../components/ProductCategorey';
@@ -7,60 +7,112 @@ import FilterButton from '../../assets/filterButton';
 import SortButton from '../../assets/sortButton';
 import { FlatList } from 'react-native-gesture-handler';
 import { HomeScreenStyles as styles } from './styles';
-import store from '../../redux/store';
+import { getCartFromStorage, saveCartToStorage } from '../../apis/cache/cacheCart';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, setProducts , fetchCart, fetchProducts , fetchCartItems } from '../../redux/action';
-
+import { addToCart, setProducts, fetchCart, fetchProducts, fetchCartItems, updateQuantity , setQuantity } from '../../redux/action';
 import { NavigationProp } from '@react-navigation/native';
 
 const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
- console.log("ProductScreen")
+  // console.log("ProductScreen");
   const dispatch = useDispatch();
-  const [currCart , setCurrentCart] = useState();
+  // Fetch products from redux store
+  const products = useSelector((state: any) => state.fetchProductReducer.products);
+  const isLoading = useSelector((state: any) => state.fetchProductReducer.isLoading);
+  const [cartId, setCartId] = useState<number>(0);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // to fetch cart 
-  const cartEpic = useSelector((state : any) => state.fetchCartReducer.cart);
-  const error  = useSelector((state : any) => state.fetchCartReducer.error);
-  const cartId = cartEpic?.ID;
-  useEffect(() => {
-    dispatch(fetchCart());
-  }, [dispatch]);
+  // const cartEpic = useSelector((state: any) => state.fetchCartReducer.cart);
 
   // useEffect(() => {
-  //   dispatch(fetchCartItems(cartId));
+  //   dispatch(fetchCart());
   // }, [dispatch]);
 
-  // const cartItems = useSelector((state : any) => state.fetchCartReducer.cartItems);
+  // useEffect(() => {
+  //   if (cartEpic && cartEpic.ID !== undefined) {
+  //     setCartId(cartEpic.ID);
+  //   }
+  // }, [cartEpic]);
+  // const error = useSelector((state: any) => state.fetchCartReducer.error);
+  // useEffect(() => {
+  //   dispatch(fetchCartItems({ cartId }));
+  // }, [cartId, dispatch]);
+  // const cartItems = useSelector((state: any) => state.fetchCartItemsReducer.cartItems);
   // console.warn(cartItems);
+  // useEffect(() => {
+  //   if(cartItems !== undefined && cartItems !== null){
+  //     let totalQty : number = 0;
+  //     for(let i = 0; i < cartItems.length; i++){
+  //       dispatch(addToCart(cartItems[i]));
+  //       totalQty += cartItems[i].quantity
+  //     }
+  //     // console.log("Total QTY" , totalQty);
+  //     dispatch(setQuantity(totalQty));
+  // }
+  // },[cartItems, dispatch]);
+
+  const [cart, setCart] = useState<any[]>([]);
+  const loadCartData = async () => {
+    let cachedCart = await getCartFromStorage(); 
+    if (!cachedCart) {
+      console.log("No cached cart data found. Fetching from the server...");
+      const response = await getCartFromStorage(); 
+      cachedCart = response.cart.json();
+      await saveCartToStorage(cachedCart);
+    }
+    setCart(cachedCart);
+    console.log("Cart data loaded successfully");
+  };
+  useEffect(() => {
+    loadCartData();
+  } , []);
+
+  console.log(cart);
   
-  console.log(store.getState().fetchCartReducer)
+  useEffect(() => {
+    if(cart !== undefined && cart !== null){
+      let totalQty : number = 0;
+      for(let i = 0; i < cart.length; i++){
+        dispatch(addToCart(cart[i]));
+        totalQty += cart[i].quantity
+      }
+      dispatch(setQuantity(totalQty));
+  }
+  },[cart, dispatch]);
+
   return (
     <View style={styles.container}>
       <DefaultHeader />
-      <FlatList
-        data={store.getState().fetchProductReducer.products}
-        keyExtractor={(item) => item.ID}
-        ListHeaderComponent={<ProductCategorey />}
-        renderItem={({ item }) => (
-          <TouchableHighlight
-            key={item.ID}
-            onPress={() => navigation.navigate('ProductInfo', { product: item })}
-            underlayColor="white">
-            <ProductCard
-              title={item.Name}
-              amount={item.Price}
-              image={item.Image}
-              mrp={item.MRP}/>
-          </TouchableHighlight>
-        )}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.scrollContainer}
-      />
+      {/* Show loading indicator until products are fetched */}
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />
+      ) : (
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item.ID.toString()}
+          ListHeaderComponent={<ProductCategorey />}
+          renderItem={({ item }) => (
+            <TouchableHighlight
+              key={item.ID}
+              onPress={() => navigation.navigate('ProductInfo', { product: item })}
+              underlayColor="white"
+            >
+              <ProductCard
+                title={item.Name}
+                amount={item.Price}
+                image={item.Image}
+                mrp={item.MRP}
+              />
+            </TouchableHighlight>
+          )}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          contentContainerStyle={styles.scrollContainer}
+        />
+      )}
+
       <View style={styles.cucontainer}>
         <View>
           <SortButton />

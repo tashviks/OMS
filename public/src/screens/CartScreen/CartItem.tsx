@@ -6,18 +6,18 @@ import { CartItemStyles } from './styles';
 import store from '../../redux/store';
 
 const styles = CartItemStyles;
-
 interface CartItemProps {
   item: {
     id: number;
     name: string;
     price: number;
-    quantity: number;
+    quantity : number;
     img : string;
   };
 }
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
+  console.log(item.img)
   const DecreaseQuantity = (item : any) => {
     dispatch(decreaseQuantity(item));
     dispatch(updateQuantity(-1));
@@ -30,7 +30,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     <View style={styles.itemContainer}>
         <View style = {styles.containerCard}>
             <View style={styles.imgContainer}>
-                <Image source={{ uri: 'https://www.ultratechcement.com/content/experience-fragments/ultratechcement/in/ihb/header/master/_jcr_content/root/container_copy_86747432/container_637611876/image.coreimg.jpeg/1727277670106/ultratech-main-logo.jpeg' }} style={styles.img} />
+              <Image source={{ uri: item.img }} style={styles.img} />
             </View>
             <View>
                 <Text style={styles.itemName}>{item.name}</Text>

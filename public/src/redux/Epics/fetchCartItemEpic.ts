@@ -6,7 +6,7 @@ import { from, of } from 'rxjs';
 export const fetchCartItemEpic = (action$ : any) => action$.pipe(
     ofType(FETCH_CART_ITEMS),
     mergeMap(() =>
-        from(fetch(`http://localhost:8080/GetCart?id=1`)).pipe(
+        from(fetch(`http://localhost:8080/GetCartItem?id=1`)).pipe(
           mergeMap(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);

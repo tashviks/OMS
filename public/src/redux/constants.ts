@@ -1,4 +1,5 @@
 export const ADD_TO_CART = 'add_to_cart';
+export const SET_QTY = 'set_qty';
 export const UPDATE_QUANTITY = 'update';
 export const CHECKOUT = 'checkout';
 export const DECREASE_QUANTITY = 'decrease_quantity';

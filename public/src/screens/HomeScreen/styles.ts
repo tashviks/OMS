@@ -48,8 +48,7 @@ export const HomeScreenStyles = StyleSheet.create({
         tintColor: 'black',
         marginLeft : 200
       },
-      
-      
+      loading : {
+      }
       });
-
-      export default HomeScreenStyles;
+export default HomeScreenStyles;

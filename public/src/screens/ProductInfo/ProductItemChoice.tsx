@@ -62,10 +62,8 @@ const ProductItemChoice: React.FC<ProductProps> = ({
     grade: selectedGrade,
     bag_size: selectBagSize,
   };
-  
   const AddToCart = (CartItem : any) => {
-    // console.warn(CartItem);
-   
+    
     if(CartItem.grade === '' && CartItem.bag_size === ''){
       alert("Please select grade and bag size");
       return;

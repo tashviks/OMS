@@ -7,6 +7,7 @@ import { CheckOutStyles as styles } from './styles';
 import { postOrder } from '../../apis/postOrder';
 import { fetchProductGrades } from '../../apis/fetchProductGrades';
 import { postOrderLine } from '../../apis/postOrderLine';
+import ThankYouImage from '../../assets/thankYouImage';
 
 function Checkout() {
   // get address for GetAdress API
@@ -21,7 +22,10 @@ function Checkout() {
   const paymentMethods = [
     { id: 1, method: 'Cash' },
     { id: 2, method: 'Credit' },
-    { id: 3, method: 'Pehchaan' },
+    { id: 3, method: 'Cheque' },
+    {id : 4, method : 'Debit'},
+    {id : 5, method : 'Net Banking'},
+    {id : 6, method : 'UPI'},
   ];
   const add = store.getState().setAddressReducer;
   const cart = store.getState().reducer;
@@ -140,6 +144,9 @@ function Checkout() {
       else if(step === 'ThankYou'){
         return (
           <View style = {styles.thankYouContainer}>
+            <View>
+              <ThankYouImage/>
+            </View>
             <Text style={styles.thankYouTxt}>Thank you Tashvik!</Text>
             <Text style = {styles.orderIDTxt}>Your order has been placed successfully with order id {order_id}</Text>
           </View>

@@ -14,11 +14,18 @@ import { FETCH_PRODUCTS_FAILURE } from './constants';
 import { FETCH_CART_ITEMS } from './constants';
 import { FETCH_CART_ITEMS_SUCCESS } from './constants';
 import { FETCH_CART_ITEMS_FAILURE } from './constants';
+import { SET_QTY } from './constants';
 
 
 export function addToCart(item : any){
     return {
         type : ADD_TO_CART,
+        payload : item
+    }
+}
+export function setQuantity(item: any){
+    return {
+        type : SET_QTY,
         payload : item
     }
 }
@@ -34,7 +41,7 @@ export function increaseQuantity(item: any){
         payload : item
     }
 }
-export function updateQuantity(item: any){
+export function updateQuantity(item: number){
     return {
         type : UPDATE_QUANTITY,
         payload : item

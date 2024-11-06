@@ -15,7 +15,6 @@ function CartHeader() {
       <TouchableOpacity onPress={goBack} style={styles.backButtonCon}>
         <BackButton />
       </TouchableOpacity>
-
       <View style={styles.cartTextContainer}>
         <Text style={styles.cartText}>Your cart</Text>
       </View>
