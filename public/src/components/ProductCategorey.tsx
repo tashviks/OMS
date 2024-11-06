@@ -5,12 +5,14 @@ import Cement from '../assets/cement';
 import Wailing from '../assets/wailing';
 import Construction from '../assets/construction';
 import Steel from '../assets/steel';
-import  products  from '../assets/productsMock';
+import store from '../redux/store';
 type RootStackParamList = {
   CategoryWiseProduct: { prod: any };
 };
+
 const ProductCategorey = () => {
 const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+const products = store.getState().fetchProductReducer.products;
   const [selectedCategory, setSelectedCategory] = useState('' as string);
   const FilterCement = async () => {
     const prod = (await products).filter((product: { Category: string; }) => product.Category === 'Cement');

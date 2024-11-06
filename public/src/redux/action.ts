@@ -11,6 +11,9 @@ import { FETCH_CART_FAILURE } from './constants';
 import { FETCH_PRODUCTS } from './constants';
 import { FETCH_PRODUCTS_SUCCESS } from './constants';
 import { FETCH_PRODUCTS_FAILURE } from './constants';
+import { FETCH_CART_ITEMS } from './constants';
+import { FETCH_CART_ITEMS_SUCCESS } from './constants';
+import { FETCH_CART_ITEMS_FAILURE } from './constants';
 
 
 export function addToCart(item : any){
@@ -64,3 +67,7 @@ export const fetchCartFailure = (item : any) => ({ type: FETCH_CART_FAILURE, pay
 export const fetchProducts = () => ({ type: FETCH_PRODUCTS });
 export const fetchProductsSuccess = (item : any) => ({ type: FETCH_PRODUCTS_SUCCESS, payload: item });
 export const fetchProductsFailure = (item : any) => ({ type: FETCH_PRODUCTS_FAILURE, payload: item  });
+
+export const fetchCartItems = (item : any) => ({ type: FETCH_CART_ITEMS , payload: item });
+export const fetchCartItemsSuccess = (item : any) => ({ type: FETCH_CART_ITEMS_SUCCESS, payload: item });
+export const fetchCartItemsFailure = (item : any) => ({ type: FETCH_CART_ITEMS_FAILURE, payload: item  });

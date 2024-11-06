@@ -128,21 +128,21 @@
 //         image : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shalimarpaints.com%2Fproducts%2Fsuperlac-premium-hi-gloss-enamel&psig=AOvVaw35F1CcZgUExl3gYKhJnEuN&ust=1729604081200000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMjE-7jLn4kDFQAAAAAdAAAAABA1"
 //     },
 // ];
-import { setProducts } from "../redux/action";
-import { useDispatch } from "react-redux";
-const getProducts = async () => {
-    try {
-        const response = await fetch('http://localhost:8080/GetProducts');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        throw error;
-    }
-}
-const products = getProducts();
-export default products;
+// import { setProducts } from "../redux/action";
+// import { useDispatch } from "react-redux";
+// const getProducts = async () => {
+//     try {
+//         const response = await fetch('http://localhost:8080/GetProducts');
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         const data = await response.json();
+//         return data;
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         throw error;
+//     }
+// }
+// const products = getProducts();
+// export default products;
 

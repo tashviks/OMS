@@ -4,6 +4,9 @@ import CheckoutHeader from './CheckoutHeader';
 import TotalItems from './TotalItems';
 import store from '../../redux/store';
 import { CheckOutStyles as styles } from './styles';
+import { postOrder } from '../../apis/postOrder';
+import { fetchProductGrades } from '../../apis/fetchProductGrades';
+import { postOrderLine } from '../../apis/postOrderLine';
 
 function Checkout() {
   // get address for GetAdress API
@@ -22,7 +25,6 @@ function Checkout() {
   ];
   const add = store.getState().setAddressReducer;
   const cart = store.getState().reducer;
-
   // console.log(cart);
   for (let i = 0; i < add.length; i++) {
     const tmp = add[i].first_line + ',\n' + add[i].second_line + ', ' + add[i].city + ', ' + add[i].state + ', ' +add[i].country + ' - '+ add[i].pincode;
@@ -37,60 +39,9 @@ function Checkout() {
         "paymentMode":PaymentMethod?.method,
         "created_at" : new Date(),
       };
-     const fetchProductGrades = async () => {
-        try {
-          const gradeDetails = await Promise.all(
-            cart.map( async (item: any) => {
-              console.log(" ");
-              console.log("ITEM : ");
-              console.log(item);
-              const response = await fetch(`http://localhost:8080/GetGrade?id=${item.id}&grade=${item.grade}&bag_size=${item.bag_size}`);
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              return response.json();
-            })
-          );
-          return gradeDetails;
-        } catch (error) {
-          console.error('Error fetching product grades:', error);
-          throw error;
-        }
-      };
       const gradeDetails = await fetchProductGrades();
-      // console.log("gradeDetails");
-      // console.log(gradeDetails);
-      const postOrder = async () => {
-        try {
-          const response = await fetch('http://localhost:8080/PostOrders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order_payload),
-          });
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          // console.log("Order Placed Successfully")
-          // console.log(response)
-          return response.json();
-        } catch (error) {
-          console.error('Error Placing Order:', error);
-          throw error;
-        }
-      }
-      const order_response = await postOrder();
-      // console.log("Order Response");
-      // console.log(order_response);
-
-      // console.log("---------------------------------------------")
-      
-      // console.log("GRade Details");
-      // console.log(gradeDetails);
-
+      const order_response = await postOrder(order_payload);
       const order_line_payload : any = [];
-
       for(let i = 0; i < cart.length; i++){
         setOrderID(order_response.ID);
         order_line_payload.push({
@@ -100,34 +51,8 @@ function Checkout() {
           "Price" : cart[i].price,  
         });
       }
-      console.log("Order Line Payload");
-      console.log(order_line_payload);
-
-      const postOrderLine = async () => {
-        try {
-          const response = await fetch('http://localhost:8080/PostOrderLine', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-        },
-          body: JSON.stringify(order_line_payload),
-          });
-          if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          return response.json();
-        } catch (error) {
-          console.error('Error Posting Order Line :', error);
-          throw error;
-        }
-      }
-
-      const response = await postOrderLine();
-      console.log("Order Line Response");
-      console.log(response);
+      const response = await postOrderLine(order_line_payload);
   };
-
-
 
   const renderStep = () => {
     if(step === 'ShippingAddress'){

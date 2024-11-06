@@ -15,7 +15,7 @@ const FilterScreen = () => {
   
   const data = store.getState();
   console.log(data)
-  const product = data.setProductsReducer;
+  const product = data.fetchProductReducer.products;
   console.log("--------------------------")
   console.log(product[0].Brand);
 

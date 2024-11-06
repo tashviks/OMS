@@ -18,8 +18,6 @@ interface CartItemProps {
 }
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
-
-
   const DecreaseQuantity = (item : any) => {
     dispatch(decreaseQuantity(item));
     dispatch(updateQuantity(-1));

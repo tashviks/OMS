@@ -9,6 +9,7 @@ import (
 type Product struct {
 	Repo internal.Iinternal
 }
+
 func (r *Product) GetProducts(res http.ResponseWriter, req *http.Request) {
 	products, err := r.Repo.GetProducts()
 	if err != nil {
