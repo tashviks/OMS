@@ -6,7 +6,7 @@ import (
 )
 
 type Product struct {
-	ID          uint           `gorm:"column:id;primaryKey"` // changed this , incase of any error , refer here 
+	ID          uint           `gorm:"column:id;primaryKey"` 
 	MRP         float64        `gorm:"column:mrp;not null"`
 	Price       float64        `gorm:"not null"`
 	Category    string         `gorm:"type:varchar(100);not null"`

@@ -37,13 +37,18 @@ export const FilterScreenStyles = StyleSheet.create({
     },
     column: {
       flex: 1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#f6f6f6',
       borderRightWidth: 1,
       borderRightColor: '#E0E0E0',
     },
     column1: {
-     backgroundColor : '#f6f6f6',
      width : 150
+    },
+    column2 : {
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+      borderRightWidth: 1,
+      borderRightColor: '#E0E0E0',
     },
     categoryItem: {
       padding: 15,
@@ -76,30 +81,18 @@ export const FilterScreenStyles = StyleSheet.create({
     footer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      padding: 10,
       backgroundColor: '#FFFFFF',
       borderTopWidth: 1,
       borderTopColor: '#E0E0E0',
     },
-    closeButton: {
-      padding: 15,
-      backgroundColor: '#F0F0F0',
-      borderRadius: 5,
-    },
-    closeButtonText: {
-      fontSize: 16,
-      color: '#555555',
-    },
     applyButton: {
-      padding: 15,
-      backgroundColor: '#FF6347',
-      borderRadius: 5,
+      borderLeftWidth: 1,
+      borderLeftColor: '#E0E0E0',
+      marginRight: 20,
     },
-    applyButtonText: {
-      fontSize: 16,
-      color: '#FFFFFF',
+    closeButton: {
+      marginLeft: 10,
     },
-    
   });
 
   export const CartHeaderStyles = StyleSheet.create({

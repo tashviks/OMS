@@ -4,9 +4,9 @@ export const fetchProductGrades = async () => {
     try {
       const gradeDetails = await Promise.all(
         cart.map( async (item: any) => {
-          console.log(" ");
-          console.log("ITEM : ");
-          console.log(item);
+          // console.log(" ");
+          // console.log("ITEM : ");
+          // console.log(item);
           const response = await fetch(`http://localhost:8080/GetGrade?id=${item.id}&grade=${item.grade}&bag_size=${item.bag_size}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

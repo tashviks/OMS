@@ -12,7 +12,7 @@ import { ProductInfoHeaderStyles as styles } from './styles'
 function ProductInfoHeader() {
   const navigation = useNavigation();
   const CartData = store.getState().reducer;
-  console.log(CartData);
+  // console.log(CartData);
   const data = store.getState();
   const goBack = ()=>{
     navigation.goBack();

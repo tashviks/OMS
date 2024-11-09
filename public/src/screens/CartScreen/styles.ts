@@ -2,10 +2,11 @@ import { LayoutAnimation, StyleSheet } from "react-native";
 
 export const CartItemStyles = StyleSheet.create({
     itemContainer: {
-      borderBottomWidth: 1,
       borderColor: '#ddd',
       paddingBottom: 10,
       marginBottom: 10,
+      gap : 20,
+      marginTop : 10,
     },
     containerCard : {
       flexDirection : 'row',
@@ -63,6 +64,11 @@ export const CartItemStyles = StyleSheet.create({
       height : 50,
       borderRadius : 10,
     },
+    itemDetails : {
+      display : 'flex',
+      flexDirection : 'row',
+      gap : 200,
+    },
     imgContainer:{
       
     }
@@ -77,6 +83,8 @@ export const CartHeaderStyles = StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         marginTop : 10,
+        borderBottomWidth: 0.8,
+        borderColor: '#ddd',
     },
    backButtonCon:{
         width: 100,
@@ -157,6 +165,7 @@ export const CartBodyStyles = StyleSheet.create({
         alignItems : 'center',
         borderWidth: 1,
         borderColor: '#ddd',
+        borderStyle: 'dashed',
         borderRadius: 5,
         marginTop : 20,
     },
@@ -164,6 +173,7 @@ export const CartBodyStyles = StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         justifyContent : 'space-between',
+        gap : 50,
     },
     shipping : {
       display : 'flex',
@@ -174,27 +184,24 @@ export const CartBodyStyles = StyleSheet.create({
       display : 'flex',
       flexDirection : 'row',
       justifyContent : 'space-between',
+      borderBottomWidth : 1,
+      borderColor : '#e0e0e0',
+      borderStyle : 'dashed',
+      paddingBottom : 20,
     },
     checkOut : {
-      padding : 10,
       backgroundColor : '#f15927',
       alignItems : 'center',
-      width : 113,
-      height : 40,
       marginRight : 10
-    },
-    checkOutText : {
-      color : 'white',
-      fontFamily : 'inter',
-      fontWeight : '600',
-
     },
     checkOutContainer : {
       display : 'flex',
       flexDirection : 'row',
       justifyContent : 'space-between',
-      marginTop : 110,
+      marginTop : 190,
       backgroundColor : 'white',
+      borderTopColor : '#ddd',
+      borderTopWidth : 0.8,
       width : 420,
       height : 100,
       padding : 10,
@@ -205,6 +212,23 @@ export const CartBodyStyles = StyleSheet.create({
       fontWeight : 'bold',
       color : 'black',
       marginTop : 5,
+      marginLeft : 10
     },
+    FlatListStyle :{ 
+      height: 300, 
+      width: 390, 
+      padding: 5, 
+      marginLeft: -10,
+    },
+    LottieStyle : { 
+      marginTop : 100 , 
+      marginLeft : 80,
+    },
+    subTotalText : {
+      fontWeight : 'bold' ,
+      color : 'black' ,
+      fontFamily : 'Inter',
+    }
+
 });
   

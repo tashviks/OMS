@@ -42,13 +42,15 @@ export const HomeScreenStyles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
         marginBottom : 0,
-        marginRight : 13,
+        marginRight : 0,
+        borderTopWidth : 1,
+        borderTopColor : "#E0E0E0"
       },
       sortButton: {
-        tintColor: 'black',
-        marginLeft : 200
+        borderRightColor : "#E0E0E0",
+        borderRightWidth : 1,
       },
       loading : {
       }
       });
-export default HomeScreenStyles;
+      export default HomeScreenStyles;

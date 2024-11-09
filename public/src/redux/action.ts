@@ -14,6 +14,9 @@ import { FETCH_PRODUCTS_FAILURE } from './constants';
 import { FETCH_CART_ITEMS } from './constants';
 import { FETCH_CART_ITEMS_SUCCESS } from './constants';
 import { FETCH_CART_ITEMS_FAILURE } from './constants';
+import { FETCH_ADDRESS } from './constants';
+import { FETCH_ADDRESS_SUCCESS } from './constants';
+import { FETCH_ADDRESS_FAILURE } from './constants';
 import { SET_QTY } from './constants';
 
 
@@ -78,3 +81,7 @@ export const fetchProductsFailure = (item : any) => ({ type: FETCH_PRODUCTS_FAIL
 export const fetchCartItems = (item : any) => ({ type: FETCH_CART_ITEMS , payload: item });
 export const fetchCartItemsSuccess = (item : any) => ({ type: FETCH_CART_ITEMS_SUCCESS, payload: item });
 export const fetchCartItemsFailure = (item : any) => ({ type: FETCH_CART_ITEMS_FAILURE, payload: item  });
+
+export const fetchAddress = () => ({ type: FETCH_ADDRESS });
+export const fetchAddressSuccess = (item : any) => ({ type: FETCH_ADDRESS_SUCCESS, payload: item });
+export const fetchAddressFailure = (item : any) => ({ type: FETCH_ADDRESS_FAILURE, payload: item  });

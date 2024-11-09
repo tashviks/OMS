@@ -8,9 +8,16 @@ import { postOrder } from '../../apis/postOrder';
 import { fetchProductGrades } from '../../apis/fetchProductGrades';
 import { postOrderLine } from '../../apis/postOrderLine';
 import ThankYouImage from '../../assets/thankYouImage';
-
-function Checkout() {
-  // get address for GetAdress API
+import ContinueButton from '../../assets/continueButton';
+import PlaceOrder from '../../assets/placeOrderButton';
+import ContinueShopping from '../../assets/ContinueShopping';
+import { useSelector } from 'react-redux';
+function Checkout({navigation} : any) {
+  const dummyItem = useSelector((state: any) => state.reducer); 
+  var price = 0;
+  for(let i = 0 ; i < dummyItem.length ; i++){
+    price += dummyItem[i].price * dummyItem[i].quantity;
+  }
   const [step, setStep] = useState('ShippingAddress'); 
   type Address = { id: number; address: string };
   type Payment = { id: number; method: string };
@@ -29,15 +36,12 @@ function Checkout() {
   ];
   const add = store.getState().setAddressReducer;
   const cart = store.getState().reducer;
-  // console.log(cart);
-  for (let i = 0; i < add.length; i++) {
+  for (let i = 0; i < add.length; i++) { 
     const tmp = add[i].first_line + ',\n' + add[i].second_line + ', ' + add[i].city + ', ' + add[i].state + ', ' +add[i].country + ' - '+ add[i].pincode;
     addresses.push({id : i, address : tmp, addressHeading : add[i].heading});
   }
-
   const completePayment = async () => {
     setStep('ThankYou');
-    // console.log("Payment Completed");
     const order_payload = {
         "userid" : 1,
         "paymentMode":PaymentMethod?.method,
@@ -57,7 +61,6 @@ function Checkout() {
       }
       const response = await postOrderLine(order_line_payload);
   };
-
   const renderStep = () => {
     if(step === 'ShippingAddress'){
         return (
@@ -65,7 +68,7 @@ function Checkout() {
             <View style={styles.addressHeadingContainer}> 
               <Text style = {styles.addressTypeBlob}>1</Text>
               <Text style = {styles.addressType}>Select Shipping Address:</Text>
-            </View>
+            </View> 
             {addresses.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -73,21 +76,17 @@ function Checkout() {
                   // console.log(item);
                   setShippingAddress(item)
                 }}
-                style={{
-                  padding: 10,
-                  borderWidth: 1,
-                  borderColor: ShippingAddress?.id === item.id ? '#f15927' : 'white',
-                  marginVertical: 2,
-                }}>
-                <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
-                <Text></Text> 
-                <Text>{item.address}</Text>
+                style={{borderWidth: 1,borderColor: ShippingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
+                <View style={styles.addressBox}>
+                  <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
+                  <Text></Text> 
+                  <Text>{item.address}</Text>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
         );
       }
-
       else if(step === 'BillingAddress'){
         return (
           <View style={{gap : 10}}>
@@ -99,15 +98,12 @@ function Checkout() {
               <TouchableOpacity
                 key={item.id}
                 onPress={() => setBillingAddress(item)}
-                style={{
-                  padding: 10,
-                  borderWidth: 1,
-                  borderColor: BillingAddress?.id === item.id ? '#f15927' : 'white',
-                  marginVertical: 2,
-                }}>
-                <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
-                <Text></Text>
-                <Text>{item.address}</Text>
+                style={{borderWidth: 1,borderColor: BillingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
+                <View style={styles.addressBox}>
+                  <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
+                  <Text></Text>
+                  <Text>{item.address}</Text>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
@@ -149,6 +145,11 @@ function Checkout() {
             </View>
             <Text style={styles.thankYouTxt}>Thank you Tashvik!</Text>
             <Text style = {styles.orderIDTxt}>Your order has been placed successfully with order id {order_id}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('ProductScreen' as never)}>
+              <View>
+                <ContinueShopping/>
+              </View>
+            </TouchableOpacity>
           </View>
         );
       }
@@ -160,7 +161,6 @@ function Checkout() {
           </View>
         );
       }
-
   }
 
 
@@ -173,7 +173,7 @@ function Checkout() {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={{ flex: 1, padding: 20 , backgroundColor : "white" }}>
       <CheckoutHeader />
       <TotalItems />
       <View style={{ flex: 1, marginTop: 20 }}>
@@ -181,15 +181,17 @@ function Checkout() {
       </View>
       {step !== 'ThankYou' && (
         <View style={{ marginBottom: 20 }}>
-          <Button
-            title="Next"
-            onPress={() => step === "PaymentMethod" ? completePayment() : handleNext()}
-            disabled={
-              (step === 'ShippingAddress' && !ShippingAddress) ||
-              (step === 'BillingAddress' && !BillingAddress) ||
-              (step === 'PaymentMethod' && !PaymentMethod)
-            }
-          />
+           <View style={styles.checkOutContainer}>
+        <Text style={styles.checkOutTextBottom}>₹{price}</Text>
+        <TouchableOpacity onPress={() => step === "PaymentMethod" ? completePayment() : handleNext()}
+                                  disabled={(step === 'ShippingAddress' && !ShippingAddress) ||
+                                  (step === 'BillingAddress' && !BillingAddress) ||
+                                  (step === 'PaymentMethod' && !PaymentMethod)}>
+        <View style={styles.checkOut}>
+          {step === 'PaymentMethod' ? <PlaceOrder /> : <ContinueButton />}
+        </View>
+        </TouchableOpacity>
+        </View>
         </View>
       )}
     </View>

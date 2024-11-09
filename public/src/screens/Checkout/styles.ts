@@ -110,5 +110,36 @@ export const CheckOutStyles = StyleSheet.create({
     color : 'black',
     fontWeight : '500',
   },
+  checkOut : {
+    backgroundColor : '#f15927',
+    alignItems : 'center',
+    marginRight : 10
+  },
+  checkOutContainer : {
+    display : 'flex',
+    flexDirection : 'row',
+    justifyContent : 'space-between',
+    backgroundColor : 'white',
+    borderTopColor : '#ddd',
+    borderTopWidth : 0.8,
+    width : 420,
+    height : 100,
+    padding : 10,
+    marginLeft : -20,
+    marginBottom : -80
+  },
+  checkOutTextBottom : {
+    fontSize : 20,
+    fontWeight : 'bold',
+    color : 'black',
+    marginTop : 5,
+    marginLeft : 10
+  },
+  addressBox : {
+    backgroundColor : '#fafafa' , 
+    padding : 10 , 
+    borderRadius : 10,
+    marginVertical: 2,
+  },
 
 });

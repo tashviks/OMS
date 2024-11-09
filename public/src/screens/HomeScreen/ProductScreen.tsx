@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableHighlight, ActivityIndicator } from 'react-native';
-import ProductCard from '../../components/ProductCard';
+import ProductCard from '../../components/ProductCard/ProductCard';
 import DefaultHeader from '../../components/defaultHeader/defaultHeader';
-import ProductCategorey from '../../components/ProductCategorey';
+import ProductCategorey from '../../components/ProductCategory/ProductCategorey';
 import FilterButton from '../../assets/filterButton';
 import SortButton from '../../assets/sortButton';
 import { FlatList } from 'react-native-gesture-handler';
@@ -11,21 +11,18 @@ import { getCartFromStorage, saveCartToStorage } from '../../apis/cache/cacheCar
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setProducts, fetchCart, fetchProducts, fetchCartItems, updateQuantity , setQuantity } from '../../redux/action';
 import { NavigationProp } from '@react-navigation/native';
-
 const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   // console.log("ProductScreen");
   const dispatch = useDispatch();
-  // Fetch products from redux store
   const products = useSelector((state: any) => state.fetchProductReducer.products);
   const isLoading = useSelector((state: any) => state.fetchProductReducer.isLoading);
-  const [cartId, setCartId] = useState<number>(0);
+
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   // const cartEpic = useSelector((state: any) => state.fetchCartReducer.cart);
-
   // useEffect(() => {
   //   dispatch(fetchCart());
   // }, [dispatch]);
@@ -56,20 +53,13 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [cart, setCart] = useState<any[]>([]);
   const loadCartData = async () => {
     let cachedCart = await getCartFromStorage(); 
-    if (!cachedCart) {
-      console.log("No cached cart data found. Fetching from the server...");
-      const response = await getCartFromStorage(); 
-      cachedCart = response.cart.json();
-      await saveCartToStorage(cachedCart);
-    }
     setCart(cachedCart);
     console.log("Cart data loaded successfully");
   };
   useEffect(() => {
     loadCartData();
   } , []);
-
-  console.log(cart);
+  // console.log(cart);
   
   useEffect(() => {
     if(cart !== undefined && cart !== null){
@@ -97,14 +87,12 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
             <TouchableHighlight
               key={item.ID}
               onPress={() => navigation.navigate('ProductInfo', { product: item })}
-              underlayColor="white"
-            >
+              underlayColor="white" >
               <ProductCard
                 title={item.Name}
                 amount={item.Price}
                 image={item.Image}
-                mrp={item.MRP}
-              />
+                mrp={item.MRP} />
             </TouchableHighlight>
           )}
           numColumns={2}
@@ -114,7 +102,7 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
       )}
 
       <View style={styles.cucontainer}>
-        <View>
+        <View style={styles.sortButton}>
           <SortButton />
         </View>
         <View>

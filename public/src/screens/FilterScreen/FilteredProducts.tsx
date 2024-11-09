@@ -4,14 +4,14 @@ import { FlatList } from 'react-native';
 import FilterHeader from './Header';
 import { FilterProductStyles as styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
-import ProductCard from '../../components/ProductCard';
-
+import ProductCard from '../../components/ProductCard/ProductCard';
+import OutOfStock from '../CategoreyWiseProducts/OutOfStock';
 const FilteredProducts = ({ route }: any) => {
     const product = route.params.prod;
     if(product === undefined || product.length === 0){
         return (
             <View>
-                <Text>No products found</Text>
+                <OutOfStock />
             </View>
         )
     }

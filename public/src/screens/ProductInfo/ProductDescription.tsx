@@ -1,36 +1,55 @@
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
 import { ProductDescStyles as styles } from './styles'
 const ProductDescription = () => {
-  const [infoState , setInfostate] = useState('');
+  const [desc , setDesc] = useState('Cement is a fine powder that acts as a binder in concrete and mortar. \n\nIt is made from a mixture of limestone, clay, and other materials, which are heated to form clinker and then ground into a fine powder. \n\nCement is essential for construction projects, providing strength and durability to buildings and infrastructure.');
+  const [infoState , setInfostate] = useState(desc);
+  const setDes = () => {
+    if(infoState === 'Description'){
+      setDesc('Cement is a fine powder that acts as a binder in concrete and mortar. \n\nIt is made from a mixture of limestone, clay, and other materials, which are heated to form clinker and then ground into a fine powder. \n\nCement is essential for construction projects, providing strength and durability to buildings and infrastructure.');
+    }
+    else if(infoState === 'Warranty'){
+      setDesc('This is to Warranty')
+    }
+    else if(infoState === 'Hello'){
+      setDesc('Hello');
+    }
+  }
   return (
     <View >
+          <View style = {styles.DesContainer} >
+            <View >
+              <TouchableOpacity onPress={() => {
+                setInfostate('Description')
+                setDes();
+                }}>
+                  <Text style={styles.DescText}>DETAILS</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity onPress={() => {
+                setInfostate('Warranty')
+              setDes();
+              }}>
+                  <Text style={styles.DescText} >WARRANTY</Text>
+              </TouchableOpacity>
+            </View>
 
-      <View >
-        <TouchableHighlight onPress={() => setInfostate('Description')}>
-            <Text style={styles.DescText}>Description</Text>
-        </TouchableHighlight>
-      </View>
-
-      <View style={{padding: 10}}>
-        <TouchableHighlight onPress={() => setInfostate('Know More')}>
-            <Text>Know More</Text>
-        </TouchableHighlight>
-      </View>
-
-      <View>
-        <TouchableHighlight onPress={() => setInfostate('Hello')}>
-            <Text>Col 3</Text>
-        </TouchableHighlight>
-      </View>
-        
-      <View style={styles.DesContainer}>
-        <Text>
-          Desc Container
-        </Text>
-
-      </View>
+            <View>
+              <TouchableOpacity onPress={() => {
+                setInfostate('Hello')
+                setDes();
+                }}>
+                  <Text style={styles.DescText} >RETURNS</Text>
+              </TouchableOpacity>
+            </View>
+       </View>
+        <View>
+          <Text style={styles.description}>
+            {desc}
+          </Text>
+        </View>
     </View>
   )
 }

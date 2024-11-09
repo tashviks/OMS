@@ -3,22 +3,24 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import { FilterScreenStyles as styles } from './styles';
 import store from '../../redux/store';
+import CloseButton from '../../assets/closeButton';
+import ApplyButton from '../../assets/applyButton';
 const FilterScreen = () => {
   const categories = ['Brand', 'Grade', 'BagSize', 'Price', 'Review'];
+  const navigation : any = useNavigation();
   const options = {
     Brand: ['Infra Market', 'UltraTech', 'Bharathi', 'ACC', 'Dalmia', 'JSW'],
     Grade: ['Grade A', 'Grade B', 'Grade C', 'Grade D'],
     BagSize: ['10kg', '25kg', '50kg', '100kg'],
-    Price: ['Cheap', 'Cheaper', 'Cheapest', 'Cheap Pro Max'],
+    Price: ['Below 100', 'Below 200', 'Above 100', 'Above 200'],
     Review: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
   };
   
   const data = store.getState();
-  console.log(data)
+  // console.log(data)
   const product = data.fetchProductReducer.products;
   console.log("--------------------------")
-  console.log(product[0].Brand);
-
+  console.log(product[0].Brand); 
   const [selectedCategory, setSelectedCategory] = useState<keyof typeof options | ''>('');
   const [selectedOptions, setSelectedOptions] = useState<{ [key in keyof typeof options]?: string }>({});
   const handleOptionSelect = (category: keyof typeof options, option: string) => {
@@ -27,12 +29,9 @@ const FilterScreen = () => {
       return newOptions;
     });
   };
-
-  const navigation = useNavigation();
   const goBack = () => {
     navigation.goBack();
   }
-
   const clearAll = () =>{
     setSelectedOptions({
       Brand: '',
@@ -44,16 +43,14 @@ const FilterScreen = () => {
   }
   
   const ApplyFilter = () => {
-      const prod = product.filter((it: { Brand: string; Grade: { toString: () => string; }[]; BagSize: string; })  => 
-       (selectedOptions.Brand === undefined || (it.Brand.toString().toLowerCase() === selectedOptions.Brand?.toLowerCase()))
-     &&(selectedOptions.Grade === undefined || (it.Grade[0].toString().toLowerCase() === selectedOptions.Grade?.toLowerCase())) 
-     &&(selectedOptions.BagSize === undefined || (it.BagSize.toLowerCase().toLowerCase() === selectedOptions.BagSize?.toLowerCase())) 
-     &&(selectedOptions.Price === undefined || (it.Brand.toLowerCase().toLowerCase() === selectedOptions.Brand?.toLowerCase()))
+    const prod = product.filter((it: { Brand: string; Grade: { toString: () => string; }[]; BagSize: string[]; }) => 
+      (selectedOptions.Brand === undefined || (it.Brand.toString().toLowerCase() === selectedOptions.Brand?.toLowerCase()))
+      && (selectedOptions.Grade === undefined || (it.Grade[0].toString().toLowerCase() === selectedOptions.Grade?.toLowerCase()))
+      && (selectedOptions.BagSize === undefined || it.BagSize.some(size => size.toLowerCase() === selectedOptions.BagSize?.toLowerCase()))
+      && (selectedOptions.Price === undefined || (it.Brand.toLowerCase() === selectedOptions.Brand?.toLowerCase()))
     );
-      navigation.navigate('FilteredProducts', { prod });
+    navigation.navigate('FilteredProducts' as never, { prod });
   }
-    
-
   return (
     <View style={styles.container}>
       <View style={styles.filterHeader}>
@@ -81,7 +78,7 @@ const FilterScreen = () => {
         </View>
         </View>
 
-        <View style={styles.column}>
+        <View style={styles.column2}>
           {selectedCategory ? (
             <ScrollView>
               {options[selectedCategory].map((option: string, index: number) => (
@@ -105,16 +102,13 @@ const FilterScreen = () => {
 
       <View style={styles.footer}>
         <TouchableOpacity style={styles.closeButton} onPress={goBack}>
-          <Text style={styles.closeButtonText}>CLOSE</Text>
+          <CloseButton />
         </TouchableOpacity>
         <TouchableOpacity style={styles.applyButton} onPress={ApplyFilter} >
-          <Text style={styles.applyButtonText}>APPLY</Text>
+          <ApplyButton />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-
-
 export default FilterScreen;

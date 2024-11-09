@@ -5,7 +5,7 @@ import CartBody from './CartBody';
 
 function CartScreen() {
   return (
-    <View>
+    <View style={{backgroundColor :"white"}}>
       <CartHeader/>
       <CartBody/>
     </View>

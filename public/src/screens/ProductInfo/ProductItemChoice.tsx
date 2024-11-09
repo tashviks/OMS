@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput, Alert } from 'react-native';
-import AddedToCart from './AddedToCart';
 import { addToCart } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import Review from '../../assets/review';
 import { ProductItemChoiceStyles as styles } from './styles';
 import ProductDescription from './ProductDescription';
 import { updateQuantity } from '../../redux/action';
+import HeartIcon from '../../assets/heart';
 interface ProductProps {
   id : number;
   title: string;
+  image : string;
   price: number;
-  image: any;
   sku: string;
   name: string;
   brand: string;
@@ -22,57 +22,30 @@ interface ProductProps {
   maxOrderQty: number;
   inStock: number;
 }
-const ProductItemChoice: React.FC<ProductProps> = ({
-  id,
-  sku,
-  name,
-  brand,
-  review,
-  price,
-  grade,
-  bagSize,
-  minOrderQty,
-  maxOrderQty,
-  inStock,
-}) => {
+const ProductItemChoice: React.FC<ProductProps> = (product : ProductProps) => {
   const [selectedGrade, setSelectedGrade] = useState('' as string);
   const[selectBagSize , setSelectBagSize] = useState('' as string);
   const [quantity, setQuantity] = useState(1);
-  const [infoState , setInfostate] = useState('Description');
-  const [desc , setDesc] = useState('This is description');
-
-  const setDes = () => {
-    if(infoState === 'Description'){
-      setDesc('This is a description');
-    }
-    else if(infoState === 'Know More'){
-      setDesc('This is to know more');
-    }
-    else if(infoState === 'Hello'){
-      setDesc('Hello');
-    }
-  }
+  // console.log(product);
   const dispatch = useDispatch();
   const CartItem = {
-    id: id,
-    name: name,
-    brand: brand,
-    price: price,
+    id: product.id,
+    name: product.name,
+    brand: product.brand,
+    price: product.price,
     quantity: quantity,
     grade: selectedGrade,
     bag_size: selectBagSize,
+    img : product.image,
   };
   const AddToCart = (CartItem : any) => {
-    
     if(CartItem.grade === '' && CartItem.bag_size === ''){
       alert("Please select grade and bag size");
       return;
-    }
-    else if(CartItem.grade == ''){
+    } else if(CartItem.grade == ''){
       alert("Please select grade");
       return;
-    }
-    else if(CartItem.bag_size == ''){
+    } else if(CartItem.bag_size == ''){
       alert("Please select bag size");
       return;
     }
@@ -80,16 +53,15 @@ const ProductItemChoice: React.FC<ProductProps> = ({
     dispatch(addToCart(CartItem));
     dispatch(updateQuantity(quantity));
   }
-
 return (
       <View style={styles.container}>
         <View style={styles.skuAndBrandContainer}>
-          <Text style={styles.sku}>SKU ID: {sku}</Text>
-          <Text style = {styles.brand}>Brand: {brand}</Text>
+          <Text style={styles.sku}>SKU ID: {product.sku}</Text>
+          <Text style = {styles.brand}>Brand: {product.brand}</Text>
         </View>
 
         <View style = {styles.nameContainer}>
-            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.name}>{product.name}</Text>
         </View>
 
         <View style={styles.reviewContainer}>
@@ -97,7 +69,7 @@ return (
         </View>
 
         <View style={styles.priceContainer}>
-          <Text style={styles.salePrice}>₹{price}</Text>
+          <Text style={styles.salePrice}>₹{product.price}</Text>
           <Text style={styles.mrp}>₹{"100"}</Text>
         </View>
 
@@ -107,11 +79,11 @@ return (
 
             <View style = {styles.gradeOptionsContainer}>
 
-                {grade.map((g : string, index : number) => (
+                {product.grade.map((g : string, index : number) => (
 
                 <TouchableOpacity key={index} style={[ styles.gradeOptions, selectedGrade === g ? { borderColor: 'red', borderWidth: 2 } : {}, ]}
                   onPress={() => { setSelectedGrade(g);
-                  console.log(selectedGrade);
+                  // console.log(selectedGrade);
                   }}>
                   <View style={styles.gradeOptions}>
                   <Text>{g}</Text>
@@ -125,10 +97,10 @@ return (
 
           <View style = {styles.bagSizeContainer}>
             <Text style = {styles.gradeHeading}>Bag Size: </Text>
-              {bagSize.map((g : string, index : number) => (
-                  <TouchableOpacity key={index} style={[styles.gradeOptions,selectBagSize === g ? { borderColor: 'red', borderWidth: 2 } : {},]}
+              {product.bagSize.map((g : string, index : number) => (
+                  <TouchableOpacity key={index} style={[styles.gradeOptions, selectBagSize === g ? { borderColor: 'red', borderWidth: 2 } : {},]}
                     onPress={() => {setSelectBagSize(g)
-                    console.log(selectBagSize);
+                    // console.log(selectBagSize);
                     }}>
                     <View style={styles.gradeOptions}>
                     <Text>{g}</Text>
@@ -141,87 +113,58 @@ return (
         <View style={styles.additionalInfo}>
           <View >
              <Text style={styles.minOQ}>Min Order Qty</Text>
-             <Text>{minOrderQty}</Text>
+             <Text>{product.minOrderQty}</Text>
           </View>
 
           <View>
              <Text style={styles.maxOQ}>Max Order Qty</Text>
-             <Text>{maxOrderQty}</Text>
+             <Text>{product.maxOrderQty}</Text>
           </View>
 
           <View>
             <Text style={styles.inStock}>In Stock</Text>
-            <Text>{inStock}</Text>
+            <Text>{product.inStock}</Text>
           </View>
         </View>
-        <View style={styles.qtySelector}>
-          <Text style={styles.qtyText}>Quantity Selector</Text>
-          <View style={styles.qtyContainer}>
-            <TouchableOpacity onPress={() => setQuantity(quantity > minOrderQty ? quantity - 1 : quantity)}>
-             <View style={styles.qtyChangeButton}>
-               <Text style={styles.qtyButton}>-</Text>
+        <View style={{flexDirection : 'row' , marginLeft : 50 , marginRight : 150}}>
+          <View style={styles.qtySelector}>
+              <Text style={styles.qtyText}>Quantity</Text>
+              <View style={styles.qtyContainer}>
+                <TouchableOpacity onPress={() => setQuantity(quantity > product.minOrderQty ? quantity - 1 : quantity)}>
+                <View style={styles.qtyChangeButton}>
+                  <Text style={styles.qtyButton}>—</Text>
+                  </View>
+                </TouchableOpacity>
+                <TextInput
+                  style={styles.qtyValue}
+                  value={quantity.toString()}
+                  onChangeText={(text) => {
+                  const newQuantity = parseInt(text, 10);
+                  if (!isNaN(newQuantity) && newQuantity >= product.minOrderQty && newQuantity <= product.maxOrderQty && newQuantity <= product.inStock) {
+                    setQuantity(newQuantity);}}}/>
+                <TouchableOpacity onPress={() => setQuantity((quantity < product.maxOrderQty && quantity < product.inStock) ? quantity + 1 : quantity)}>
+                <View style={styles.qtyChangeButton}>
+                  <Text style={styles.qtyButton}>＋</Text>
+                  </View>
+                </TouchableOpacity>
+                {/*to add total amount*/}
               </View>
-            </TouchableOpacity>
-            <TextInput
-              style={styles.qtyValue}
-              value={quantity.toString()}
-              onChangeText={(text) => {
-              const newQuantity = parseInt(text, 10);
-              if (!isNaN(newQuantity) && newQuantity >= minOrderQty && newQuantity <= maxOrderQty && newQuantity <= inStock) {
-                setQuantity(newQuantity);}}}/>
-
-            <TouchableOpacity onPress={() => setQuantity((quantity < maxOrderQty && quantity < inStock) ? quantity + 1 : quantity)}>
-            <View style={styles.qtyChangeButton}>
-               <Text style={styles.qtyButton}>+</Text>
-              </View>
-            </TouchableOpacity>
+          </View>
+          <View style={{position : 'relative'}}>
+              <Text>{`Total Value:`}</Text>
+              <Text style={{fontWeight : 'bold' , fontSize : 16 , fontFamily : 'inter' , color : 'black'}}>{` ₹${product.price * quantity}`}</Text>
+            </View>
+        </View>
+        <View style={{flexDirection : 'row'}}>
+          <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
+              <Text style={styles.addToCartText}>Add to Cart</Text>
+          </TouchableOpacity>
+          <View style={{marginLeft : 50 , marginTop : 17}}>
+            <HeartIcon/>
           </View>
         </View>
-        <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
-            <Text style={styles.addToCartText}>Add to Cart</Text>
-        </TouchableOpacity>
-
-        <View style = {styles.DesContainer} >
-
-            <View >
-              <TouchableOpacity onPress={() => {
-                setInfostate('Description')
-                setDes();
-                }}>
-                  <Text style={styles.DescText}>Description</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View>
-              <TouchableOpacity onPress={() => {
-                setInfostate('Know More')
-              setDes();
-              }}>
-                  <Text style={styles.DescText} >Know More</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View>
-              <TouchableOpacity onPress={() => {
-                setInfostate('Hello')
-                setDes();
-                }}>
-                  <Text style={styles.DescText} >Hello</Text>
-              </TouchableOpacity>
-            </View>
-
-       </View>
-
-        <View>
-          <Text>
-            {desc}
-          </Text>
-        </View>
-
-
+        <ProductDescription/>
       </View>
   );
 };
 export default ProductItemChoice;
-
-

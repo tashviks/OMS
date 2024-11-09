@@ -1,0 +1,6 @@
+# Use a lightweight base image
+FROM alpine:latest
+WORKDIR /app
+COPY server-binary /app/server_binary 
+RUN chmod +x /app/server_binary 
+CMD ["./server_binary"]

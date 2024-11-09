@@ -17,7 +17,7 @@ interface CartItemProps {
 }
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
-  console.log(item.img)
+  // console.log(item.img)
   const DecreaseQuantity = (item : any) => {
     dispatch(decreaseQuantity(item));
     dispatch(updateQuantity(-1));
@@ -37,16 +37,20 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 <Text style={styles.itemPrice}>₹{item.price}</Text>
             </View>
         </View>
-        <View style={styles.quantityContainer}>
-          <TouchableOpacity onPress={() => DecreaseQuantity(item)}>
-            <Text style={styles.button}>-</Text>
-          </TouchableOpacity>
-          <Text style={styles.quantity}>{item.quantity}</Text>
-          <TouchableOpacity onPress={()=> IncreaseQuantity(item)}>
-            <Text style={styles.button}>+</Text>
-          </TouchableOpacity>
+        <View style={styles.itemDetails}>
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity onPress={() => DecreaseQuantity(item)}>
+              <Text style={styles.button}>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantity}>{item.quantity}</Text>
+            <TouchableOpacity onPress={()=> IncreaseQuantity(item)}>
+              <Text style={styles.button}>+</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+          <Text style={styles.itemTotal}> ₹{item.price * item.quantity}</Text>
+          </View>
         </View>
-        <Text style={styles.itemTotal}>Total ₹{item.price * item.quantity}</Text>
     </View>
   );
 };

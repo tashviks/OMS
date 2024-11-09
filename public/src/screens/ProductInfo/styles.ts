@@ -148,7 +148,7 @@ export const ProductInfoImageGalleryStyles = StyleSheet.create({
 export const ProductItemChoiceStyles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
-      height : '104%'
+      height : 1000,
     },
     skuAndBrandContainer: {
       flexDirection: 'row',
@@ -255,24 +255,22 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     },
     qtySelector: {
       marginBottom : 20,
+      marginRight : 130,
       justifyContent : 'center',
-      gap :30,
       alignItems : 'center',
       display : 'flex',
-      flexDirection : 'row'
+      flexDirection : 'row',
+      
     },
     addToCart: {
       marginTop : 10,
       marginBottom: 100,
       justifyContent: 'center',
       alignItems: 'center',
-      width: 150,
       marginLeft: 30,
       backgroundColor : '#f15927',
       width : 274,
       height : 42,
-      
-
     },
     addToCartText: {
       fontFamily: 'Inter',
@@ -281,8 +279,6 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       lineHeight: 26,
       textAlign: 'center',
       color: '#fff',
-      
-
     },
     sku : {
       fontFamily: 'Inter',
@@ -308,7 +304,7 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop : 10,
-      marginLeft :70
+      marginLeft :20,
     },
     qtyButton: {
       borderRadius: 5,
@@ -318,8 +314,7 @@ export const ProductItemChoiceStyles = StyleSheet.create({
       color : '#f15927'
     },
     qtyChangeButton: {
-      borderColor : '#f15927',
-      borderWidth : 1,
+      backgroundColor : '#fef2ee',
       width : 44,
       height : 36,
       alignItems: 'center',
@@ -349,25 +344,39 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     },
     qtyText:{
       marginTop : 10,
-      paddingTop : 2
+      paddingTop : 2,
+      fontFamily : 'Inter',
+      fontSize : 14,
+      fontWeight : '400',
     },
-    DescText : {
-      fontSize : 20,
-      fontWeight : 'bold',
-      color : 'black',
-      padding : 10,
-      borderBottomColor : 'black',
-      borderBottomWidth : 0.5,
-      marginTop: 20,
-      marginBottom : "auto",
-    },
-    DesContainer : {
-      display : 'flex',
-      flexDirection : 'row',
-      gap : 40,
-    }
+  
   });  
 
 export const ProductDescStyles = StyleSheet.create({
- 
+  DescText : {
+    fontSize : 16,
+    fontWeight : 'bold',
+    color : '#686868',
+    padding : 10,
+    marginTop: 0,
+    marginBottom : "auto",
+    marginRight : -10
+  },
+  DesContainer : {
+    display : 'flex',
+    flexDirection : 'row',
+    gap : 60,
+    padding : 10,
+    marginTop : -50,
+    borderBottomWidth : 0.5,
+    borderBottomColor : '#686868',
+  },
+  description : {
+    padding : 10,
+    marginLeft : 10,
+    marginRight : 10,
+    fontSize : 12,
+    color : 'black',
+    textAlign : 'justify',
+  }
 });

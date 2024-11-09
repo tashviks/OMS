@@ -5,13 +5,13 @@ import InfraMarket from '../../assets/infraMarket'
 import CartIcon from '../../assets/cartIcon';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import searchData from '../searchData';
+import searchData from '../../assets/searchData';
 import { useDispatch } from 'react-redux';
 import store from '../../redux/store';
 function defaultHeader() {
+    const navigation : any = useNavigation();
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData , setFilterData] = React.useState(['']);
-    const [cartItems , setCartItems] = useState(0);
     const goToSeacrh = () =>{
         navigation.navigate('SearchScreen', {search : searchQuery});
     }
@@ -50,13 +50,13 @@ function defaultHeader() {
                 return itemLower.includes(queryLower);
             });
             setFilterData(filteredData);
-            console.log(filterData);
+            // console.log(filterData);
         }
         else {
             setFilterData([]);
         }    
     }
-    const navigation = useNavigation();
+    
     const goToCart = ()=>{
         navigation.navigate('CartScreen' as never);
     }

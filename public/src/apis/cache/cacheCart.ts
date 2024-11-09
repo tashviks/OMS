@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// Function to save cart data to AsyncStorage
 export const saveCartToStorage = async (cartData : any) => {
   try {
     const jsonValue = JSON.stringify(cartData);

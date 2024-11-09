@@ -7,6 +7,4 @@ type Order struct {
 	UserID      int       `json:"UserID" gorm:"not null"`
 	PaymentMode string    `json:"PaymentMode"`
 	CreatedAt   time.Time `json:"CreatedAt"`
-    
 }
-

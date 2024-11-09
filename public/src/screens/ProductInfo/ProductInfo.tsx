@@ -48,7 +48,7 @@ const ProductInfo = ({ route }: { route: RouteParams }) => {
             maxOrderQty={product.MaxOrderQty} 
             inStock={product.InStock} 
             />
-            <ProductDescription />
+  
         </ScrollView>
     </View>
   )
