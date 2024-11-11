@@ -86,7 +86,7 @@ return (
                   // console.log(selectedGrade);
                   }}>
                   <View style={styles.gradeOptions}>
-                  <Text>{g}</Text>
+                  <Text style={{ color : 'black' , fontWeight : 'bold'}}>{g}</Text>
                   </View>
                 </TouchableOpacity>
                 ))}
@@ -103,7 +103,7 @@ return (
                     // console.log(selectBagSize);
                     }}>
                     <View style={styles.gradeOptions}>
-                    <Text>{g}</Text>
+                    <Text style={{ color : 'black' , fontWeight : 'bold'}}>{g}</Text>
                     </View>
                   </TouchableOpacity>
               ))}
@@ -113,17 +113,17 @@ return (
         <View style={styles.additionalInfo}>
           <View >
              <Text style={styles.minOQ}>Min Order Qty</Text>
-             <Text>{product.minOrderQty}</Text>
+             <Text style={{ color : 'black' }}>{product.minOrderQty}</Text>
           </View>
 
           <View>
              <Text style={styles.maxOQ}>Max Order Qty</Text>
-             <Text>{product.maxOrderQty}</Text>
+             <Text style={{ color : 'black' }}>{product.maxOrderQty}</Text>
           </View>
 
           <View>
             <Text style={styles.inStock}>In Stock</Text>
-            <Text>{product.inStock}</Text>
+            <Text style={{ color : 'black' }}>{product.inStock}</Text>
           </View>
         </View>
         <View style={{flexDirection : 'row' , marginLeft : 50 , marginRight : 150}}>
@@ -151,7 +151,7 @@ return (
               </View>
           </View>
           <View style={{position : 'relative'}}>
-              <Text>{`Total Value:`}</Text>
+              <Text style={{ color : 'grey'}}>{`Total Value:`}</Text>
               <Text style={{fontWeight : 'bold' , fontSize : 16 , fontFamily : 'inter' , color : 'black'}}>{` ₹${product.price * quantity}`}</Text>
             </View>
         </View>

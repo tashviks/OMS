@@ -9,7 +9,7 @@ export const fetchProductReducer = (state = initialState, action : any) => {
     case FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
-        products: action.payload,
+        products: state.products ? [...state.products, ...action.payload] : action.payload,
         error: null,
       };
     case FETCH_PRODUCTS_FAILURE:

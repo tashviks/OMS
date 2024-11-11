@@ -2,7 +2,9 @@ package services
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+	"strconv"
 	"tashvik-oms/server/internal"
 )
 
@@ -11,7 +13,10 @@ type Product struct {
 }
 
 func (r *Product) GetProducts(res http.ResponseWriter, req *http.Request) {
-	products, err := r.Repo.GetProducts()
+	offset := req.URL.Query().Get("offset")
+	convertedOffset, err := strconv.Atoi(offset)
+	log.Println("Offset:", convertedOffset , err)
+	products, err := r.Repo.GetProducts(convertedOffset)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
 	}

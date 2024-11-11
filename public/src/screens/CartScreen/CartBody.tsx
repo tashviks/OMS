@@ -75,7 +75,7 @@ const CartBody = () => {
         <Text style={{ fontWeight: 'bold',
             color: 'black', 
             fontSize : 20,}}>{coupon}</Text>
-          {coupon === 'WOW !! SO EMPTY' ? (<Text>No coupon applied</Text>) : (<Text>Coupon applied</Text>)}
+          {coupon === 'WOW !! SO EMPTY' ? (<Text style={{color : 'black'}}>No coupon applied</Text>) : (<Text style={{color : 'black'}}>Coupon applied</Text>)}
         </View>
         <TouchableOpacity onPress={() => {
           setDiscount(0);
@@ -92,12 +92,12 @@ const CartBody = () => {
           <Text style={styles.subTotalText}>₹{subTotal}</Text>
         </View>
         <View style={styles.shipping}>
-          <Text>Shipping: </Text>
-          <Text>₹{shipping}</Text>
+          <Text style={{color : 'grey'}}>Shipping: </Text>
+          <Text style={{color : 'grey'}}>₹{shipping}</Text>
         </View>
         <View style={styles.discount}>
-          <Text>Coupon Discount:</Text>
-          <Text> - ₹{discount}</Text>
+          <Text style={{color : 'grey'}}>Coupon Discount:</Text>
+          <Text style={{color : 'grey'}}> - ₹{discount}</Text>
         </View>
         <View style={styles.subTotal}>
           <Text style={styles.total}>Total Amount:</Text>

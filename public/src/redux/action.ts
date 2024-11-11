@@ -18,6 +18,7 @@ import { FETCH_ADDRESS } from './constants';
 import { FETCH_ADDRESS_SUCCESS } from './constants';
 import { FETCH_ADDRESS_FAILURE } from './constants';
 import { SET_QTY } from './constants';
+import { SET_OFFSET } from './constants';
 
 
 export function addToCart(item : any){
@@ -67,14 +68,19 @@ export function setUser(item: any){
         type: SET_USER,
         payload: item
     }
-}   
-
+} 
+export function setOffset(item: any){
+    return {
+        type: SET_OFFSET,
+        payload: item
+    }
+}  
 // Epic Actions 
 export const fetchCart = () => ({ type: FETCH_CART });
 export const fetchCartSuccess = (item : any) => ({ type: FETCH_CART_SUCCESS, payload: item });
 export const fetchCartFailure = (item : any) => ({ type: FETCH_CART_FAILURE, payload: item  });
 
-export const fetchProducts = () => ({ type: FETCH_PRODUCTS });
+export const fetchProducts = (item : any) => ({ type: FETCH_PRODUCTS , payload : item });
 export const fetchProductsSuccess = (item : any) => ({ type: FETCH_PRODUCTS_SUCCESS, payload: item });
 export const fetchProductsFailure = (item : any) => ({ type: FETCH_PRODUCTS_FAILURE, payload: item  });
 

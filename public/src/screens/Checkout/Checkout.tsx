@@ -78,9 +78,9 @@ function Checkout({navigation} : any) {
                 }}
                 style={{borderWidth: 1,borderColor: ShippingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
                 <View style={styles.addressBox}>
-                  <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
+                  <Text style={{fontWeight : 'bold' , color : 'black'}}>{item.addressHeading}</Text>
                   <Text></Text> 
-                  <Text>{item.address}</Text>
+                  <Text style={{ color : 'grey'}}>{item.address}</Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -100,9 +100,9 @@ function Checkout({navigation} : any) {
                 onPress={() => setBillingAddress(item)}
                 style={{borderWidth: 1,borderColor: BillingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
                 <View style={styles.addressBox}>
-                  <Text style={{fontWeight : 'bold'}}>{item.addressHeading}</Text>
+                  <Text style={{fontWeight : 'bold' , color : 'black'}}>{item.addressHeading}</Text>
                   <Text></Text>
-                  <Text>{item.address}</Text>
+                  <Text style={{ color : 'grey'}}>{item.address}</Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -130,7 +130,7 @@ function Checkout({navigation} : any) {
                   borderColor: PaymentMethod?.id === method.id ? '#f15927' : 'white',
                   marginVertical: 5,
                 }}>
-                <Text>{method.method}</Text>
+                <Text style={{color : 'black'}} >{method.method}</Text>
               </TouchableOpacity>
             ))}
           </View>

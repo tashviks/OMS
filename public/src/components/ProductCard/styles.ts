@@ -20,6 +20,7 @@ export const styler = StyleSheet.create({
       marginTop: 10,
     },
     title: {
+      color: '#000',
       fontSize: 14,
       fontWeight: 'bold',
     },
@@ -33,6 +34,7 @@ export const styler = StyleSheet.create({
       gap : 2
     },
     mrp:{
+      color : 'grey',
       marginTop : 7,
       textDecorationLine: 'line-through',
     },

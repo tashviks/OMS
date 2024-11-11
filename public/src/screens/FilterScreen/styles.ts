@@ -25,6 +25,7 @@ export const FilterScreenStyles = StyleSheet.create({
     filterText: {
       fontSize: 22,
       fontWeight: '600',
+      color : 'black'
     },
     clearAll: {
       fontSize: 16,
@@ -61,6 +62,7 @@ export const FilterScreenStyles = StyleSheet.create({
     categoryText: {
       fontSize: 16,
       fontWeight: '500',
+      color: '#000000',
     },
     optionItem: {
       padding: 15,
@@ -72,6 +74,7 @@ export const FilterScreenStyles = StyleSheet.create({
     },
     optionText: {
       fontSize: 16,
+      color: '#000000',
     },
     emptyText: {
       padding: 15,

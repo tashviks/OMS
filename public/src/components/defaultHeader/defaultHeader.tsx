@@ -137,9 +137,11 @@ const styles = StyleSheet.create({
         marginLeft : 160,
         display : 'flex',
         flexDirection : 'row',
+       
     },
     cartText : {
-        marginTop : 2
+        marginTop : 2,
+        color : 'grey',
     }
 
     });

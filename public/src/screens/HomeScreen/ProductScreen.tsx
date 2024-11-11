@@ -11,22 +11,23 @@ import { getCartFromStorage, saveCartToStorage } from '../../apis/cache/cacheCar
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setProducts, fetchCart, fetchProducts, fetchCartItems, updateQuantity , setQuantity } from '../../redux/action';
 import { NavigationProp } from '@react-navigation/native';
+import ContinueButton from '../../assets/continueButton';
+import { setOffset } from '../../redux/action';
+import store from '../../redux/store';
 const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   // console.log("ProductScreen");
+  const offSet = useSelector((state: any) => state.setOffsetReducer);
+  console.log("Offset", offSet);
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state.fetchProductReducer.products);
   const isLoading = useSelector((state: any) => state.fetchProductReducer.isLoading);
-
-
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ offset: offSet }));
   }, [dispatch]);
-
   // const cartEpic = useSelector((state: any) => state.fetchCartReducer.cart);
   // useEffect(() => {
   //   dispatch(fetchCart());
   // }, [dispatch]);
-
   // useEffect(() => {
   //   if (cartEpic && cartEpic.ID !== undefined) {
   //     setCartId(cartEpic.ID);
@@ -49,7 +50,6 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   //     dispatch(setQuantity(totalQty));
   // }
   // },[cartItems, dispatch]);
-
   const [cart, setCart] = useState<any[]>([]);
   const loadCartData = async () => {
     let cachedCart = await getCartFromStorage(); 
@@ -60,7 +60,6 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
     loadCartData();
   } , []);
   // console.log(cart);
-  
   useEffect(() => {
     if(cart !== undefined && cart !== null){
       let totalQty : number = 0;
@@ -72,6 +71,12 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   }
   },[cart, dispatch]);
 
+const handleProds = () => {
+  console.log("handleProds");
+  const currOffset = store.getState().setOffsetReducer;
+  dispatch(fetchProducts({ offset: currOffset + 1 }));
+  dispatch(setOffset(currOffset + 1));
+}
   return (
     <View style={styles.container}>
       <DefaultHeader />
@@ -97,6 +102,8 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
           )}
           numColumns={2}
           columnWrapperStyle={styles.row}
+          // onScroll={handleScroll}
+          onEndReached={handleProds}
           contentContainerStyle={styles.scrollContainer}
         />
       )}

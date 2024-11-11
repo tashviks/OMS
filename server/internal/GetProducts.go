@@ -3,9 +3,10 @@ package internal
 import (
 	"tashvik-oms/server/models"
 )
-func (r *Database) GetProducts() ([]models.Product, error) {
+
+func (r *Database) GetProducts(offset int) ([]models.Product, error) {
 	var products []models.Product
-	result := r.DB.Find(&products)
+	result := r.DB.Limit(6).Offset(offset*6).Find(&products)
 	if result.Error != nil {
 		return nil, result.Error
 	}

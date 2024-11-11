@@ -36,5 +36,6 @@ func main() {
 	http.HandleFunc("/UpdateCartItems", updateCartItem.UpdateCartItem)
 	
 	fmt.Println("Starting server on port 8080")
+	fmt.Println("This is a samle message to test what I have done")
 	http.ListenAndServe(":8080", nil)
 }

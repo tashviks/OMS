@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 type Iinternal interface {
-	GetProducts() ([]models.Product, error)
+	GetProducts(offset int) ([]models.Product, error)
 	GetAddress(userID string) ([]models.Address, error)
 	GetGrade(productID string, grade string, bagSize string) ([]models.ProductGrade, error)
 	PostOrders(order models.Order) (models.Order, error)

@@ -8,7 +8,7 @@ export const GET_NET_DETAILS = 'get_net_details';
 export const SET_PRODUCTS = 'set_products';
 export const SET_ADDRESS = 'set_address';
 export const SET_USER= 'set_user';
-
+export const SET_OFFSET = 'set_offset';
 
 // Epics Constants 
 

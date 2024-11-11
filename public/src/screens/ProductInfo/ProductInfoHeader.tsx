@@ -41,7 +41,7 @@ function ProductInfoHeader() {
       <TouchableOpacity onPress={goToCart}>
       <View style = {styles.cartIconCon}>
         <CartIcon/>
-        <Text>{len}</Text>
+        <Text style={{ color : 'grey'}}>{len}</Text>
       </View>
       </TouchableOpacity>
     </View>

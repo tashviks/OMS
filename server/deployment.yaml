@@ -1,40 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-go-server
-  labels:
-    app: my-go-server
+  name: oms-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-go-server
+      app: oms-backend
   template:
     metadata:
       labels:
-        app: my-go-server
+        app: oms-backend
     spec:
       containers:
-      - name: my-go-server
-        image: my-go-server:latest
+      - name: oms-backend
+        image: tashvik/oms-backend:latest
         ports:
         - containerPort: 8080
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 20
