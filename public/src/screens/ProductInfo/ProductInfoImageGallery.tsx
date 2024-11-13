@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
 import LeftArrow from '../../assets/leftArrow';
 import { ProductInfoImageGalleryStyles as styles } from './styles';
+import OutOfStock from '../CategoreyWiseProducts/OutOfStock';
 
 const ProductInfoImageGallery = (product : any) => {
   // Fetch the images from database SELECT IMAGES FROM 'IMAGE TABLLE' WHERE PRODUCT_ID = product.id
   const images = [
         { id: 1, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
-        { id: 2, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s' },
-        { id: 3, src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlFEuHS3BhfpRBf3PVQFuBDAjPqGJY2wkKzg&s'},
+        { id: 2, src: 'https://5.imimg.com/data5/UV/PU/XW/SELLER-68311677/dalmia-cement.jpg' },
+        { id: 3, src: 'https://5.imimg.com/data5/SELLER/Default/2021/1/GW/AM/FR/8514149/bangur-cement-ppc-500x500.jpeg'},
     ];
 
   const [selectedImage, setSelectedImage] = useState(images[0].src);

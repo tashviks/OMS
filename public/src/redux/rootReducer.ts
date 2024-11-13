@@ -8,6 +8,7 @@ import qtyReducer from "./Reducers/qtyReducer";
 import { fetchCartReducer } from "./Reducers/fetchCartRedicer";
 import { fetchAddressReducer } from './Reducers/fetchAddressReducert';
 import setOffsetReducer from './Reducers/setOffsetReducer';
+import setFilterReducer from './Reducers/setFilterReducer';
 
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
     fetchProductReducer,
     fetchCartItemsReducer,
     fetchAddressReducer,
-    setOffsetReducer
+    setOffsetReducer,
+    setFilterReducer
 });

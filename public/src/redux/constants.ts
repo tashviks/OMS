@@ -11,6 +11,7 @@ export const SET_USER= 'set_user';
 export const SET_OFFSET = 'set_offset';
 export const EMPTY_CART = 'empty_cart';
 export const REMOVE_FROM_CART = 'remove_from_cart';
+export const SET_FILTER_PRODUCTS = 'set_filter_products';
 
 // Epics Constants 
 
@@ -29,5 +30,7 @@ export const FETCH_CART_ITEMS_FAILURE = 'FETCH_CART_ITEMS_FAILURE';
 export const FETCH_ADDRESS = 'FETCH_ADDRESS';
 export const FETCH_ADDRESS_SUCCESS = 'FETCH_ADDRESS_SUCCESS';
 export const FETCH_ADDRESS_FAILURE = 'FETCH_ADDRESS_FAILURE';
+
+export const SEARCH = 'SEARCH';
 
 

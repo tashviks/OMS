@@ -1,18 +1,28 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { View , StyleSheet, TextInput , Text} from 'react-native'
+import { View , StyleSheet, TextInput , Text, ScrollView} from 'react-native'
 import InfraMarket from '../../assets/infraMarket'
 import CartIcon from '../../assets/cartIcon';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import searchData from '../../assets/searchData';
+import { searchAPI } from '../../apis/searchAPI';
 import { useDispatch } from 'react-redux';
 import store from '../../redux/store';
+import { setFilterProducts } from '../../redux/action';
 function defaultHeader() {
     const navigation : any = useNavigation();
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filterData , setFilterData] = React.useState(['']);
-    const goToSeacrh = () =>{
+    const dispatch = useDispatch();
+    const fetchData = async () => {
+            const res = await searchAPI.search(searchQuery);
+            console.log(res);
+            dispatch(setFilterProducts(res));
+    };   
+    const goToSeacrh = async () =>{
+        await fetchData();
+        console.log(store.getState().setFilterReducer);
         navigation.navigate('SearchScreen', {search : searchQuery});
     }
     const [len, setLen] = useState(store.getState().qtyReducer);
@@ -24,25 +34,22 @@ function defaultHeader() {
         unsubscribe();
       };
     }, []);
+
     const displayList = ()=>{
         if(filterData.length > 0){
             return filterData.map((item, index)=>{
                 return (
-                <TouchableOpacity key={index} onPress={()=>{
-                    setSearchQuery(item)
-                    goToSeacrh();
-                    }}>      
-                <Text key={index}>{item}</Text>
+                <TouchableOpacity key={index} onPress={()=>{setSearchQuery(item)
+                                                            goToSeacrh();}}>      
+                    <Text key={index} style={{fontFamily : "inter" , fontSize : 16 , backgroundColor : "#fff" , padding : 5 }}>{item}</Text>
                 </TouchableOpacity>
                 )
             })
         }
         return null;
     }
-    const dispatch = useDispatch();
-    const handleSearch = (query: string) => {
+    const handleSearch =  (query: string) => {
         setSearchQuery(query);
-        // dispatch(filterProducts(query));
         if(query.length > 0){
             const filteredData = searchData.filter((item)=>{
                 var itemLower = item.toLowerCase();
@@ -50,7 +57,6 @@ function defaultHeader() {
                 return itemLower.includes(queryLower);
             });
             setFilterData(filteredData);
-            // console.log(filterData);
         }
         else {
             setFilterData([]);
@@ -77,8 +83,7 @@ function defaultHeader() {
             placeholder="🔍  Search"
             value={searchQuery}
             onChangeText={handleSearch}/>
-
-            <View style={{zIndex : 3 , backgroundColor: searchQuery.length === 0 ? 'transparent' : 'pink', width: 360, marginLeft: -12, maxHeight : 'auto'}}> 
+            <View style={styles.displayList}> 
                {displayList()}
             </View>
         </View>
@@ -142,6 +147,15 @@ const styles = StyleSheet.create({
     cartText : {
         marginTop : 2,
         color : 'grey',
+    },
+    displayList:{
+        zIndex : 100, 
+        width: 359, 
+        marginLeft: 10, 
+        borderRadius: 5,
+        position: 'absolute',
+        top: 50,
+        backgroundColor: '#fff',
     }
 
     });

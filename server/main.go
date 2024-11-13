@@ -24,6 +24,7 @@ func main() {
 	cart := services.Cart{Repo: &repo}
 	cartItem := services.CartItem{Repo: &repo}
 	updateCartItem := services.UpdateCartItem{Repo: &repo}
+	searchProducts := services.ProductSearch{Repo: &repo}
 
 	http.HandleFunc("/GetProducts", product.GetProducts)
 	http.HandleFunc("/GetAddress", address.GetAddress)
@@ -34,8 +35,8 @@ func main() {
 	http.HandleFunc("/GetCart", cart.GetCart)
 	http.HandleFunc("/GetCartItem", cartItem.GetCartItem)
 	http.HandleFunc("/UpdateCartItems", updateCartItem.UpdateCartItem)
-	
+	http.HandleFunc("/SearchProducts", searchProducts.SearchProducts)
+
 	fmt.Println("Starting server on port 8080")
-	fmt.Println("This is a samle message to test what I have done")
 	http.ListenAndServe(":8080", nil)
 }

@@ -1,4 +1,4 @@
-import {ADD_TO_CART} from './constants';
+import {ADD_TO_CART, SET_FILTER_PRODUCTS} from './constants';
 import { DECREASE_QUANTITY } from './constants';
 import { INCREASE_QUANTITY } from './constants';
 import {SET_PRODUCTS }from './constants';
@@ -87,7 +87,14 @@ export function setOffset(item: any){
         type: SET_OFFSET,
         payload: item
     }
-}  
+} 
+export function setFilterProducts(item: any){
+    return {
+        type: SET_FILTER_PRODUCTS,
+        payload: item
+    }
+}
+
 // Epic Actions 
 export const fetchCart = () => ({ type: FETCH_CART });
 export const fetchCartSuccess = (item : any) => ({ type: FETCH_CART_SUCCESS, payload: item });

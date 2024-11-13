@@ -6,6 +6,7 @@ import { FilterProductStyles as styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import OutOfStock from '../CategoreyWiseProducts/OutOfStock';
+
 const FilteredProducts = ({ route }: any) => {
     const product = route.params.prod;
     if(product === undefined || product.length === 0){
@@ -24,7 +25,7 @@ const FilteredProducts = ({ route }: any) => {
             <TouchableHighlight key={item.ID} onPress={() => {
               navigation.navigate("ProductInfo" , {product : item})
               }} underlayColor="white">
-              <ProductCard title={item.Name} amount={item.Price} image={item.Image} mrp={item.MRP} />
+                <ProductCard title={item.Name} amount={item.Price} image={item.Image} mrp={item.MRP} />
             </TouchableHighlight>
           )}
           numColumns={2}

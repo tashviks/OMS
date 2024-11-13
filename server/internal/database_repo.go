@@ -16,6 +16,7 @@ type Iinternal interface {
 	GetCart(userID string) (models.Cart, error)
 	GetCartItem(cartID string) ([]models.Cart_Item, error)
 	UpdateCartItems(cart []models.Cart_Item) (models.Cart_Item, error)
+	SearchProducts(query string, offset int) ([]models.Product, error)
 }
 type Database struct {
 	DB *gorm.DB

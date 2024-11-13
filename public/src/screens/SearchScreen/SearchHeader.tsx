@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native'
 import BackButton from '../../assets/backButton'
 import { useNavigation } from '@react-navigation/native';
 import { CartHeaderStyles as styles } from './styles';
-function SearchHeader(txt : any) {
+function SearchHeader({txt} : any) {
     const navigation = useNavigation();
     const goBack = ()=>{
         navigation.goBack();
@@ -15,7 +15,7 @@ function SearchHeader(txt : any) {
         <BackButton />
       </TouchableOpacity>
       <View style={styles.cartTextContainer}>
-        <Text style={styles.cartText}>Filtered Data</Text>
+        <Text style={styles.cartText}>Search Results</Text>
       </View>
     </View>
   )
