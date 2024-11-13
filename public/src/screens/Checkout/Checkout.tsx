@@ -11,7 +11,11 @@ import ThankYouImage from '../../assets/thankYouImage';
 import ContinueButton from '../../assets/continueButton';
 import PlaceOrder from '../../assets/placeOrderButton';
 import ContinueShopping from '../../assets/ContinueShopping';
-import { useSelector } from 'react-redux';
+import { clearCartFromStorage } from '../../apis/cache/cacheCart';
+import { useDispatch, useSelector } from 'react-redux';
+import { setQuantity } from '../../redux/action';
+import { emptyCart } from '../../redux/action';
+
 function Checkout({navigation} : any) {
   const dummyItem = useSelector((state: any) => state.reducer); 
   var price = 0;
@@ -40,6 +44,8 @@ function Checkout({navigation} : any) {
     const tmp = add[i].first_line + ',\n' + add[i].second_line + ', ' + add[i].city + ', ' + add[i].state + ', ' +add[i].country + ' - '+ add[i].pincode;
     addresses.push({id : i, address : tmp, addressHeading : add[i].heading});
   }
+
+
   const completePayment = async () => {
     setStep('ThankYou');
     const order_payload = {
@@ -145,7 +151,10 @@ function Checkout({navigation} : any) {
             </View>
             <Text style={styles.thankYouTxt}>Thank you Tashvik!</Text>
             <Text style = {styles.orderIDTxt}>Your order has been placed successfully with order id {order_id}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ProductScreen' as never)}>
+            <TouchableOpacity onPress={() => {
+              clearCart();
+              navigation.navigate('ProductScreen' as never)
+              }}>
               <View>
                 <ContinueShopping/>
               </View>
@@ -163,7 +172,7 @@ function Checkout({navigation} : any) {
       }
   }
 
-
+  const dispatch = useDispatch();
   const handleNext = () => {
     if (step === 'ShippingAddress') {
       setStep('BillingAddress');
@@ -171,6 +180,12 @@ function Checkout({navigation} : any) {
       setStep('PaymentMethod');
     } 
   };
+  const clearCart = () => {
+    clearCartFromStorage();
+    console.log(store.getState().reducer);
+    dispatch(emptyCart(cart));
+    dispatch(setQuantity(0));
+  }
 
   return (
     <View style={{ flex: 1, padding: 20 , backgroundColor : "white" }}>
@@ -183,7 +198,14 @@ function Checkout({navigation} : any) {
         <View style={{ marginBottom: 20 }}>
            <View style={styles.checkOutContainer}>
         <Text style={styles.checkOutTextBottom}>₹{price}</Text>
-        <TouchableOpacity onPress={() => step === "PaymentMethod" ? completePayment() : handleNext()}
+        <TouchableOpacity onPress={() => {
+          if(step === 'PaymentMethod'){
+            completePayment();
+          }
+          else{
+            handleNext();
+          }
+        }}
                                   disabled={(step === 'ShippingAddress' && !ShippingAddress) ||
                                   (step === 'BillingAddress' && !BillingAddress) ||
                                   (step === 'PaymentMethod' && !PaymentMethod)}>

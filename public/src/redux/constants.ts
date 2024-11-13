@@ -9,6 +9,8 @@ export const SET_PRODUCTS = 'set_products';
 export const SET_ADDRESS = 'set_address';
 export const SET_USER= 'set_user';
 export const SET_OFFSET = 'set_offset';
+export const EMPTY_CART = 'empty_cart';
+export const REMOVE_FROM_CART = 'remove_from_cart';
 
 // Epics Constants 
 

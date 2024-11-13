@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oms-backend
+  name: go-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: oms-backend
+      app: go-backend
   template:
     metadata:
       labels:
-        app: oms-backend
+        app: go-backend
     spec:
       containers:
-      - name: oms-backend
-        image: tashvik/oms-backend:latest
+      - name: go-backend-container
+        image: tashvik/go-backend:latest
         ports:
         - containerPort: 8080

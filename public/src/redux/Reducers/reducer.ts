@@ -1,4 +1,4 @@
-import { ADD_TO_CART , DECREASE_QUANTITY, INCREASE_QUANTITY } from "../constants";
+import { ADD_TO_CART , DECREASE_QUANTITY, EMPTY_CART, INCREASE_QUANTITY, REMOVE_FROM_CART } from "../constants";
 import store from "../store";
 const initialState : any = [];
 
@@ -35,7 +35,10 @@ const reducer = (state = initialState, action : any) => {
         index === incItemIndex ? { ...item, quantity: item.quantity + 1 } : item
       );
       return updatedState;  
-      
+    case EMPTY_CART :
+      return [];
+    case REMOVE_FROM_CART :
+      return state.filter((item: { id: any; }) => item.id !== action.payload.id);
     default:
       return state;
   }

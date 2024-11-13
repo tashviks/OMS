@@ -17,12 +17,12 @@ const FilteredProducts = ({ route }: any) => {
     }
     const navigation = useNavigation();
     return(
-        <View>
+        <View style ={styles.container}>
         <FilterHeader />
         <FlatList data={product} keyExtractor={(item) => item.ID.toString()} 
         renderItem={({ item }) => (
             <TouchableHighlight key={item.ID} onPress={() => {
-              navigation.navigate('ProductInfo' , {product : item} )
+              navigation.navigate("ProductInfo" , {product : item})
               }} underlayColor="white">
               <ProductCard title={item.Name} amount={item.Price} image={item.Image} mrp={item.MRP} />
             </TouchableHighlight>

@@ -19,11 +19,18 @@ import { FETCH_ADDRESS_SUCCESS } from './constants';
 import { FETCH_ADDRESS_FAILURE } from './constants';
 import { SET_QTY } from './constants';
 import { SET_OFFSET } from './constants';
-
+import { EMPTY_CART } from './constants';
+import { REMOVE_FROM_CART } from './constants';
 
 export function addToCart(item : any){
     return {
         type : ADD_TO_CART,
+        payload : item
+    }
+}
+export function emptyCart(item : any){
+    return {
+        type : EMPTY_CART,
         payload : item
     }
 }
@@ -48,6 +55,12 @@ export function increaseQuantity(item: any){
 export function updateQuantity(item: number){
     return {
         type : UPDATE_QUANTITY,
+        payload : item
+    }
+}
+export function removeFromCart(item: any){
+    return {
+        type : REMOVE_FROM_CART,
         payload : item
     }
 }

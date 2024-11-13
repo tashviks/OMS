@@ -30,8 +30,10 @@ const ProductInfoImageGallery = (product : any) => {
 
         <View>
             <View style={styles.scrollContainer}>
-                <TouchableOpacity style={styles.leftArrow} onPress={ChangeImageLeft}>
-                <LeftArrow />
+                <TouchableOpacity onPress={ChangeImageLeft}>
+                <View style={styles.leftArrow}>
+                  <LeftArrow />
+                </View>
                 </TouchableOpacity>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true} contentContainerStyle = {styles.scrollView} >
                 {images.map((image) => (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {View , StyleSheet , Image , Text, TouchableOpacity} from 'react-native'
+import {View , StyleSheet , Image , Text, TouchableOpacity, ScrollView} from 'react-native'
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Cement from '../../assets/cement';
 import Walling from '../../assets/wailing';
@@ -35,7 +35,8 @@ const products = store.getState().fetchProductReducer.products;
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   return (
-    <View style={styles.container}>
+    <ScrollView horizontal={true}>
+      <View style={styles.container}>
       <TouchableOpacity onPress={() => {
         setSelectedCategory('Cement');
         FilterCement()}}>
@@ -62,7 +63,14 @@ const products = store.getState().fetchProductReducer.products;
         }}>
       <Steel/>
       </TouchableOpacity>
-    </View>
+
+      <TouchableOpacity onPress={() => {
+        setSelectedCategory('Cement');
+        FilterCement()}}>
+        <Cement/>
+      </TouchableOpacity>
+      </View>
+    </ScrollView>
   )
 }
 

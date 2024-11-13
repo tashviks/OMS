@@ -1,9 +1,9 @@
 minikube start
-sleep 5
+sleep 2
 kubectl get pods
-sleep 5
+sleep 2
 kubectl get pods
-sleep 5
+sleep 2
 kubectl get pods
-sleep 5
-kubectl port-forward oms-backend-554b4b44b6-ddck5 8080:8080
+sleep 2
+minikube ssh -- "bash -c './run_server.sh'"

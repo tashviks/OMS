@@ -146,11 +146,11 @@ export const ProductInfoImageGalleryStyles = StyleSheet.create({
     marginTop : 20,
     gap : 50,
     flexDirection: 'row',
-    width : 350,
+    width : 400,
     color: 'grey',
   },
   scrollView :{
-    gap : 25,
+    gap : 20,
     color: 'grey',
   },
   thumbnail: {
@@ -163,9 +163,13 @@ export const ProductInfoImageGalleryStyles = StyleSheet.create({
   rightArrow: {
     transform: [{ rotate: '180deg' }],
     color: 'grey',
+    marginTop : 30,
+    marginRight : 20,
   },
   leftArrow:{
     color: 'grey',
+    marginTop : 30,
+    marginLeft : 20,
   }
   });
 
@@ -365,7 +369,8 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     width :58,
     height : 36,
     textAlign : 'center',
-    color: 'grey',
+    color: 'black',
+    fontWeight : 'bold',
   },
   minOQ: {
     fontFamily : 'Inter',

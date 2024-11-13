@@ -28,42 +28,46 @@ export const CheckoutHeaderStyles = StyleSheet.create({
 });
 
 export const TotalItemsStyles = StyleSheet.create({
-    itemContainer: {
-      marginTop : 20,
-      borderWidth: 1,
-      borderColor: '#ddd',
-      paddingBottom: 10,
-      marginBottom: 10,
-      paddingLeft : 20,
-      paddingVertical : 5,
-      maxWidth : 300,
-      marginLeft : 50,
-      borderRadius : 5
-    },
-    containerCard : {
-      flexDirection : 'row',
-      alignItems : 'center',
-      gap : 10
-    },
-    itemTotal:{
-      marginLeft : 90,
-      fontSize : 20,
-      color : 'black',
-    },
-    itemPrice: {
-      fontSize: 14,
-      color: '#666',
-    },
-    img : {
-      width : 50,
-      height : 50,
-      borderRadius : 10,
-    },
-    imgContainer:{
-      
-    }
-      
-  });
+  itemContainer: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    paddingBottom: 10,
+    marginBottom: 10,
+    paddingLeft: 20,
+    paddingVertical: 5,
+    maxWidth: '90%',
+    marginLeft: '5%',
+    borderRadius: 5,
+  },
+  containerCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  itemTotal: {
+    flex: 1,
+    fontSize: 20,
+    color: 'black',
+    textAlign: 'right',
+    marginRight: 15,
+
+  },
+  itemPrice: {
+    fontSize: 14,
+    color: '#666',
+    flexShrink: 1,
+  },
+  img: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+  },
+  imgContainer: {
+    flexShrink: 0,
+  },
+});
 
 export const CheckOutStyles = StyleSheet.create({
   addressHeadingContainer: {

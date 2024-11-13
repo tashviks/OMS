@@ -1,6 +1,6 @@
 export const postOrderLine = async (order_line_payload : any) => {
     try {
-      const response = await fetch('http://localhost:8080/PostOrderLine', {
+      const response = await fetch('https://merry-normally-panda.ngrok-free.app/PostOrderLine', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',

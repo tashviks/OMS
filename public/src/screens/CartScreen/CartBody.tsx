@@ -25,7 +25,7 @@ const CartBody = () => {
   const [discount, setDiscount] = useState(0);
   useEffect(() => {
     if(subTotal === 0)
-      setDiscount(500);
+      setDiscount(0);
     else
       subTotal > 0 && subTotal < 5000 ? setDiscount(0.2*subTotal) : setDiscount(1000);
   });
@@ -37,8 +37,8 @@ const CartBody = () => {
 
   useEffect(()=>{
     dispatch(fetchAddress());
-    // console.log(store.getState())
   }, [dispatch]);
+
   const goToCheckout = async () => {
         if(subTotal > 0){
             const address = store.getState().fetchAddressReducer.address;
@@ -47,7 +47,7 @@ const CartBody = () => {
       }
         else {
           Snackbar.show({
-            text: 'Bhai, kya kar rha hai yaar tu !!',
+            text: 'Cart is empty',
             duration: Snackbar.LENGTH_SHORT,});
         }
   }
@@ -68,7 +68,6 @@ const CartBody = () => {
             style={{ width: 200, height: 200 }}/>
         </View>
       )}
-
       <View style={styles.couponAndremove}>
       <View style={styles.couponContainer}>
         <View style={styles.couponContainerInner}>
@@ -101,7 +100,7 @@ const CartBody = () => {
         </View>
         <View style={styles.subTotal}>
           <Text style={styles.total}>Total Amount:</Text>
-          {subTotal === 0 ? <Text style={styles.total}>₹0</Text> : <Text style={styles.total}>{totalAmount}</Text>}
+          {subTotal === 0 ? <Text style={styles.total}>₹0</Text> : <Text style={styles.total}>₹{totalAmount}</Text>}
         </View>
       </View>
       <View style={styles.checkOutContainer}>

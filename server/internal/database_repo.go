@@ -1,8 +1,11 @@
 package internal
+
 import (
 	"tashvik-oms/server/models"
+
 	"gorm.io/gorm"
 )
+
 type Iinternal interface {
 	GetProducts(offset int) ([]models.Product, error)
 	GetAddress(userID string) ([]models.Address, error)
@@ -17,4 +20,3 @@ type Iinternal interface {
 type Database struct {
 	DB *gorm.DB
 }
-

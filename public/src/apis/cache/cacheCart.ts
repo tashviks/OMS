@@ -17,3 +17,11 @@ export const getCartFromStorage = async () => {
       return null;
     }
 };
+export const clearCartFromStorage = async () => {
+  try {
+    await AsyncStorage.removeItem('@cart_data');
+    console.log("Cart data cleared successfully");
+  } catch (e) {
+    console.error("Failed to clear cart data", e);
+  }
+};

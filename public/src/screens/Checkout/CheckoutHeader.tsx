@@ -20,9 +20,6 @@ function CheckoutHeader() {
         <Text style={styles.cartText}>Checkout</Text>
       </View>
     </View>
-
-
-
   )
 }
 

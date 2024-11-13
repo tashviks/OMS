@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, StyleSheet, Button , Image} fro
 import { decreaseQuantity , increaseQuantity , updateQuantity } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { CartItemStyles } from './styles';
-import store from '../../redux/store';
+import { removeFromCart } from '../../redux/action';
 
 const styles = CartItemStyles;
 interface CartItemProps {
@@ -26,6 +26,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     dispatch(increaseQuantity(item));
     dispatch(updateQuantity(1));
   }
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart(item));
+    dispatch(updateQuantity(-item.quantity));
+  }
   return (
     <View style={styles.itemContainer}>
         <View style = {styles.containerCard}>
@@ -47,8 +51,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               <Text style={styles.button}>+</Text>
             </TouchableOpacity>
           </View>
-          <View>
+          <View style={{ marginTop : -2}}>
           <Text style={styles.itemTotal}> ₹{item.price * item.quantity}</Text>
+          <TouchableOpacity onPress={handleRemoveFromCart}>
+            <Text style = {{marginLeft : 30}}>✖</Text>
+          </TouchableOpacity>
           </View>
         </View>
     </View>
