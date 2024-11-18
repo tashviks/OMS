@@ -13,7 +13,7 @@ import PlaceOrder from '../../assets/placeOrderButton';
 import ContinueShopping from '../../assets/ContinueShopping';
 import { clearCartFromStorage } from '../../apis/cache/cacheCart';
 import { useDispatch, useSelector } from 'react-redux';
-import { setQuantity } from '../../redux/action';
+import { isButtonActive, setQuantity } from '../../redux/action';
 import { emptyCart } from '../../redux/action';
 
 function Checkout({navigation} : any) {
@@ -28,6 +28,7 @@ function Checkout({navigation} : any) {
   const [ShippingAddress, setShippingAddress] = useState<Address | null>(null);
   const [BillingAddress, setBillingAddress] = useState<Address | null>(null);
   const [PaymentMethod, setPaymentMethod] = useState<Payment | null>(null);
+  const [StateToBePassed, setStateToBePassed] = useState<any>(null);
   const [order_id , setOrderID] = useState<number>(0);
   const addresses: { id: number; address: any; addressHeading: any; }[] = [];
   const paymentMethods = [
@@ -80,7 +81,9 @@ function Checkout({navigation} : any) {
                 key={item.id}
                 onPress={() => {
                   // console.log(item);
-                  setShippingAddress(item)
+                  setShippingAddress(item),
+                  dispatch(isButtonActive(true))
+                  console.warn(store.getState().isButtonActive);
                 }}
                 style={{borderWidth: 1,borderColor: ShippingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
                 <View style={styles.addressBox}>
@@ -103,7 +106,7 @@ function Checkout({navigation} : any) {
             {addresses.map((item) => (
               <TouchableOpacity
                 key={item.id}
-                onPress={() => setBillingAddress(item)}
+                onPress={() => {setBillingAddress(item) , dispatch(isButtonActive(true))}}
                 style={{borderWidth: 1,borderColor: BillingAddress?.id === item.id ? '#f15927' : 'white',borderRadius : 10,}}>
                 <View style={styles.addressBox}>
                   <Text style={{fontWeight : 'bold' , color : 'black'}}>{item.addressHeading}</Text>
@@ -128,7 +131,7 @@ function Checkout({navigation} : any) {
                 key={method.id}
                 onPress={() => {
                   // console.log(method);
-                  setPaymentMethod(method)
+                  setPaymentMethod(method) , dispatch(isButtonActive(true))
                 }}
                 style={{
                   padding: 10,
@@ -190,14 +193,14 @@ function Checkout({navigation} : any) {
   return (
     <View style={{ flex: 1, padding: 20 , backgroundColor : "white" }}>
       <CheckoutHeader />
-      <TotalItems />
+      <TotalItems/>
       <View style={{ flex: 1, marginTop: 20 }}>
         {renderStep()}
       </View>
       {step !== 'ThankYou' && (
         <View style={{ marginBottom: 20 }}>
            <View style={styles.checkOutContainer}>
-        <Text style={styles.checkOutTextBottom}>₹{price}</Text>
+        <Text style={styles.checkOutTextBottom}>₹{store.getState().setTotalAmountReducer}</Text>
         <TouchableOpacity onPress={() => {
           if(step === 'PaymentMethod'){
             completePayment();

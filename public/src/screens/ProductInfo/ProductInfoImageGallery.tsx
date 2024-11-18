@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Animated} from 'react-native';
 import LeftArrow from '../../assets/leftArrow';
 import { ProductInfoImageGalleryStyles as styles } from './styles';
 import OutOfStock from '../CategoreyWiseProducts/OutOfStock';
@@ -13,6 +13,8 @@ const ProductInfoImageGallery = (product : any) => {
     ];
 
   const [selectedImage, setSelectedImage] = useState(images[0].src);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
   const ChangeImageLeft = () => {
     const currentIndex = images.findIndex((image) => image.src === selectedImage);
     const nextIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
@@ -25,8 +27,8 @@ const ProductInfoImageGallery = (product : any) => {
   }
   return (
     <View style={styles.container}>
-    <View style = {styles.imgContainer}>
-      <Image source={{ uri: selectedImage }} style={styles.centralImage} />
+    <View style={styles.imgContainer}>
+      <Animated.Image source={{ uri: selectedImage }} style={[styles.centralImage, { opacity: fadeAnim }]} />
     </View>
 
         <View>

@@ -19,7 +19,11 @@ export const fetchProductEpic = (action$ : any) => action$.pipe(
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
+        // sort the respons in ascending order of the id before returning 
+        return response.json().then(data => {
+          data.sort((a: any, b: any) => a.ID - b.ID);
+          return data;
+        });
       })).pipe(
         map(data => fetchProductsSuccess(data)),
         catchError(error => of(fetchProductsFailure(error.message)))

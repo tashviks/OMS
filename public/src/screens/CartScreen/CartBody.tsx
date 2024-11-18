@@ -6,14 +6,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Snackbar from 'react-native-snackbar';
-import { setAddress } from '../../redux/action';
+import { setAddress, setTotalAmount } from '../../redux/action';
 import { fetchAddress } from '../../redux/action';
 import { saveCartToStorage } from '../../apis/cache/cacheCart';
 import { CartBodyStyles as styles } from './styles';
 import LottieView from 'lottie-react-native';
 import CheckoutButton from '../../assets/checkoutButton';
 import store from '../../redux/store';
-
 const CartBody = () => {
   const dispatch = useDispatch();
   const items = useSelector((state: any) => state.reducer === undefined ? null : state.reducer);
@@ -30,6 +29,7 @@ const CartBody = () => {
       subTotal > 0 && subTotal < 5000 ? setDiscount(0.2*subTotal) : setDiscount(1000);
   });
   const totalAmount = subTotal + shipping - discount;
+  dispatch(setTotalAmount(totalAmount));
   const navigation = useNavigation();
   useEffect(() => {
     saveCartToStorage(items);

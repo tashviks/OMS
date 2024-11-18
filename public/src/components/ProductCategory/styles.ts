@@ -8,6 +8,8 @@ export const styler = StyleSheet.create({
         gap : 20,
         padding : 5,
         zIndex : 3,
+        borderBottomWidth : 0.5,
+        borderColor : 'grey',
     },
     iconImage : {   
         width : 100,

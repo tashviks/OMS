@@ -35,7 +35,7 @@ const products = store.getState().fetchProductReducer.products;
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   return (
-    <ScrollView horizontal={true}>
+    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={styles.container}>
       <TouchableOpacity onPress={() => {
         setSelectedCategory('Cement');
@@ -71,6 +71,7 @@ const products = store.getState().fetchProductReducer.products;
       </TouchableOpacity>
       </View>
     </ScrollView>
+    
   )
 }
 

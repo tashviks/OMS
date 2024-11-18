@@ -12,6 +12,8 @@ export const SET_OFFSET = 'set_offset';
 export const EMPTY_CART = 'empty_cart';
 export const REMOVE_FROM_CART = 'remove_from_cart';
 export const SET_FILTER_PRODUCTS = 'set_filter_products';
+export const SET_TOTAL_AMOUNT = 'set_total_amount';
+export const IS_BUTTON_ACTIVE = 'is_button_active';
 
 // Epics Constants 
 

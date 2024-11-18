@@ -9,6 +9,8 @@ import { fetchCartReducer } from "./Reducers/fetchCartRedicer";
 import { fetchAddressReducer } from './Reducers/fetchAddressReducert';
 import setOffsetReducer from './Reducers/setOffsetReducer';
 import setFilterReducer from './Reducers/setFilterReducer';
+import setTotalAmountReducer from './Reducers/setTotalAmountReducer';
+import isButtonActive from './Reducers/isButtonActiveReducer';
 
 
 export default combineReducers({
@@ -21,5 +23,7 @@ export default combineReducers({
     fetchCartItemsReducer,
     fetchAddressReducer,
     setOffsetReducer,
-    setFilterReducer
+    setFilterReducer,
+    setTotalAmountReducer,
+    isButtonActive
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { View, TouchableHighlight, ActivityIndicator, Text } from 'react-native';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import DefaultHeader from '../../components/defaultHeader/defaultHeader';
 import ProductCategorey from '../../components/ProductCategory/ProductCategorey';
@@ -10,20 +10,24 @@ import { HomeScreenStyles as styles } from './styles';
 import { getCartFromStorage, saveCartToStorage } from '../../apis/cache/cacheCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setProducts, fetchCart, fetchProducts, fetchCartItems, updateQuantity , setQuantity } from '../../redux/action';
-import { NavigationProp } from '@react-navigation/native';
-import ContinueButton from '../../assets/continueButton';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { setOffset } from '../../redux/action';
 import store from '../../redux/store';
-const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
+import {CopilotProvider, CopilotStep, useCopilot, walkthroughable } from "react-native-copilot";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const ProductScreenT =  () => {
   // console.log("ProductScreen");
+  const navigation = useNavigation();
   const offSet = useSelector((state: any) => state.setOffsetReducer);
   console.log("Offset", offSet);
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state.fetchProductReducer.products);
   const isLoading = useSelector((state: any) => state.fetchProductReducer.isLoading);
+  const [cart, setCart] = useState<any[]>([]);
+  const { start } = useCopilot();
   useEffect(() => {
     dispatch(fetchProducts({ offset: offSet }));
-  }, [dispatch]);
+  }, []);
   // const cartEpic = useSelector((state: any) => state.fetchCartReducer.cart);
   // useEffect(() => {
   //   dispatch(fetchCart());
@@ -50,7 +54,6 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   //     dispatch(setQuantity(totalQty));
   // }
   // },[cartItems, dispatch]);
-  const [cart, setCart] = useState<any[]>([]);
   const loadCartData = async () => {
     let cachedCart = await getCartFromStorage(); 
     setCart(cachedCart);
@@ -71,34 +74,66 @@ const ProductScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   }
   },[cart, dispatch]);
 
-const handleProds = () => {
-  console.log("handleProds");
-  const currOffset = store.getState().setOffsetReducer;
-  dispatch(fetchProducts({ offset: currOffset + 1 }));
-  dispatch(setOffset(currOffset + 1));
-}
+    const currOffset = store.getState().setOffsetReducer;
+    const handleProds = async () => {
+      console.log("handleProds");
+      dispatch(fetchProducts({ offset: currOffset + 1 }));
+      dispatch(setOffset(currOffset + 1));
+      const ifFirstLaunch = AsyncStorage.getItem('alreadyLaunched');
+      if(await ifFirstLaunch !== 'true'){
+        start();
+      }
+    }
+    useEffect(() => {
+      handleProds();
+    }, []); 
+
+    const WalkthroughableView = walkthroughable(View);
+    const { copilotEvents } = useCopilot();
+    useEffect(() => {
+      const listener = ()=>{
+        AsyncStorage.setItem('alreadyLaunched', 'true');
+      }
+      copilotEvents.on('stop', listener);
+    }, []);
+    
   return (
     <View style={styles.container}>
-      <DefaultHeader />
-      {/* Show loading indicator until products are fetched */}
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />
+      <CopilotStep text="This is the header" order={1} name="header"  >
+      <WalkthroughableView>
+        <View style={{ width: '100%' }}>
+          <DefaultHeader />
+        </View>
+      </WalkthroughableView>
+      </CopilotStep>
+
+      {products === undefined ? (
+        <ActivityIndicator size="large" color="black" style={styles.loading} />
       ) : (
+       
         <FlatList
           data={products}
           keyExtractor={(item) => item.ID.toString()}
           ListHeaderComponent={<ProductCategorey />}
+          showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            <TouchableHighlight
-              key={item.ID}
-              onPress={() => navigation.navigate('ProductInfo', { product: item })}
-              underlayColor="white" >
-              <ProductCard
-                title={item.Name}
-                amount={item.Price}
-                image={item.Image}
-                mrp={item.MRP} />
-            </TouchableHighlight>
+            
+            <View style={{marginTop : 10}}>
+              <TouchableHighlight
+                key={item.ID}
+                onPress={() => navigation.navigate('ProductInfo', { product: item })}
+                underlayColor="white" >
+                
+                <ProductCard
+                  title={item.Name}
+                  amount={item.Price}
+                  image={item.Image}
+                  mrp={item.MRP} />
+                
+              </TouchableHighlight>
+             
+            </View>
+            
           )}
           numColumns={2}
           columnWrapperStyle={styles.row}
@@ -106,23 +141,47 @@ const handleProds = () => {
           onEndReached={handleProds}
           contentContainerStyle={styles.scrollContainer}
         />
+    
       )}
 
-      <View style={styles.cucontainer}>
-        <View style={styles.sortButton}>
-          <SortButton />
-        </View>
+      <View style={[styles.cucontainer]}>
+      <CopilotStep text="Sort Button" order={2} name="sortButton">
+         <WalkthroughableView style={{marginBottom : 0}}>
+         <View> 
+          <View style={styles.sortButton}>
+            <SortButton />
+          </View>
+         </View> 
+         </WalkthroughableView>
+      </CopilotStep>
+
+      <CopilotStep text="Filter Button" order={3} name="filterButton">
+        <WalkthroughableView>
         <View>
           <TouchableHighlight
             onPress={() => navigation.navigate('FilterScreen')}
-            underlayColor={"#FFFFF"}
-          >
+            underlayColor={"#FFFFF"}>
             <FilterButton />
           </TouchableHighlight>
         </View>
+        </WalkthroughableView>
+      </CopilotStep>
       </View>
+      
     </View>
   );
 };
 
+const st = {
+  color : 'black',
+  borderRadius: 10,
+  paddingTop: 5,
+  backgroundColor: "#FF9D3D",
+};
+
+const ProductScreen = () => (
+  <CopilotProvider overlay="view" verticalOffset={50} tooltipStyle={st} >
+    <ProductScreenT/>
+  </CopilotProvider>
+);
 export default ProductScreen;

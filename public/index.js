@@ -7,11 +7,12 @@ import App from './App';
 import {name as appName} from './app.json';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+
  
 // execute the function in getProducts.ts when the app loads
 const AppRedux = () => (
     <Provider store={store}>
-        <App />
+            <App />
     </Provider>
 );
 

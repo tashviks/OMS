@@ -42,11 +42,21 @@ export const CartItemStyles = StyleSheet.create({
     marginHorizontal: 10,
     fontSize: 18,
     color: 'black',
+    borderColor : '#ddd',
+    borderWidth : 1,
+    width : 40,
+    height : 30,
+    justifyContent : 'center',
+    alignItems : 'center',
+  },
+  quantityText : {
+    fontSize : 16,
+    fontWeight : '400',
   },
   itemTotal: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
+    fontWeight: '500',
+    marginLeft : -5,
     color: 'black',
   },
   couponContainer: {

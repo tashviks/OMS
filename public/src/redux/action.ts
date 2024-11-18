@@ -1,4 +1,4 @@
-import {ADD_TO_CART, SET_FILTER_PRODUCTS} from './constants';
+import {ADD_TO_CART, IS_BUTTON_ACTIVE, SET_FILTER_PRODUCTS} from './constants';
 import { DECREASE_QUANTITY } from './constants';
 import { INCREASE_QUANTITY } from './constants';
 import {SET_PRODUCTS }from './constants';
@@ -21,6 +21,8 @@ import { SET_QTY } from './constants';
 import { SET_OFFSET } from './constants';
 import { EMPTY_CART } from './constants';
 import { REMOVE_FROM_CART } from './constants';
+import { SET_TOTAL_AMOUNT } from './constants';
+
 
 export function addToCart(item : any){
     return {
@@ -94,6 +96,13 @@ export function setFilterProducts(item: any){
         payload: item
     }
 }
+export function setTotalAmount(item: any){
+    return {
+        type: SET_TOTAL_AMOUNT,
+        payload: item
+    }
+}
+export const isButtonActive = (item : any) => ({ type: IS_BUTTON_ACTIVE, payload: item });
 
 // Epic Actions 
 export const fetchCart = () => ({ type: FETCH_CART });

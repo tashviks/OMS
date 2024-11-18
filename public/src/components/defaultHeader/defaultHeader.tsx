@@ -39,9 +39,8 @@ function defaultHeader() {
         if(filterData.length > 0){
             return filterData.map((item, index)=>{
                 return (
-                <TouchableOpacity key={index} onPress={()=>{setSearchQuery(item)
-                                                            goToSeacrh();}}>      
-                    <Text key={index} style={{fontFamily : "inter" , fontSize : 16 , backgroundColor : "#fff" , padding : 5 }}>{item}</Text>
+                <TouchableOpacity key={index} onPress={()=>{setSearchQuery(item);goToSeacrh();}}>      
+                    <Text key={index} style={{fontFamily : "inter" , fontSize : 16 , backgroundColor : searchQuery === '' ? 'transparent' : '#fff' , padding : 5 , color : 'grey' }}>{item}</Text>
                 </TouchableOpacity>
                 )
             })
@@ -73,7 +72,7 @@ function defaultHeader() {
                 <TouchableOpacity onPress={goToCart} >
                 <View style={styles.cart}>
                     <CartIcon/>
-                    <Text style = {styles.cartText}>{len}</Text>
+                    <Text style = {styles.cartText}>{'('+len+')'}</Text>
                 </View>
                 </TouchableOpacity>
         </View>
@@ -84,7 +83,7 @@ function defaultHeader() {
             value={searchQuery}
             onChangeText={handleSearch}/>
             <View style={styles.displayList}> 
-               {displayList()}
+                {searchQuery === null ? null : displayList()}
             </View>
         </View>
     </View>
@@ -137,6 +136,7 @@ const styles = StyleSheet.create({
         borderColor: '#E3E3E3',
         marginLeft : -12,
         zIndex : 4, 
+        color : 'grey',
     },
     cart: {
         marginLeft : 160,
@@ -149,13 +149,12 @@ const styles = StyleSheet.create({
         color : 'grey',
     },
     displayList:{
-        zIndex : 100, 
+        zIndex : 3, 
         width: 359, 
         marginLeft: 10, 
         borderRadius: 5,
         position: 'absolute',
         top: 50,
-        backgroundColor: '#fff',
     }
 
     });

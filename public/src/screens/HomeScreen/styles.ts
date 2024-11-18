@@ -41,16 +41,30 @@ export const HomeScreenStyles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        marginBottom : 0,
-        marginRight : 0,
         borderTopWidth : 1,
         borderTopColor : "#E0E0E0"
+        
       },
       sortButton: {
         borderRightColor : "#E0E0E0",
         borderRightWidth : 1,
+        marginLeft : 0,
       },
       loading : {
-      }
+        marginTop : 350,
+        padding : 10
+      },
+      heading : {
+        fontSize : 16,
+        fontWeight : 'bold',
+        fontFamily : 'Inter',
+        color: 'black',
+        marginLeft : 5,
+        marginBottom : 10,
+        marginTop : 10
+      },
+      adjustedView : {
+        transform: [{ translateY: 0 }], 
+      },
       });
       export default HomeScreenStyles;

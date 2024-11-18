@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FilterScreenStyles as styles } from './styles';
+import OfflineComponent from '../Offline/OfflineComponent';
 import store from '../../redux/store';
 import CloseButton from '../../assets/closeButton';
 import ApplyButton from '../../assets/applyButton';
@@ -15,12 +16,18 @@ const FilterScreen = () => {
     Price: ['Below 100', 'Below 200', 'Above 100', 'Above 200'],
     Review: ['1 Star', '2 Star', '3 Star', '4 Star', '5 Star'],
   };
-  
   const data = store.getState();
+  if(data === undefined){
+   navigation.navigate('ProductScreen');
+  }
   // console.log(data)
   const product = data.fetchProductReducer.products;
   console.log("--------------------------")
-  console.log(product[0].Brand); 
+  if (!product || product.length === 0) {
+    navigation.navigate('OfflineComponent');
+  } else {
+    console.log(product[0].Brand);
+  }
   const [selectedCategory, setSelectedCategory] = useState<keyof typeof options | ''>('');
   const [selectedOptions, setSelectedOptions] = useState<{ [key in keyof typeof options]?: string }>({});
   const handleOptionSelect = (category: keyof typeof options, option: string) => {
@@ -41,8 +48,11 @@ const FilterScreen = () => {
       Review: '',
     });
   }
-  
   const ApplyFilter = () => {
+    if(product === undefined || product === null){
+      navigation.navigate('OfflineComponent');
+    }
+    else{
     const prod = product.filter((it: { Brand: string; Grade: { toString: () => string; }[]; BagSize: string[]; }) => 
       (selectedOptions.Brand === undefined || (it.Brand.toString().toLowerCase() === selectedOptions.Brand?.toLowerCase()))
       && (selectedOptions.Grade === undefined || (it.Grade[0].toString().toLowerCase() === selectedOptions.Grade?.toLowerCase()))
@@ -50,6 +60,7 @@ const FilterScreen = () => {
       && (selectedOptions.Price === undefined || (it.Brand.toLowerCase() === selectedOptions.Brand?.toLowerCase()))
     );
     navigation.navigate('FilteredProducts' as never, { prod });
+  }
   }
   return (
     <View style={styles.container}>

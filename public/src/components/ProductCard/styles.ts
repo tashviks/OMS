@@ -12,6 +12,7 @@ export const styler = StyleSheet.create({
       height: 168,
       width: 168,
       marginTop: 0,
+      objectFit : 'contain',
     },
     imgFrame: {
       alignItems: 'center',
@@ -26,8 +27,15 @@ export const styler = StyleSheet.create({
     },
     amtContainer: {
       fontSize: 16,
-      color: 'green',
+      fontWeight: '500',
+      color: '#000',
       marginTop: 5,
+    }, 
+    RupeeAmtContainer: {
+      fontSize: 16,
+      marginTop: 5,
+      color : 'grey',
+      fontWeight: '500',
     },
     priceContainer:{
       flexDirection : 'row',

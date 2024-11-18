@@ -4,6 +4,7 @@ import { decreaseQuantity , increaseQuantity , updateQuantity } from '../../redu
 import { useDispatch } from 'react-redux';
 import { CartItemStyles } from './styles';
 import { removeFromCart } from '../../redux/action';
+import CrossButtom from '../../assets/crossButton';
 
 const styles = CartItemStyles;
 interface CartItemProps {
@@ -41,21 +42,31 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 <Text style={styles.itemPrice}>₹{item.price}</Text>
             </View>
         </View>
+
         <View style={styles.itemDetails}>
           <View style={styles.quantityContainer}>
             <TouchableOpacity onPress={() => DecreaseQuantity(item)}>
-              <Text style={styles.button}>-</Text>
+                <Text style={[styles.button, { alignContent : 'center' }]}>—</Text>
             </TouchableOpacity>
-            <Text style={styles.quantity}>{item.quantity}</Text>
+            
+            <View style={styles.quantity}>
+                <Text style={[styles.quantityText, { color: 'black' }]}>{item.quantity}</Text>
+            </View>
             <TouchableOpacity onPress={()=> IncreaseQuantity(item)}>
               <Text style={styles.button}>+</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ marginTop : -2}}>
-          <Text style={styles.itemTotal}> ₹{item.price * item.quantity}</Text>
-          <TouchableOpacity onPress={handleRemoveFromCart}>
-            <Text style = {{marginLeft : 30}}>✖</Text>
-          </TouchableOpacity>
+
+          <View style={{ marginTop : -2 , flexDirection : 'row' , marginLeft : -50}}>
+            <View style={{}}>
+              <Text style={{color : 'grey'}}>Total Items</Text>
+              <Text style={styles.itemTotal}> ₹{item.price * item.quantity}</Text>
+            </View>
+            <TouchableOpacity onPress={handleRemoveFromCart}>
+              <View style={{marginLeft : -20, marginTop : -60 , }}>
+               <CrossButtom/>
+               </View>
+            </TouchableOpacity>
           </View>
         </View>
     </View>
