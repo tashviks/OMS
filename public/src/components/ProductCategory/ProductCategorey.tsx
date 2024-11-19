@@ -35,42 +35,51 @@ const products = store.getState().fetchProductReducer.products;
     navigation.navigate('CategoryWiseProduct', { prod });
   }
   return (
+    <View>
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={styles.container}>
-      <TouchableOpacity onPress={() => {
-        setSelectedCategory('Cement');
-        FilterCement()}}>
-        <Cement/>
-      </TouchableOpacity>
+        <View style={styles.category}>
+          <TouchableOpacity onPress={() => {
+            setSelectedCategory('Cement');
+            FilterCement()}}>
+            <Cement/>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {
-        setSelectedCategory('Walling')
-        FilterWalling()
-      }}>
-        <Walling/>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            setSelectedCategory('Walling')
+            FilterWalling()
+          }}>
+            <Walling/>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() =>{ 
-        setSelectedCategory('Construction')
-        FilterConstruction()
-        }}>
-      <Construction/>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() =>{ 
+            setSelectedCategory('Construction')
+            FilterConstruction()
+            }}>
+          <Construction/>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {
-        setSelectedCategory('Steel')
-        FilterSteel()
-        }}>
-      <Steel/>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            setSelectedCategory('Steel')
+            FilterSteel()
+            }}>
+          <Steel/>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {
-        setSelectedCategory('Cement');
-        FilterCement()}}>
-        <Cement/>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            setSelectedCategory('Cement');
+            FilterCement()}}>
+            <Cement/>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
+
+    <View>
+    <Text style={styles.bottomText}>Top product deals</Text>
+    </View>
+
+</View>
     
   )
 }

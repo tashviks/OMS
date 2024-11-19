@@ -26,7 +26,7 @@ const CartBody = () => {
     if(subTotal === 0)
       setDiscount(0);
     else
-      subTotal > 0 && subTotal < 5000 ? setDiscount(0.2*subTotal) : setDiscount(1000);
+      subTotal > 0 && subTotal < 5000 ? setDiscount(Math.floor(0.2 * subTotal)) : setDiscount(1000);
   });
   const totalAmount = subTotal + shipping - discount;
   dispatch(setTotalAmount(totalAmount));
@@ -34,7 +34,7 @@ const CartBody = () => {
   useEffect(() => {
     saveCartToStorage(items);
   }, [items]);
-
+  
   useEffect(()=>{
     dispatch(fetchAddress());
   }, [dispatch]);

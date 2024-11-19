@@ -18,39 +18,39 @@ const ProductDescription = () => {
   }
   return (
     <View >
-          <View style = {styles.DesContainer} >
-            <View >
-              <TouchableOpacity onPress={() => {
-                setInfostate('Description')
-                setDes();
-                }}>
-                  <Text style={styles.DescText}>DETAILS</Text>
-              </TouchableOpacity>
-            </View>
+            <View style={styles.DesContainer}>
             <View>
               <TouchableOpacity onPress={() => {
-                setInfostate('Warranty')
+              setInfostate('Description')
               setDes();
               }}>
-                  <Text style={styles.DescText} >WARRANTY</Text>
+              <Text style={[styles.DescText, infoState === 'Description' && { color: '#FF7F50' }]}>DETAILS</Text>
               </TouchableOpacity>
             </View>
-
             <View>
               <TouchableOpacity onPress={() => {
-                setInfostate('Hello')
-                setDes();
-                }}>
-                  <Text style={styles.DescText} >RETURNS</Text>
+              setInfostate('Warranty')
+              setDes();
+              }}>
+              <Text style={[styles.DescText, infoState === 'Warranty' && { color: '#FF7F50' , borderBottomColor : '#FF7F50'}]}>WARRANTY</Text>
               </TouchableOpacity>
             </View>
-       </View>
-        <View>
-          <Text style={styles.description}>
-            {desc}
-          </Text>
+            <View>
+              <TouchableOpacity onPress={() => {
+              setInfostate('Hello')
+              setDes();
+              }}>
+              <Text style={[styles.DescText, infoState === 'Hello' && { color: '#FF7F50' }]}>RETURNS</Text>
+              </TouchableOpacity>
+            </View>
+            </View>
+            <View>
+            <Text style={styles.description}>
+              {desc}
+            </Text>
+            </View>
         </View>
-    </View>
+  
   )
 }
 

@@ -80,6 +80,7 @@ function defaultHeader() {
             <TextInput
             style={styles.searchBar}
             placeholder="🔍  Search"
+            placeholderTextColor={'grey'}
             value={searchQuery}
             onChangeText={handleSearch}/>
             <View style={styles.displayList}> 
@@ -89,9 +90,13 @@ function defaultHeader() {
     </View>
   )
 }
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container:{
-        width: 'auto',
+        width: '100%',
         height: 100,
         paddingVertical: 12,
         paddingHorizontal: 16,
@@ -104,20 +109,21 @@ const styles = StyleSheet.create({
         zIndex: 3,
     },
     imgFrame:{
-        width: 328,
+        width: '100%',
         height: 28,
         gap : 20,
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     logo:{
-        width:300,
+        width: 'auto',
         height: 30,
         resizeMode: 'contain',
-        right : 10,
     },
     searchContainer:{
-        width: 350,
+        width: '100%',
         height: 36,
         paddingVertical: 10,
         paddingBottom : 8,
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     searchBar:{
-        width: 360,
+        width: '100%',
         height: 36,
         paddingVertical: 4,
         paddingLeft : 14,
@@ -134,15 +140,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#E3E3E3',
-        marginLeft : -12,
         zIndex : 4, 
         color : 'grey',
     },
     cart: {
-        marginLeft : 160,
         display : 'flex',
         flexDirection : 'row',
-       
+        alignItems: 'center',
     },
     cartText : {
         marginTop : 2,
@@ -150,12 +154,11 @@ const styles = StyleSheet.create({
     },
     displayList:{
         zIndex : 3, 
-        width: 359, 
-        marginLeft: 10, 
+        width: '100%', 
         borderRadius: 5,
         position: 'absolute',
         top: 50,
     }
+});
 
-    });
-export default defaultHeader
+export default defaultHeader;

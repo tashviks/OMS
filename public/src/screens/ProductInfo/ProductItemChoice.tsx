@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput, Alert } from 'react-native';
-import { addToCart } from '../../redux/action';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, TouchableOpacity, TextInput, Alert, Modal, Image } from 'react-native';
+import { addToCart, fetchAddress, setAddress } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import Review from '../../assets/review';
 import { ProductItemChoiceStyles as styles } from './styles';
 import ProductDescription from './ProductDescription';
 import { updateQuantity } from '../../redux/action';
 import HeartIcon from '../../assets/heart';
+import { useNavigation } from '@react-navigation/native';
+import store from '../../redux/store';
 interface ProductProps {
   id : number;
   title: string;
@@ -39,20 +41,26 @@ const ProductItemChoice: React.FC<ProductProps> = (product : ProductProps) => {
     img : product.image,
   };
   const AddToCart = (CartItem : any) => {
-    if(CartItem.grade === '' && CartItem.bag_size === ''){
-      alert("Please select grade and bag size");
-      return;
-    } else if(CartItem.grade == ''){
-      alert("Please select grade");
-      return;
-    } else if(CartItem.bag_size == ''){
-      alert("Please select bag size");
-      return;
-    }
-    Alert.alert('Added to Cart', 'Item added to cart successfully');
     dispatch(addToCart(CartItem));
     dispatch(updateQuantity(quantity));
   }
+  useEffect(()=>{
+    dispatch(fetchAddress());
+  }, [dispatch]);
+  
+  const goToCheckout = async () => {
+    if(quantity > 0){
+        const address = store.getState().fetchAddressReducer.address;
+        dispatch(setAddress(address))
+        navigation.navigate('Checkout' as never);      
+  }
+  else {
+      Alert.alert('Cart is empty');
+    }
+}
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+
 return (
       <View style={styles.container}>
         <View style={styles.skuAndBrandContainer}>
@@ -156,13 +164,72 @@ return (
             </View>
         </View>
         <View style={{flexDirection : 'row'}}>
-          <TouchableOpacity style={styles.addToCart} onPress={() => AddToCart(CartItem)}>
+            <TouchableOpacity style={styles.addToCart} onPress={() =>{ 
+                if (selectBagSize === '' || selectedGrade === '') {
+                alert("Please select Grade and Bag Size");
+                } else if(selectBagSize === ''){
+                alert("Please select Bag Size");
+                }else if(selectedGrade === ''){
+                alert("Please select Grade");
+                }else {
+                setModalVisible(true);
+                AddToCart(CartItem);
+                }
+              }}>
               <Text style={styles.addToCartText}>Add to Cart</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.modalView}>
+              <View style={{backgroundColor : "#fff" , borderRadius : 10 , width : 300 , height : 200}}>
+                <View style={styles.modalHeader}>
+                  <Text style={styles.modalText}>{quantity} {quantity === 1 ? 'item' : 'items'} Added to Cart</Text>
+                  <TouchableOpacity onPress={()=>{setModalVisible(false)}} >
+                    <Text style={{fontSize : 25 , color : 'black'}}>×</Text>
+                  </TouchableOpacity>
+                </View> 
+                <View style={{flexDirection : 'row' , gap : 20}}>
+                  <Image source={{uri : product.image}} style={{width : 60 , height : 60 , borderRadius : 10 , marginTop : 10 , marginLeft : 20}}/>
+                  <View style={{marginTop : 20 , gap : 5}}>
+                    <Text style={{color : 'grey'}}>{product.name}</Text>
+                    <Text style={{color : 'grey'}}>{quantity}×{product.price}</Text>
+                  </View>
+                  <Text style={{...styles.modalText, marginTop: 20}}>₹{product.price * quantity}</Text>
+                </View>
+
+                  <View style={{flexDirection : 'row' , gap : 10 ,justifyContent : 'center' , marginTop : 10}}>
+                      <TouchableOpacity
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => {
+                        setModalVisible(!modalVisible);
+                        navigation.navigate('CartScreen' as never);
+                      }}>
+                      <Text style={styles.textStyle}>View Cart</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => {
+                        setModalVisible(!modalVisible)
+                        goToCheckout(); 
+                        }}>
+                      <Text style={styles.textStyle}>Checkout</Text>
+                      </TouchableOpacity>
+                    </View>
+              </View>
+            </View>
+            </Modal>
           <View style={{marginLeft : 50 , marginTop : 17}}>
             <HeartIcon/>
           </View>
+          
         </View>
+        
         <ProductDescription/>
       </View>
   );

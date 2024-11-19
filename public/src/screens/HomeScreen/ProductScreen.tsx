@@ -106,34 +106,27 @@ const ProductScreenT =  () => {
         </View>
       </WalkthroughableView>
       </CopilotStep>
-
       {products === undefined ? (
         <ActivityIndicator size="large" color="black" style={styles.loading} />
       ) : (
-       
         <FlatList
           data={products}
           keyExtractor={(item) => item.ID.toString()}
           ListHeaderComponent={<ProductCategorey />}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            
             <View style={{marginTop : 10}}>
               <TouchableHighlight
                 key={item.ID}
                 onPress={() => navigation.navigate('ProductInfo', { product: item })}
                 underlayColor="white" >
-                
                 <ProductCard
                   title={item.Name}
                   amount={item.Price}
                   image={item.Image}
                   mrp={item.MRP} />
-                
               </TouchableHighlight>
-             
             </View>
-            
           )}
           numColumns={2}
           columnWrapperStyle={styles.row}
@@ -145,7 +138,7 @@ const ProductScreenT =  () => {
       )}
 
       <View style={[styles.cucontainer]}>
-      <CopilotStep text="Sort Button" order={2} name="sortButton">
+      <CopilotStep text="Use this to access sort menu" order={2} name="sortButton">
          <WalkthroughableView style={{marginBottom : 0}}>
          <View> 
           <View style={styles.sortButton}>
@@ -155,7 +148,7 @@ const ProductScreenT =  () => {
          </WalkthroughableView>
       </CopilotStep>
 
-      <CopilotStep text="Filter Button" order={3} name="filterButton">
+      <CopilotStep text="Use this to apply filters" order={3} name="filterButton">
         <WalkthroughableView>
         <View>
           <TouchableHighlight
@@ -180,7 +173,7 @@ const st = {
 };
 
 const ProductScreen = () => (
-  <CopilotProvider overlay="view" verticalOffset={50} tooltipStyle={st} >
+  <CopilotProvider overlay="view" verticalOffset={55} tooltipStyle={st} >
     <ProductScreenT/>
   </CopilotProvider>
 );

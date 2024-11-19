@@ -12,7 +12,6 @@ const OfflineComponent: React.FC = ({navigation} : any) => {
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

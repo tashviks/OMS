@@ -2,6 +2,12 @@ import { StyleSheet } from 'react-native';
 export const styler = StyleSheet.create({
     container : {
         width : '100%',
+        height : 130,
+        display : 'flex',
+        flexDirection : 'column',
+    },
+    category : {
+        width : '100%',
         height : 100,
         display : 'flex',
         flexDirection : 'row',
@@ -27,5 +33,13 @@ export const styler = StyleSheet.create({
       flexDirection: 'row',
       gap: 200,
       zIndex:1,
+    },
+    bottomText : {
+        fontSize :18,
+        fontWeight : 'semibold',
+        fontFamily : 'Inter',
+        color : 'black',
+        marginLeft : 5,
+        marginTop : -20
     },
 });

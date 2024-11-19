@@ -259,11 +259,12 @@ export const ProductItemChoiceStyles = StyleSheet.create({
   gradeOptionsContainer : {
     flexDirection: 'row',
     gap : 10,
-    marginLeft : 50,
+    marginLeft : 20,
     width : 100,
     maxWidth : 100,
     height : 38,
     color: 'grey',
+
   },
   gradeOptions :{
     backgroundColor : '#f6f6f6',
@@ -394,6 +395,47 @@ export const ProductItemChoiceStyles = StyleSheet.create({
     fontSize : 14,
     fontWeight : '400',
     color: 'grey',
+  },
+  modalView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '500',
+    color: 'black',
+    marginTop : 10,
+  },
+  button: {
+    borderRadius: 5,
+    padding: 10,
+    elevation: 2,
+    marginVertical: 5,
+    width: 90,
+    alignItems: 'center',
+  },
+  buttonClose: {
+    backgroundColor: '#FF7F50',
+  },
+  textStyle: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalHeader: {
+    padding : 5 , 
+    color: 'grey',
+    justifyContent : 'flex-start',
+    alignItems : 'flex-start',
+    borderBottomColor : 'black',
+    borderBottomWidth : 0.5,
+    flexDirection : 'row',
+    gap : 100,
+
   },
   
   });  

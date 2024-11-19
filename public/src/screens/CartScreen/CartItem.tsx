@@ -56,8 +56,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               <Text style={styles.button}>+</Text>
             </TouchableOpacity>
           </View>
-
-          <View style={{ marginTop : -2 , flexDirection : 'row' , marginLeft : -50}}>
+          
+          <View style={{ marginTop : -2 , flexDirection : 'row' , marginLeft : -55}}>
             <View style={{}}>
               <Text style={{color : 'grey'}}>Total Items</Text>
               <Text style={styles.itemTotal}> ₹{item.price * item.quantity}</Text>
