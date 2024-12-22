@@ -15,7 +15,7 @@ export const fetchProductEpic = (action$ : any) => action$.pipe(
     if (action.payload) {
       console.log('Action has payload:', action.payload.offset);
       const { offset } = action.payload;
-      return from(fetch(`https://merry-normally-panda.ngrok-free.app/GetProducts?offset=${offset}`).then(response => {
+      return from(fetch(`https://marmoset-wondrous-singularly.ngrok-free.app/GetProducts?offset=${offset}`).then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

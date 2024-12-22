@@ -7,7 +7,7 @@ import { from, of } from 'rxjs';
 export const fetchAddressEpic = (action$ : any) => action$.pipe(
     ofType(FETCH_ADDRESS),
     mergeMap(() =>
-        from(fetch('https://merry-normally-panda.ngrok-free.app/GetAddress?user_id=1')).pipe(
+        from(fetch('https://marmoset-wondrous-singularly.ngrok-free.app/GetAddress?user_id=1')).pipe(
           mergeMap(response => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);

@@ -2,7 +2,7 @@
 export const searchAPI = {
     search: async (query: any) => {
         try {
-            const response = await fetch(`https://merry-normally-panda.ngrok-free.app/SearchProducts?query=${query}&offset=0`);
+            const response = await fetch(`https://marmoset-wondrous-singularly.ngrok-free.app/SearchProducts?query=${query}&offset=0`);
             if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
             }

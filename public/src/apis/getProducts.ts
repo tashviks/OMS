@@ -1,6 +1,6 @@
 export const getProducts = async () => {
     try {
-        const response = await fetch('https://merry-normally-panda.ngrok-free.app/products');
+        const response = await fetch('https://marmoset-wondrous-singularly.ngrok-free.app/products');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

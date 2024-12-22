@@ -4,7 +4,7 @@ require "httpclient"
 c = HTTPClient.new
 
 piper, pipew = IO.pipe
-conn = c.post_async("https://merry-normally-panda.ngrok-free.app/stream", piper)
+conn = c.post_async("https://marmoset-wondrous-singularly.ngrok-free.app/stream", piper)
 
 Thread.new do
   res = conn.pop
