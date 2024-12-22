@@ -1,0 +1,44 @@
+"filename", "language", "YAML", "Properties", "Go", "Go Module File", "Shell Script", "Docker", "Go Checksum File", "comment", "blank", "total"
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/database/db.go", "Go", 0, 0, 16, 0, 0, 0, 0, 1, 5, 22
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/default.conf", "Properties", 0, 10, 0, 0, 0, 0, 0, 0, 2, 12
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/deployment.yaml", "YAML", 19, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/dockerfile", "Docker", 0, 0, 0, 0, 0, 10, 0, 0, 6, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/go.mod", "Go Module File", 0, 0, 0, 43, 0, 0, 0, 0, 3, 46
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/go.sum", "Go Checksum File", 0, 0, 0, 0, 0, 0, 101, 0, 1, 102
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetAddress.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetCart.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetCartItem.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetGrade.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetProducts.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 3, 25
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/GetUser.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/PostOrderLine.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/PostOrders.go", "Go", 0, 0, 13, 0, 0, 0, 0, 0, 2, 15
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/SearchProducts.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 3, 25
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/UpdateCartItems.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/internal/database_repo.go", "Go", 0, 0, 20, 0, 0, 0, 0, 0, 4, 24
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/main.go", "Go", 0, 0, 36, 0, 0, 0, 0, 0, 7, 43
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/AddressModel.go", "Go", 0, 0, 15, 0, 0, 0, 0, 0, 3, 18
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/BagSizeModel.go", "Go", 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/CartItemModel.go", "Go", 0, 0, 15, 0, 0, 0, 0, 0, 3, 18
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/CartModel.go", "Go", 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/GradeModel.go", "Go", 0, 0, 9, 0, 0, 0, 0, 0, 3, 12
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/OrderLine.go", "Go", 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/OrderModel.go", "Go", 0, 0, 8, 0, 0, 0, 0, 0, 3, 11
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/ProductGradeModel.go", "Go", 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/ProductModel.go", "Go", 0, 0, 23, 0, 0, 0, 0, 0, 3, 26
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/UpdateCartRequest.go", "Go", 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/models/UserModel.go", "Go", 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/nginx-deployment.yaml", "YAML", 27, 0, 0, 0, 0, 0, 0, 0, 0, 27
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/nginx-service.yaml", "YAML", 13, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/run_backend.sh", "Shell Script", 0, 0, 0, 0, 9, 0, 0, 0, 0, 9
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/service.yaml", "YAML", 13, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/addressHttpHandler.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 0, 22
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/cartHttpHandler.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/cartItemHttpHandler.go", "Go", 0, 0, 40, 0, 0, 0, 0, 0, 3, 43
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/gradeHttpHandler.go", "Go", 0, 0, 24, 0, 0, 0, 0, 0, 0, 24
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/orderLineHttpHandler.go", "Go", 0, 0, 24, 0, 0, 0, 0, 0, 0, 24
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/ordersHttpHandler.go", "Go", 0, 0, 24, 0, 0, 0, 0, 0, 0, 24
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/productHttpHandler.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 3, 25
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/searchHttpHandler.go", "Go", 0, 0, 39, 0, 0, 0, 0, 0, 4, 43
+"/Users/tashviksrivastava/Desktop/tashvik-oms/server/services/userHttpHandler.go", "Go", 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+"Total", "-", 72, 10, 598, 43, 9, 10, 101, 1, 100, 944
