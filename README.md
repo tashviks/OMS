@@ -3,6 +3,8 @@ https://www.loom.com/share/178d057bb32749cbaab44d745c225fea?sid=93008614-9176-46
 
 To run the backend server :
 
+* Clone this repo
+
 * Make sure you have postgreSQL set up.
 
 * Use the dump.sql file in the root to create a databse with name inframarket. Also create a user tashvik
