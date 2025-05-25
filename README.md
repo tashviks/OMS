@@ -9,6 +9,7 @@ To run the backend server :
 
 * Use the dump.sql file in the root to create a databse with name inframarket. Also create a user tashvik
    * dsn config :  ``` user=tashvik password=Icici@5577 dbname=inframarket port=5432 sslmode=disable ```
+* You can also create dummy user of your choice but then you will have to change the dsn in ``` oms/server/database/db.go ```
 
 * Install Golang from
   ``` https://go.dev/doc/install ```
