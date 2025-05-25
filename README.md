@@ -19,6 +19,6 @@ To run the backend server :
 
 * Now, in a new terminal window, copy and paste the given command
      * ``` ngrok tunnel --label edge=edghts_2qWsJ5bP1lONNNFT1oamdp8AwCH http://localhost:8080 ```
-  This will create a tunnel from your localhost:8080 to the web using ngrok exposing the backend.
+* This will create a tunnel from your localhost:8080 to the web using ngrok exposing the backend.
 
    
