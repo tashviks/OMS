@@ -20,6 +20,7 @@ type Product struct {
 	MaxOrderQty uint           `gorm:"column:max_order_qty;not null"`
 	InStock     uint           `gorm:"column:in_stock;not null"`
 	Image       string         `gorm:"type:varchar(255);not null"`
+	ModelURL    string         `gorm:"column:model_url;type:varchar(255)" json:"model_url"`
 	CreatedAt   time.Time      `gorm:"autoCreateTime"`
 	UpdatedAt   time.Time      `gorm:"autoUpdateTime"`
 }
